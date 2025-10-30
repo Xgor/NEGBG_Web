@@ -1,0 +1,30 @@
+baseURL = 'https://example.org/'
+languageCode = 'sv-SE'
+title = 'Göteborgs största förening för fightingspel'
+theme = 'hello-friend-ng'
+sectionPagesMenu = 'main'
+pluralizeListTitles = false
+[params.logo]
+    path = "/NegativeEdge_Color_1024_1.png"
+
+[params]
+  [[params.social]]
+    name = "discord"
+    url  = "https://discord.gg/kMVJ55wwy7"
+
+  [[params.social]]
+    name = "twitter"
+    url  = "https://x.com/negativeedgegbg"
+
+  [[params.social]]
+    name = "facebook"
+    url  = "https://www.facebook.com/share/1B3JfCMQGS/"
+
+  [[params.social]]
+    name = "twitch"
+    url  = "https://www.twitch.tv/negativeedgegbg"
+
+#  [[params.social]]
+#    name = "email"
+#    url  = "mailto:nobody@example.com"
+theme = 'hello-friend-ng'
