@@ -5,7 +5,7 @@ theme = 'hello-friend-ng'
 sectionPagesMenu = 'main'
 pluralizeListTitles = false
 [params.logo]
-    path = "/NegativeEdge_Color_1024_1.png"
+    path = "../NegativeEdge_Color_1024_1.png"
 
 [params]
   [[params.social]]
