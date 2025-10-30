@@ -1,9 +1,11 @@
-baseURL = 'https://xgor.github.io/NEGBG_Web/'
+baseURL = 'https://NEGBG_Web.pages.dev/'
 languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
 sectionPagesMenu = 'main'
 pluralizeListTitles = false
+relativeURLs = true
+
 [params.logo]
     path = "../NegativeEdge_Color_1024_1.png"
 
