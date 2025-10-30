@@ -24,9 +24,6 @@ pluralizeListTitles = false
     name = "twitch"
     url  = "https://www.twitch.tv/negativeedgegbg"
 
-[caches]
-  [caches.images]
-    dir = ':cacheDir/images'
 #  [[params.social]]
 #    name = "email"
 #    url  = "mailto:nobody@example.com"
