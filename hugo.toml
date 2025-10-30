@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://xgor.github.io/NEGBG_Web/'
 languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
@@ -28,3 +28,7 @@ pluralizeListTitles = false
 #    name = "email"
 #    url  = "mailto:nobody@example.com"
 theme = 'hello-friend-ng'
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir'

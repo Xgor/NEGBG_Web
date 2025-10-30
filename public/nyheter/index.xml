@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nyheter on Göteborgs största förening för fightingspel</title>
-    <link>http://localhost:33517/nyheter/</link>
+    <link>http://localhost:33517/NEGBG_Web/nyheter/</link>
     <description>Recent content in Nyheter on Göteborgs största förening för fightingspel</description>
     <generator>Hugo</generator>
     <language>sv-SE</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="http://localhost:33517/nyheter/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:33517/NEGBG_Web/nyheter/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
