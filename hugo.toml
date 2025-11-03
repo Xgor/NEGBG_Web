@@ -1,4 +1,4 @@
-baseURL = 'https://NEGBG_Web.pages.dev/'
+baseURL = 'https://negbg_web.pages.dev/'
 languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
