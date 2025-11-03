@@ -6,24 +6,31 @@ draft: true
 # --- CHOOSE ONE ---
 
 # OPTION 1: For a one-off event
-# (Delete the 'recurrence' block if you use this)
-start_date: 2025-12-01T19:00:00+01:00
-end_date: 2025-12-01T21:00:00+01:00
+start_date: 2026-01-15T19:00:00+01:00
+end_date: 2026-01-15T21:00:00+01:00
 
 # OPTION 2: For a recurring event
-# (Delete 'start_date' and 'end_date' if you use this)
 recurrence:
-  # Type: Weekly, Monthly, Annually, etc.
   type: "Weekly"
-  # Details: e.g., "Every Tuesday" or "First Sunday of the month"
-  details: "Every Tuesday Evening"
-  time: "19:00 - 21:00"
+  details: "Every Tuesday"
+  # Use ISO time format (HH:mm)
+  start_time: "19:00"
+  end_time: "21:00"
+
+  # Schedule and Cancellations are now nested inside
+  schedule:
+    - "2025-11-04"
+    - "2025-11-11"
+    - "2025-11-18"
+    - "2025-11-25"
+    # (etc...)
+
   cancellations:
-    # - "2025-12-23"
+    # - "2025-11-18"
 
 # --- COMMON FIELDS ---
 location: "Event Location"
 summary: "A short, one-sentence summary for the list page."
 ---
 
-Full event description goes here. You can use **Markdown**!
+Full event description.

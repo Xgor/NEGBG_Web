@@ -6,19 +6,20 @@ draft: false
 recurrence:
   type: "Weekly"
   details: "Alternerar mellan tisdag och onsdag varje vecka"
-  time: "18:00 - 22:00"
+  start_time: "18:00"
+  end_time: "22:00"
 
-schedule:
-  - "2025-11-04" # Tue
-  - "2025-11-12" # Wed
-  - "2025-11-18" # Tue
-  - "2025-11-26" # Wed
-  - "2025-12-02" # Tue
-  - "2025-12-10" # Wed
-  # ...etc.
+  schedule:
+    - "2025-11-04" # Tue
+    - "2025-11-12" # Wed
+    - "2025-11-18" # Tue
+    - "2025-11-26" # Wed
+    - "2025-12-02" # Tue
+    - "2025-12-10" # Wed
+    # ...etc.
 
-cancellations:
-  - "2025-11-04"
+  cancellations:
+    - "2025-11-04"
 
 location: "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
 summary: "Casuals på Kappa Bar"

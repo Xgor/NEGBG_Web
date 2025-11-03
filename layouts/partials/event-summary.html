@@ -1,14 +1,4 @@
-{{/* This partial receives the event *instance* dictionary.
-  .Page = The Hugo page
-  .SortDate = The specific TTime object for this occurrence
-  .Time = The string for the time (e.g., "18:30 - 20:00")
-*/}}
-{{ $event := . }}
-{{ $page := .Page }}
-
 <li class="event-card">
-  
-  {{/* We'll use this div to hold the main event info */}}
   <div class="event-card-info">
     <h3 class="event-card-title">
       <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
@@ -18,7 +8,6 @@
     {{ end }}
   </div>
 
-  {{/* This div will hold the date and location */}}
   <div class="event-card-details">
     <p>
       <strong>When:</strong> 

@@ -18,19 +18,23 @@
       {{ $master_event_list = $master_event_list | append (dict
           "Page" $page
           "SortDate" $event_time
-          "Time" (index (split (time $page.Params.start_date).Format "15:04" ) 0)
+          "Time" (printf "%s - %s" ($event_time.Format "15:04") ((time $page.Params.end_date).Format "15:04"))
         )
       }}
     {{ end }}
 
-  {{ else if $page.Params.schedule }}
+  {{ else if $page.Params.recurrence.schedule }}
     {{/* --- B. Handle RECURRING events --- */}}
     
-    {{/* Create a lookup for cancellations. Make an empty list if it's nil. */}}
-    {{ $cancellations := $page.Params.cancellations | default (slice) }}
+    {{/* Get data from the nested recurrence block */}}
+    {{ $recur := $page.Params.recurrence }}
+    {{ $cancellations := $recur.cancellations | default (slice) }}
+    {{ $start_time_str := $recur.start_time }}
+    {{ $end_time_str := $recur.end_time }}
+    {{ $time_range_str := printf "%s - %s" $start_time_str $end_time_str }}
 
     {{/* Loop through every date in this event's schedule */}}
-    {{ range $page.Params.schedule }}
+    {{ range $recur.schedule }}
       {{ $date_string := . }}
       
       {{/* Check 1: Is the date today or in the future? */}}
@@ -39,19 +43,14 @@
         {{/* Check 2: Is this date in the cancellations list? */}}
         {{ if not (in $cancellations $date_string) }}
         
-          {{/* It's a valid, future event. Add it to the master list.
-            We combine the date ("YYYY-MM-DD") with the event time ("HH:MM").
-          */}}
-          
-          {{/* FIXED: We must use $page.Params here, not .Params */}}
-          {{ $time_string := (index (split $page.Params.recurrence.time " " ) 0) }}
-          {{ $event_datetime_string := printf "%sT%s:00+01:00" $date_string $time_string }}
+          {{/* It's a valid, future event. Add it to the master list. */}}
+          {{ $event_datetime_string := printf "%sT%s:00+01:00" $date_string $start_time_str }}
           {{ $event_time := time $event_datetime_string }}
 
           {{ $master_event_list = $master_event_list | append (dict
               "Page" $page
               "SortDate" $event_time
-              "Time" $page.Params.recurrence.time
+              "Time" $time_range_str
             )
           }}
         {{ end }}
@@ -65,11 +64,9 @@
 {{ $sorted_events := sort $master_event_list "SortDate" "asc" }}
 {{ $next_5_events := first 5 $sorted_events }}
 
-
 <section class="next-events">
   <h2>Next 5 Events</h2>
   {{ if ge (len $next_5_events) 1 }}
-    {{/* ⬇️ Add the "event-card-list" class here ⬇️ */}}
     <ul class="event-card-list">
       {{ range $next_5_events }}
         {{ partial "event-summary.html" . }}

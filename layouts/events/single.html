@@ -1,4 +1,4 @@
-{{ define "main" }} 
+{{ define "main" }}
 <article class="post">
   <header>
     <h1>{{ .Title }}</h1>
@@ -7,15 +7,15 @@
     <div class="post-meta" style="margin-bottom: 2em; line-height: 1.6;">
       
       {{ if .Params.recurrence }}
-        {{/* --- Info for RECURRING events --- */}}
+        {{/* --- Info for RECURRING events (UPDATED) --- */}}
         <div class="event-schedule">
           <strong>Schedule:</strong>
           <strong>{{ .Params.recurrence.type }}</strong>
-          ({{ .Params.recurrence.details }} at {{ .Params.recurrence.time }})
+          ({{ .Params.recurrence.details }} from {{ .Params.recurrence.start_time }} to {{ .Params.recurrence.end_time }})
         </div>
 
       {{ else if .Params.start_date }}
-        {{/* --- Info for ONE-OFF events --- */}}
+        {{/* --- Info for ONE-OFF events (Unchanged) --- */}}
         <div class="event-time">
           <strong>When:</strong> 
           {{ (time .Params.start_date).Format "Monday, Jan 2, 2006 from 3:04 PM" }}
@@ -40,9 +40,10 @@
 
   {{/* --- This section only appears for RECURRING events --- */}}
   {{ if .Params.recurrence }}
+    {{ $recur := .Params.recurrence }}
 
-    {{/* --- 1. Show a list of UPCOMING CANCELLED dates --- */}}
-    {{ with .Params.cancellations }}
+    {{/* --- 1. Show a list of UPCOMING CANCELLED dates (UPDATED) --- */}}
+    {{ with $recur.cancellations }}
       {{ $future_cancellations := slice }}
       {{ $today_string := now.Format "2006-01-02" }}
       
@@ -66,12 +67,12 @@
     {{ end }}
 
 
-    {{/* --- 2. Show a list of UPCOMING REGULAR occurrences --- */}}
+    {{/* --- 2. Show a list of UPCOMING REGULAR occurrences (UPDATED) --- */}}
     <div class="event-details" style="margin-top: 2em;">
       <h3 style="margin-top: 0;">Upcoming Occurrences</h3>
       
-      {{ $schedule := .Params.schedule }}
-      {{ $cancellations := .Params.cancellations | default (slice) }}
+      {{ $schedule := $recur.schedule }}
+      {{ $cancellations := $recur.cancellations | default (slice) }}
       {{ $today_string := now.Format "2006-01-02" }}
       
       {{ $upcoming_dates := slice }}
@@ -88,7 +89,7 @@
 
       {{/* Now, display the valid, upcoming dates */}}
       {{ if ge (len $upcoming_dates) 1 }}
-        <p>Here are the next 10 dates for this event:</p>
+        <p>Here are the next 10 dates for this event (from {{ $recur.start_time }} to {{ $recur.end_time }}):</p>
         <ul>
           {{/* Show the next 10 */}}
           {{ range first 10 $upcoming_dates }}
