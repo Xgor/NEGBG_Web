@@ -1,0 +1,19 @@
+{{ define "main" }} {{/* Or "main", whichever matches your theme */}}
+  <article>
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    
+    <div class="content">
+      {{ .Content }}
+
+    {{/* This is the part that spawns the list */}}
+    {{ if .IsHome }}
+      {{ partial "next-events.html" . }}
+    {{ end }}
+
+    </div>
+
+
+  </article>
+{{ end }}

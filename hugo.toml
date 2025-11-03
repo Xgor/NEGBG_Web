@@ -10,6 +10,8 @@ relativeURLs = true
     path = "../NegativeEdge_Color_1024_1.png"
 
 [params]
+  customCSS = ["css/custom.css"]
+
   [[params.social]]
     name = "discord"
     url  = "https://discord.gg/kMVJ55wwy7"
