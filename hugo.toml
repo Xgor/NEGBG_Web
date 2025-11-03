@@ -7,10 +7,14 @@ pluralizeListTitles = false
 relativeURLs = true
 
 [params.logo]
-    path = "../NegativeEdge_Color_1024_1.png"
+    path = "/NegativeEdge_Color_1024_1.png"
+    alt = "NE-logga"
+[params.header.logo]
+    path = "/NegativeEdge_Color_1024_1.png"
+    alt = "NE-logga"
 
 [params]
-  customCSS = ["css/custom.css"]
+  customCSS = ["/css/custom.css"]
 
   [[params.social]]
     name = "discord"
