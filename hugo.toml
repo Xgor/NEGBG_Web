@@ -2,7 +2,7 @@ baseURL = 'https://negbg-web.pages.dev/'
 languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
-sectionPagesMenu = 'main'
+#sectionPagesMenu = 'main'
 pluralizeListTitles = false
 relativeURLs = true
 timeZone = "Europe/Stockholm"
@@ -34,11 +34,29 @@ timeZone = "Europe/Stockholm"
     name = "twitch"
     url  = "https://www.twitch.tv/negativeedgegbg"
 
-#  [[params.social]]
-#    name = "email"
-#    url  = "mailto:nobody@example.com"
-theme = 'hello-friend-ng'
 
+
+
+[[menu.main]]
+  identifier = "events"
+  name = "Evenemang"
+  url = "/events/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "news"
+  name = "Nyheter"
+  url = "/nyheter/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "about"
+  name = "Om oss"
+  url = "/about/"
+  weight = 30
+
+
+  
 [caches]
   [caches.images]
     dir = ':cacheDir'

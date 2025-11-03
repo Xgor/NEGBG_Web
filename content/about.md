@@ -1,5 +1,4 @@
 +++
-menus = 'main'
 title = 'Om oss'
 +++
 Göteborgs största förening för fightingspel – med fokus på Street Fighter 6, Tekken 8 och 2XKO.
