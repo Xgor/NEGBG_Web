@@ -1,0 +1,128 @@
+{{ define "main" }}
+  <article class="post">
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    
+    <div class="content">
+      {{ .Content }}
+    </div>
+
+    {{ $all_events := where .Site.RegularPages "Section" "events" }}
+    {{ $now := now }}
+
+    <section class="events-list-section" style="margin-top: 2em;">
+      <h2>One-off Events</h2>
+      
+      {{ $one_off_pages := where $all_events "Params.start_date" "ne" nil }}
+      
+      {{ $future_one_off := slice }}
+      {{ range $one_off_pages }}
+        {{ if (time .Params.start_date).After $now }}
+          {{ $future_one_off = $future_one_off | append . }}
+        {{ end }}
+      {{ end }}
+      {{ $sorted_one_off := sort $future_one_off "Params.start_date" "asc" }}
+
+      {{ if ge (len $sorted_one_off) 1 }}
+        <ul class="event-card-list">
+          {{ range $sorted_one_off }}
+            <li class="event-card">
+              <div class="event-card-info">
+                <h3 class="event-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                {{ with .Params.summary }}
+                  <p class="event-card-summary">{{ . }}</p>
+                {{ end }}
+              </div>
+              <div class="event-card-details">
+                <p>
+                  <strong>When:</strong> 
+                  {{ (time .Params.start_date).Format "Mon, Jan 2, 2006 at 15:04" }} 
+                  ({{ (time .Params.start_date).Format "MST" }})
+                </p>
+                {{ with .Params.location }}
+                  <p><strong>Where:</strong> {{ . }}</p>
+                {{ end }}
+              </div>
+            </li>
+          {{ end }}
+        </ul>
+      {{ else }}
+        <p>No upcoming one-off events are scheduled at this time.</p>
+      {{ end }}
+    </section>
+
+    <hr style="border-color: var(--main-border, #444); margin-top: 2em; margin-bottom: 2em;">
+
+    <section class="events-list-section">
+      <h2>Recurring Events</h2>
+      
+      {{ $recurring_pages := where $all_events "Params.recurrence" "ne" nil }}
+      {{ $sorted_recurring := sort $recurring_pages "Title" "asc" }}
+      {{ $today_string := $now.Format "2006-01-02" }}
+
+      {{ if ge (len $sorted_recurring) 1 }}
+        <ul class="event-card-list">
+          {{ range $sorted_recurring }}
+            
+            {{ $recur := .Params.recurrence }}
+            {{ $cancellations := $recur.cancellations | default (slice) }}
+            
+            {{ $next_occurrence := "" }}
+            {{ $upcoming_dates := slice }}
+            
+            {{ range $recur.schedule }}
+              {{ $date_string := . }}
+              {{ if ge $date_string $today_string }}
+                {{ if not (in $cancellations $date_string) }}
+                  {{ $upcoming_dates = $upcoming_dates | append (time $date_string) }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            
+            {{ if ge (len $upcoming_dates) 1 }}
+              {{ $next_occurrence = index $upcoming_dates 0 }}
+            {{ end }}
+
+            <li class="event-card">
+              <div class="event-card-info">
+                <h3 class="event-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                {{ with .Params.summary }}
+                  <p class="event-card-summary">{{ . }}</p>
+                {{ end }}
+              </div>
+              <div class="event-card-details">
+                <p>
+                  <strong>Schedule:</strong> 
+                  {{ $recur.type }} 
+                  ({{ $recur.details }})
+                </p>
+
+                {{ if $next_occurrence }}
+                  <p>
+                    <strong>Next:</strong> 
+                    {{ $next_occurrence.Format "Mon, Jan 2, 2006" }}
+                  </p>
+                {{ else }}
+                  <p><strong>Next:</strong> No new dates scheduled.</p>
+                {{ end }}
+                
+                <p>
+                  <strong>Time:</strong> 
+                  {{ $recur.start_time }} - {{ $recur.end_time }} 
+                  ({{ .Site.Params.timeZoneAbbr }})
+                </p>
+                {{ with .Params.location }}
+                  <p><strong>Where:</strong> {{ . }}</p>
+                {{ end }}
+              </div>
+            </li>
+          {{ end }}
+        </ul>
+      {{ else }}
+        <p>No recurring events are currently listed.</p>
+      {{ end }}
+    </section>
+  
+  </article>
+{{ end }}
