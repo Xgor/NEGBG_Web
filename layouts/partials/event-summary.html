@@ -13,6 +13,7 @@
       <strong>When:</strong> 
       {{ .SortDate.Format "Mon, Jan 2, 2006" }}
       at {{ .Time }}
+      ({{ .SortDate.Format "MST" }})
       {{ with .Page.Params.recurrence }}
         <span class="event-type">({{ .type }})</span>
       {{ end }}

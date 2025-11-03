@@ -44,7 +44,7 @@
         {{ if not (in $cancellations $date_string) }}
         
           {{/* It's a valid, future event. Add it to the master list. */}}
-          {{ $event_datetime_string := printf "%sT%s:00+01:00" $date_string $start_time_str }}
+          {{ $event_datetime_string := printf "%sT%s:00" $date_string $start_time_str }}
           {{ $event_time := time $event_datetime_string }}
 
           {{ $master_event_list = $master_event_list | append (dict

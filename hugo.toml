@@ -5,6 +5,7 @@ theme = 'hello-friend-ng'
 sectionPagesMenu = 'main'
 pluralizeListTitles = false
 relativeURLs = true
+timeZone = "Europe/Stockholm"
 
 [params.logo]
     path = "/NegativeEdge_Color_1024_1.png"
@@ -14,6 +15,7 @@ relativeURLs = true
     alt = "NE-logga"
 
 [params]
+  timeZoneAbbr = "CET/CEST"
   customCSS = ["/css/custom.css"]
 
   [[params.social]]

@@ -11,7 +11,8 @@
         <div class="event-schedule">
           <strong>Schedule:</strong>
           <strong>{{ .Params.recurrence.type }}</strong>
-          ({{ .Params.recurrence.details }} from {{ .Params.recurrence.start_time }} to {{ .Params.recurrence.end_time }})
+          ({{ .Params.recurrence.details }} from {{ .Params.recurrence.start_time }} to {{ .Params.recurrence.end_time }}
+          {{ .Site.Params.timeZoneAbbr }})
         </div>
 
       {{ else if .Params.start_date }}
