@@ -1,0 +1,39 @@
+{{/* Get all pages from the 'news' section */}}
+{{ $news_pages := where .Site.RegularPages "Section" "news" }}
+
+{{/* Get the 3 most recent posts by date */}}
+{{ $recent_news := $news_pages.ByDate.Reverse | first 3 }}
+
+{{/* Only render the section if there are news posts */}}
+{{ if ge (len $recent_news) 1 }}
+<section class="recent-news" style="margin-top: 2.5em; margin-bottom: 2.5em;">
+  <h2>Recent News</h2>
+  
+  <ul class="event-card-list">
+    {{ range $recent_news }}
+    {{ $page := . }}
+      <li class="event-card">
+        <div class="event-card-info" style="flex-basis: 100%;">
+          
+          <h3 class="event-card-title">
+            <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+          </h3>
+          
+          <p class="event-card-date" style="font-size: 0.9em; opacity: 0.7; margin: 0 0 0.5em 0;">
+            {{ .Date.Format "Monday, Jan 2, 2006" }}
+          </p>
+          
+          {{ with .Params.cover }}
+            <a href="{{ $page.RelPermalink }}">
+              <img src="{{ . | absURL }}" alt="{{ $.Title }}" class="news-card-cover">
+            </a>
+          {{ end }}
+
+          <div class="event-card-content">
+            {{ .Summary }}
+          </div>
+      </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

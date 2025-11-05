@@ -125,3 +125,179 @@
   background-color: var(--primary-color, #00bfff);
   color: #1b1b1b;
 }
+
+/*
+ * Style the social icons inside the hero
+ */
+
+.homepage-hero .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1em; 
+  margin-top: 2em; 
+}
+
+/* Icon size and styling */
+.homepage-hero .social-icons a svg {
+  width: 32px;  
+  height: 32px; 
+}
+
+/* Set the default icon color */
+.homepage-hero .social-icons a {
+  color: var(--main-fg, #ccc);
+  transition: color 0.2s ease;
+}
+
+/* Set the icon hover color */
+.homepage-hero .social-icons a:hover {
+  color: var(--primary-color, #00bfff);
+}
+
+
+/*
+ * Cover image on the recent news card
+ */
+.news-card-cover {
+  width: 100%;
+  height: 180px; /* You can adjust this height */
+  object-fit: cover; /* This crops the image nicely */
+  border-radius: 6px; /* Matches the .event-card-details style */
+  margin-bottom: 1em; /* Space between image and title */
+  border: 1px solid var(--main-border, #444);
+}
+
+
+/*
+ * Center the section headers on the homepage
+ */
+.content .recent-news h2,
+.content .next-events h2 {
+  display: block;     
+  width: 100%;       
+  text-align: center; 
+  
+  /* Reset any weird margins just in case */
+  margin-left: 0;
+  margin-right: 0;
+}
+/*
+ * Center the titles on the "Recent News" cards
+ */
+.recent-news .event-card-title {
+  display: block;     
+  width: 100%;       
+  text-align: center; 
+}
+
+/* news card summary left aligned*/
+.recent-news .event-card-content,
+.event-card .event-card-info .event-card-summary {
+  text-align: left;
+}
+
+.content .recent-news .event-card-list,
+.content .next-events .event-card-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+.recent-news .event-card-list {
+  display: flex;
+  flex-wrap: wrap; /* Allows stacking if not enough space */
+  justify-content: space-between; /* Evenly spaces the cards */
+  gap: 1em; /* Creates space between the cards */
+}
+
+.recent-news .event-card {
+  /* take up roughly 1/3 of the container since we have 3 recent news items*/ 
+  flex-basis: 31%;
+  flex-grow: 1;
+  min-width: 300px;
+}
+/* Divider used for mobile view between news and events, hidden by default */
+.home-section-divider {
+  display: none;
+}
+
+/*
+ * Mobile-Specific Card Styles
+ * (Applies to screens 768px wide or smaller)
+ */
+
+@media (max-width: 768px) {
+
+
+  /* Make the separating line between cards not quite go the absolute edge of the screen */
+  .recent-news .event-card-list,
+  .next-events .event-card-list {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+  .event-card {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    
+    border-bottom: 1px solid var(--main-border, #444);
+    
+    padding: 1.5em 0.5em; 
+    margin-bottom: 0;
+
+    flex-direction: column;
+  }
+
+  .event-card-list > .event-card:last-child {
+    border-bottom: none;
+  }
+
+  .event-card-details {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin-top: 1em; /* Space between summary and details */
+    width: 100%;
+
+    
+  }
+
+  .news-card-cover {
+    width: 100%;
+    height: 180px; /* You can adjust this height */
+    object-fit: cover; /* This crops the image nicely */
+    border-radius: 6px; /* Matches the .event-card-details style */
+    margin-top: 1em;    /* Space between date and image */
+    border: 1px solid var(--main-border, #444);
+  }
+
+
+  .home-section-divider {
+    display: block; /* Show the element */
+    border: none;   /* Hide the actual line */
+    border-style: none;
+    height: 0;
+  
+    /* Add spacing */
+    margin-top: 2em;
+    margin-bottom: 2em;
+  
+    /* Center the text/glyph */
+    text-align: center; 
+  
+    /* Use CSS to add the symbol */
+    position: relative;
+  }
+
+
+  .home-section-divider::after {
+    content: "◇ ◇ ◇ "; 
+    color: var(--primary-color, #00bfff); 
+    font-size: 1em;
+    opacity: 0.5; 
+  }
+}
+

@@ -1,5 +1,9 @@
----
----
++++
+title = "Home"
+[menu.main]
+identifier = "1home"
+weight = 10
++++
 {{< homepage-hero
     title="Welcome to Negative Edge"
     btn_primary_link="/events/"

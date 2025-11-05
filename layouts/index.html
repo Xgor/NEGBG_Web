@@ -6,11 +6,13 @@
     
     <div class="content">
       {{ .Content }}
+      {{ partial "recent-news.html" . }}
 
-    {{/* This is the part that spawns the list */}}
-    {{ if .IsHome }}
-      {{ partial "next-events.html" . }}
-    {{ end }}
+      <hr class="home-section-divider">
+
+      {{ if .IsHome }}
+        {{ partial "next-events.html" . }}
+      {{ end }}
 
     </div>
 
