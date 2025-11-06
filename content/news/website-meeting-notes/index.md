@@ -91,6 +91,9 @@ Detta har vi klart för oss att det skall göras så snart som möjligt och är 
     *rekommendation2:* bara dra in feffe när ni fixar detta så kan jag guida er genom det. \
     *rekommendation3:* eurodns var valt lite arbiträrt baserat på att jag tidigare har hanterat chalmers.it t.ex via dem och det var lätt att hantera korrekt whois information om jag inte minns fel.
     andra domain registrars borde funka också.
+---
+* **Åtgärd:** Fixa ikoner. Det krävs en massa jävla olike storlekar för att funka på alla browsers. https://realfavicongenerator.net/
+    **Ansvarid:** (Fyll i namn)
 
 
 ### 4. Extra saker
