@@ -13,7 +13,7 @@
     {{ range $recent_news }}
     {{ $page := . }}
       <li class="event-card">
-        <div class="event-card-info" style="flex-basis: 100%;">
+        <div class="event-card-info">
           
           <h3 class="event-card-title">
             <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>

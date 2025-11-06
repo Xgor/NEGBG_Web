@@ -2,10 +2,6 @@
  * Card styles that use the hello-friend-ng theme's CSS variables
  */
 
-.event-card-list {
-  list-style-type: none;
-  padding-left: 0;
-}
 
 /* This is the main card style */
 .event-card {
@@ -167,6 +163,14 @@
   border: 1px solid var(--main-border, #444);
 }
 
+.recent-news,
+.next-events {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
 
 /*
  * Center the section headers on the homepage
@@ -177,14 +181,14 @@
   width: 100%;       
   text-align: center; 
   
-  /* Reset any weird margins just in case */
   margin-left: 0;
   margin-right: 0;
 }
 /*
  * Center the titles on the "Recent News" cards
  */
-.recent-news .event-card-title {
+.recent-news .event-card-title,
+.next-events .event-card-title {
   display: block;     
   width: 100%;       
   text-align: center; 
@@ -196,14 +200,9 @@
   text-align: left;
 }
 
-.content .recent-news .event-card-list,
-.content .next-events .event-card-list {
-  list-style-type: none;
-  padding-left: 0;
-  margin-left: 0;
-  margin-right: 0;
+.recent-news .event-card {
+  flex: 1 1 300px;
 }
-
 
 .recent-news .event-card-list {
   display: flex;
@@ -212,11 +211,17 @@
   gap: 1em; /* Creates space between the cards */
 }
 
-.recent-news .event-card {
-  /* take up roughly 1/3 of the container since we have 3 recent news items*/ 
-  flex-basis: 31%;
+.recent-news .event-card-info,
+.next-events .event-card-info {
+  flex-basis: 100%;
   flex-grow: 1;
-  min-width: 300px;
+  min-width: 0;
+  width: 100%;
+}
+
+
+.next-events .event-card-details {
+  text-align: left;
 }
 /* Divider used for mobile view between news and events, hidden by default */
 .home-section-divider {
@@ -231,11 +236,13 @@
 @media (max-width: 768px) {
 
 
-  /* Make the separating line between cards not quite go the absolute edge of the screen */
-  .recent-news .event-card-list,
-  .next-events .event-card-list {
-    margin-left: 1em;
-    margin-right: 1em;
+
+
+  .recent-news,
+  .next-events {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
   }
   .event-card {
     background-color: transparent;
@@ -243,12 +250,45 @@
     border-radius: 0;
     box-shadow: none;
     
-    border-bottom: 1px solid var(--main-border, #444);
+    position: relative;
     
     padding: 1.5em 0.5em; 
     margin-bottom: 0;
 
     flex-direction: column;
+  }
+
+  /* custom line after the individual posts*/
+  .event-card::after {
+    content: "";
+    display: block;
+  
+    width: 80%;
+    height: 1px;
+    background-color: var(--main-border, #444);
+  
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+
+  .recent-news .event-card-info {
+    flex-basis: 100%;
+    flex-grow: 1;
+    min-width: 0; /* Reset any min-width */
+    /* fill the parent container fully regardless of content*/
+    width: 100%;
+  }
+
+  .next-events .event-card {
+    width: 100%;
+  }
+  .next-events .event-card-info {
+    width: 100%;
+    flex-basis: 100%;
+    flex-grow: 1;
   }
 
   .event-card-list > .event-card:last-child {
@@ -264,6 +304,18 @@
 
     
   }
+  /*force news cards to appear vertically regardless of size if in mobile mode*/
+  .recent-news .event-card-list {
+    flex-direction: column;
+  }
+
+  .next-events .event-card-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 
   .news-card-cover {
     width: 100%;
