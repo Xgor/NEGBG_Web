@@ -1,13 +1,31 @@
-baseURL = 'https://xgor.github.io/NEGBG_Web/'
+baseURL = 'https://negbg-web.pages.dev/'
 languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
-sectionPagesMenu = 'main'
+#sectionPagesMenu = 'main'
 pluralizeListTitles = false
-[params.logo]
-    path = "../NegativeEdge_Color_1024_1.png"
+relativeURLs = true
+timeZone = "Europe/Stockholm"
 
 [params]
+  timeZoneAbbr = "CET/CEST"
+  customCSS = ["/css/custom.css"]
+  enableSharingButtons = true
+[params.logo]
+    path = "/NegativeEdge_Color_1024_1.png"
+    alt = "NE-logga"
+[params.header.logo]
+    path = "/NegativeEdge_Color_1024_1.png"
+    alt = "NE-logga"
+
+
+[params.author]
+    name = "Jane Doe"
+
+[params.footer]
+  trademark = "Negative Edge 2025"
+  rss = true
+
   [[params.social]]
     name = "discord"
     url  = "https://discord.gg/kMVJ55wwy7"
@@ -24,11 +42,7 @@ pluralizeListTitles = false
     name = "twitch"
     url  = "https://www.twitch.tv/negativeedgegbg"
 
-#  [[params.social]]
-#    name = "email"
-#    url  = "mailto:nobody@example.com"
-theme = 'hello-friend-ng'
-
+  
 [caches]
   [caches.images]
     dir = ':cacheDir'

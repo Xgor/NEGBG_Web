@@ -1,0 +1,25 @@
+<li class="event-card">
+  <div class="event-card-info">
+    <h3 class="event-card-title">
+      <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+    </h3>
+    {{ with .Page.Params.summary }}
+      <p class="event-card-summary">{{ . }}</p>
+    {{ end }}
+  </div>
+
+  <div class="event-card-details">
+    <p>
+      <strong>When:</strong> 
+      {{ .SortDate.Format "Mon, Jan 2, 2006" }}
+      at {{ .Time }}
+      ({{ .SortDate.Format "MST" }})
+      {{ with .Page.Params.recurrence }}
+        <span class="event-type">({{ .type }})</span>
+      {{ end }}
+    </p>
+    {{ with .Page.Params.location }}
+      <p><strong>Where:</strong> {{ . }}</p>
+    {{ end }}
+  </div>
+</li>

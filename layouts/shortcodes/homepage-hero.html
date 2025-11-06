@@ -1,0 +1,30 @@
+<div class="homepage-hero">
+  {{/* Get the 'title' parameter from the shortcode call */}}
+  {{ with .Get "title" }}
+    <h1>{{ . }}</h1>
+  {{ end }}
+
+  {{/* Get the text from between the tags and render it as markdown */}}
+  {{ with .Inner }}
+    <p>{{ . | markdownify }}</p>
+  {{ end }}
+
+  <div class="hero-buttons">
+    {{/* Get parameters for the primary button */}}
+    {{ with .Get "btn_primary_link" }}
+      <a href="{{ . }}" class="hero-button-primary">
+        {{ $.Get "btn_primary_text" | default "Learn More" }}
+      </a>
+    {{ end }}
+
+    {{/* Get parameters for the secondary button */}}
+    {{ with .Get "btn_secondary_link" }}
+      <a href="{{ . }}" class="hero-button-secondary">
+        {{ $.Get "btn_secondary_text" | default "Join Us" }}
+      </a>
+    {{ end }}
+  </div>
+  <div class="social-icons">
+    {{ partial "social-icons.html" .Site.Params.social }}
+  </div>
+</div>

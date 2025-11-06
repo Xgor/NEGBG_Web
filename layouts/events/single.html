@@ -1,0 +1,107 @@
+{{ define "main" }}
+<article class="post">
+  <header>
+    <h1>{{ .Title }}</h1>
+    
+    {{/* --- Renders the Event's "Meta" Info --- */}}
+    <div class="post-meta" style="margin-bottom: 2em; line-height: 1.6;">
+      
+      {{ if .Params.recurrence }}
+        {{/* --- Info for RECURRING events (UPDATED) --- */}}
+        <div class="event-schedule">
+          <strong>Schedule:</strong>
+          <strong>{{ .Params.recurrence.type }}</strong>
+          ({{ .Params.recurrence.details }} from {{ .Params.recurrence.start_time }} to {{ .Params.recurrence.end_time }}
+          {{ .Site.Params.timeZoneAbbr }})
+        </div>
+
+      {{ else if .Params.start_date }}
+        {{/* --- Info for ONE-OFF events (Unchanged) --- */}}
+        <div class="event-time">
+          <strong>When:</strong> 
+          {{ (time .Params.start_date).Format "Monday, Jan 2, 2006 from 3:04 PM" }}
+          {{ with .Params.end_date }}
+            to {{ (time .).Format "3:04 PM" }}
+          {{ end }}
+        </div>
+      {{ end }}
+      
+      {{ with .Params.location }}
+        <div class="event-location" style="margin-top: 0.5em;">
+          <strong>Where:</strong> {{ . }}
+        </div>
+      {{ end }}
+    </div>
+  </header>
+  
+  {{/* --- Renders the main markdown content --- */}}
+  <div class="content">
+    {{ .Content }}
+  </div>
+
+  {{/* --- This section only appears for RECURRING events --- */}}
+  {{ if .Params.recurrence }}
+    {{ $recur := .Params.recurrence }}
+
+    {{/* --- 1. Show a list of UPCOMING CANCELLED dates (UPDATED) --- */}}
+    {{ with $recur.cancellations }}
+      {{ $future_cancellations := slice }}
+      {{ $today_string := now.Format "2006-01-02" }}
+      
+      {{ range . }}
+        {{ $cancellation_string := (time .).Format "2006-01-02" }}
+        {{ if ge $cancellation_string $today_string }}
+          {{ $future_cancellations = $future_cancellations | append (time .) }}
+        {{ end }}
+      {{ end }}
+
+      {{ if ge (len $future_cancellations) 1 }}
+        <div class="event-cancellations" style="background-color: var(--secondary-bg, #252525); border: 1px solid var(--main-border, #444); padding: 1em; margin-top: 2em; border-radius: 4px;">
+          <h3 style="margin-top: 0;">⚠️ Upcoming Cancelled Dates</h3>
+          <ul style="margin-top: 0.5em; margin-bottom: 0;">
+            {{ range sort $future_cancellations }}
+              <li>{{ .Format "Monday, Jan 2, 2006" }}</li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+    {{ end }}
+
+
+    {{/* --- 2. Show a list of UPCOMING REGULAR occurrences (UPDATED) --- */}}
+    <div class="event-details" style="margin-top: 2em;">
+      <h3 style="margin-top: 0;">Upcoming Occurrences</h3>
+      
+      {{ $schedule := $recur.schedule }}
+      {{ $cancellations := $recur.cancellations | default (slice) }}
+      {{ $today_string := now.Format "2006-01-02" }}
+      
+      {{ $upcoming_dates := slice }}
+      {{ range $schedule }}
+        {{ $date_string := . }}
+        {{/* Check 1: Is the date today or in the future? */}}
+        {{ if ge $date_string $today_string }}
+          {{/* Check 2: Is this date in the cancellations list? */}}
+          {{ if not (in $cancellations $date_string) }}
+            {{ $upcoming_dates = $upcoming_dates | append (time $date_string) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{/* Now, display the valid, upcoming dates */}}
+      {{ if ge (len $upcoming_dates) 1 }}
+        <p>Here are the next 10 dates for this event (from {{ $recur.start_time }} to {{ $recur.end_time }}):</p>
+        <ul>
+          {{/* Show the next 10 */}}
+          {{ range first 10 $upcoming_dates }}
+            <li>{{ .Format "Monday, Jan 2, 2006" }}</li>
+          {{ end }}
+        </ul>
+      {{ else }}
+        <p>No new dates are scheduled for this event. Please check back later!</p>
+      {{ end }}
+    </div>
+  {{ end }} {{/* End "if .Params.recurrence" */}}
+
+</article>
+{{ end }}

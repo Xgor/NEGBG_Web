@@ -1,0 +1,21 @@
+{{ define "main" }} 
+  <article>
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    
+    <div class="content">
+      {{ .Content }}
+      {{ partial "recent-news.html" . }}
+
+      <hr class="home-section-divider">
+
+      {{ if .IsHome }}
+        {{ partial "next-events.html" . }}
+      {{ end }}
+
+    </div>
+
+
+  </article>
+{{ end }}

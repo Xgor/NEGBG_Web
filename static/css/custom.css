@@ -1,0 +1,355 @@
+/*
+ * Card styles that use the hello-friend-ng theme's CSS variables
+ */
+
+
+/* This is the main card style */
+.event-card {
+  /* Use the theme's border color */
+  border: 1px solid var(--main-border, #444);
+  border-radius: 8px;
+  padding: 1.25em;
+  margin-bottom: 1.5em;
+  
+  /* Use the theme's background for posts/cards */
+  background-color: var(--main-card-bg, var(--main-bg, #1b1b1b));
+  
+  /* Use flexbox for compact cards */
+  display: flex;
+  flex-wrap: wrap; /* Allows stacking on small screens */
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5em; /* Space between the info and details */
+}
+
+/* Main info block (title, summary) */
+.event-card-info {
+  flex: 2; /* Takes up 2/3 of the space */
+  min-width: 250px;
+}
+
+/* Details block (date, location) */
+.event-card-details {
+  flex: 1; /* Takes up 1/3 of the space */
+  min-width: 200px;
+  
+  /* Use the theme's "secondary" background */
+  background-color: var(--secondary-bg, #252525);
+  border: 1px solid var(--main-border, #444);
+  
+  border-radius: 6px;
+  padding: 0.75em 1.25em;
+  font-size: 0.9em;
+}
+
+/* Make sure the <p> tags inside the details look nice */
+.event-card-details p {
+  margin: 0.5em 0;
+}
+
+/* Make the title use the theme's main accent color */
+.event-card-title {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+.event-card-title a {
+  color: var(--primary-color, #00bfff);
+  text-decoration: none;
+}
+.event-card-title a:hover {
+  text-decoration: underline;
+}
+
+/* Make the summary text use the theme's main text color */
+.event-card-summary {
+  margin-bottom: 0;
+  color: var(--main-fg, #ccc);
+}
+
+.homepage-hero {
+  /* Remove background, border, and shadow */
+  padding: 2em 1em; /* Add some vertical padding */
+  text-align: center;
+  margin-bottom: 2.5em; /* Space before the event list */
+}
+
+.homepage-hero h1 {
+  margin-top: 0;
+  /* Use the theme's accent color */
+  color: var(--primary-color, #00bfff); 
+  font-size: 2.5em; /* Make the title bigger */
+}
+
+.homepage-hero p {
+  font-size: 1.2em; /* Make the description text bigger */
+  color: var(--main-fg, #ccc);
+  margin-bottom: 2em; /* More space before the buttons */
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* So buttons stack on small screens */
+  gap: 1em;
+}
+
+.hero-button-primary,
+.hero-button-secondary {
+  padding: 0.75em 1.5em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+/* Primary (accent) button */
+.hero-button-primary {
+  background-color: var(--primary-color, #00bfff);
+  color: #1b1b1b; /* Dark text on light button */
+}
+.hero-button-primary:hover {
+  opacity: 0.8;
+}
+
+/* Secondary (outline) button */
+.hero-button-secondary {
+  background-color: transparent;
+  color: var(--primary-color, #00bfff);
+  border: 2px solid var(--primary-color, #00bfff);
+}
+.hero-button-secondary:hover {
+  background-color: var(--primary-color, #00bfff);
+  color: #1b1b1b;
+}
+
+/*
+ * Style the social icons inside the hero
+ */
+
+.homepage-hero .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1em; 
+  margin-top: 2em; 
+}
+
+/* Icon size and styling */
+.homepage-hero .social-icons a svg {
+  width: 32px;  
+  height: 32px; 
+}
+
+/* Set the default icon color */
+.homepage-hero .social-icons a {
+  color: var(--main-fg, #ccc);
+  transition: color 0.2s ease;
+}
+
+/* Set the icon hover color */
+.homepage-hero .social-icons a:hover {
+  color: var(--primary-color, #00bfff);
+}
+
+
+/*
+ * Cover image on the recent news card
+ */
+.news-card-cover {
+  width: 100%;
+  height: 180px; /* You can adjust this height */
+  object-fit: cover; /* This crops the image nicely */
+  border-radius: 6px; /* Matches the .event-card-details style */
+  margin-bottom: 1em; /* Space between image and title */
+  border: 1px solid var(--main-border, #444);
+}
+
+.recent-news,
+.next-events {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
+/*
+ * Center the section headers on the homepage
+ */
+.content .recent-news h2,
+.content .next-events h2 {
+  display: block;     
+  width: 100%;       
+  text-align: center; 
+  
+  margin-left: 0;
+  margin-right: 0;
+}
+/*
+ * Center the titles on the "Recent News" cards
+ */
+.recent-news .event-card-title,
+.next-events .event-card-title {
+  display: block;     
+  width: 100%;       
+  text-align: center; 
+}
+
+/* news card summary left aligned*/
+.recent-news .event-card-content,
+.event-card .event-card-info .event-card-summary {
+  text-align: left;
+}
+
+.recent-news .event-card {
+  flex: 1 1 300px;
+}
+
+.recent-news .event-card-list {
+  display: flex;
+  flex-wrap: wrap; /* Allows stacking if not enough space */
+  justify-content: space-between; /* Evenly spaces the cards */
+  gap: 1em; /* Creates space between the cards */
+}
+
+.recent-news .event-card-info,
+.next-events .event-card-info {
+  flex-basis: 100%;
+  flex-grow: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+
+.next-events .event-card-details {
+  text-align: left;
+}
+/* Divider used for mobile view between news and events, hidden by default */
+.home-section-divider {
+  display: none;
+}
+
+/*
+ * Mobile-Specific Card Styles
+ * (Applies to screens 768px wide or smaller)
+ */
+
+@media (max-width: 768px) {
+
+
+
+
+  .recent-news,
+  .next-events {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  .event-card {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    
+    position: relative;
+    
+    padding: 1.5em 0.5em; 
+    margin-bottom: 0;
+
+    flex-direction: column;
+  }
+
+  /* custom line after the individual posts*/
+  .event-card::after {
+    content: "";
+    display: block;
+  
+    width: 80%;
+    height: 1px;
+    background-color: var(--main-border, #444);
+  
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+
+  .recent-news .event-card-info {
+    flex-basis: 100%;
+    flex-grow: 1;
+    min-width: 0; /* Reset any min-width */
+    /* fill the parent container fully regardless of content*/
+    width: 100%;
+  }
+
+  .next-events .event-card {
+    width: 100%;
+  }
+  .next-events .event-card-info {
+    width: 100%;
+    flex-basis: 100%;
+    flex-grow: 1;
+  }
+
+  .event-card-list > .event-card:last-child {
+    border-bottom: none;
+  }
+
+  .event-card-details {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin-top: 1em; /* Space between summary and details */
+    width: 100%;
+
+    
+  }
+  /*force news cards to appear vertically regardless of size if in mobile mode*/
+  .recent-news .event-card-list {
+    flex-direction: column;
+  }
+
+  .next-events .event-card-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+  .news-card-cover {
+    width: 100%;
+    height: 180px; /* You can adjust this height */
+    object-fit: cover; /* This crops the image nicely */
+    border-radius: 6px; /* Matches the .event-card-details style */
+    margin-top: 1em;    /* Space between date and image */
+    border: 1px solid var(--main-border, #444);
+  }
+
+
+  .home-section-divider {
+    display: block; /* Show the element */
+    border: none;   /* Hide the actual line */
+    border-style: none;
+    height: 0;
+  
+    /* Add spacing */
+    margin-top: 2em;
+    margin-bottom: 2em;
+  
+    /* Center the text/glyph */
+    text-align: center; 
+  
+    /* Use CSS to add the symbol */
+    position: relative;
+  }
+
+
+  .home-section-divider::after {
+    content: "◇ ◇ ◇ "; 
+    color: var(--primary-color, #00bfff); 
+    font-size: 1em;
+    opacity: 0.5; 
+  }
+}
+
