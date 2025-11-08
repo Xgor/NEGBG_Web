@@ -117,9 +117,20 @@
       <ul class="event-card-list">
         {{ range $sorted_recurring }}
           {{ $page := . }}
+
+
+          
           
           {{ $dataResource := $page.Resources.GetMatch "data.toml" | default ($page.Resources.GetMatch "schedule.toml") }}
-          {{ $data := $dataResource.Content | unmarshal }}
+          {{ $data := dict }}
+
+          
+          {{ if $dataResource }}
+            {{ $data = $dataResource.Content | unmarshal }}
+          {{ else }}
+            {{ $data = $page.Params }}
+          {{ end }}
+
           
           {{ $recur_data := $data.recurrence | default (dict) }}
           {{ $recur_text := $page.Params.recurrence | default (dict) }}
