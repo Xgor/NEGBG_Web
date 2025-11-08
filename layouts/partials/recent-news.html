@@ -19,8 +19,7 @@
 {{/* 5. Rendera sektionen (oförändrad) */}}
 {{ if ge (len $recent_news) 1 }}
 <section class="recent-news" style="margin-top: 2.5em; margin-bottom: 2.5em;">
-  <h2>Recent News</h2>
-  
+  <h2>{{ T "recent-news-title" | default "Recent News" }}</h2>  
   <ul class="event-card-list">
     {{ range $recent_news }}
       {{ $page := . }}

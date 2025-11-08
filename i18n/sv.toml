@@ -5,11 +5,13 @@ to = "till"
 when = "När"
 where = "Var"
 
+recent-news-title = "Senaste Nytt"
 
 
 [event]
   upcoming-occurrences-title = "Framtida datum"
   upcoming-occurrences-intro = "Här är de 10 nästkommande tillfällena för det här evenemanget"
+  upcoming-title = "Kommande Evenemang"
   no-upcoming-one-off = "Inga enstaka evenemang är schemalagda för tillfället."
   no-upcoming-recurring = "Inga återkommande evenemang är schemalagda för tillfället."
   one-off-title = "Enstaka Evenemang"

@@ -1,3 +1,46 @@
+
+
+
+
+
+/*
+ * --- NEW FLAG SWITCHER STYLES --- 
+ */
+.flag-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5em; /* Space between flags */
+}
+
+.flag-link {
+  font-size: 1.5rem; /* Make flags a bit bigger */
+  text-decoration: none;
+  opacity: 0.5; /* Make non-active flags faded */
+  transition: all 0.2s ease;
+  line-height: 1; /* Prevents extra vertical space */
+  display: block; /* Helps with alignment and scaling */
+  border-radius: 50%; /* Make highlight circular */
+}
+
+.flag-link:hover {
+  opacity: 1; /* Full opacity on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.flag-link.current-lang {
+  opacity: 1; /* Active flag is fully opaque */
+  /* Add a subtle glow in the theme's primary color */
+  box-shadow: 0 0 8px var(--primary-color, #ff7e07);
+}
+
+/* Adjust for mobile menu (when inside .menu) */
+.menu .flag-switcher {
+  padding-left: 10px; /* Match old .language-menu margin */
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+ 
 /*
  * Card styles that use the hello-friend-ng theme's CSS variables
  */

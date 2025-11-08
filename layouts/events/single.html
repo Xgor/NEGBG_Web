@@ -1,6 +1,5 @@
 {{ define "main" }}
 
-{{/* --- ⬇️ NY DATA-HÄMTNINGSLOGIK ⬇️ --- */}}
 {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
 {{ $data := dict }}
 {{ $is_bundle := false }}
@@ -15,16 +14,14 @@
 {{/* Hämta platsen från .md-filen (Params) */}}
 {{ $location := .Params.location }}
 
-{{/* Slå ihop recurrence-data från .toml med recurrence-text från .md */}}
+{{/* Slå ihop recurrence-data från data.toml med recurrence-text från .md */}}
 {{ $recur_data := $data.recurrence | default (dict) }}
 {{ $recur_text := .Params.recurrence | default (dict) }}
 {{ $recurrence := merge $recur_data $recur_text }}
 
-{{/* Hämta start/end-datum (främst för engångsevenemang) */}}
+{{/* Hämta start/end-datum för engångsevenemang */}}
 {{ $start_date := $data.start_date }}
 {{ $end_date := $data.end_date }}
-{{/* --- ⬆️ SLUT PÅ NY LOGIK ⬆️ --- */}}
-
 
 <article class="post">
   <header>

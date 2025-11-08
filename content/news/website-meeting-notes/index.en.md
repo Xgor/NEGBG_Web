@@ -7,6 +7,8 @@ draft = false
 
 This post is a quick summary of the key features we've implemented for the new website and some talking points for our meeting today.
 
+
+<!--more-->
 ### 1. Implemented Features
 
 This is what we can show off right now:

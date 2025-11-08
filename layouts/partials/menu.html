@@ -1,0 +1,43 @@
+<nav class="menu">
+  <ul class="menu__inner">
+    {{- $currentPage := . -}}
+    {{/* --- This is the theme's standard menu loop --- */}}
+    {{ range sort .Site.Menus.main ".Identifier" -}}
+      <li><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+    {{- end }}
+
+    {{/* --- This is the new flag switcher, replacing the theme's dropdown --- */}}
+    {{/* We use the case-sensitive param from the theme that you fixed
+      by adding it to the root of hugo.toml
+    */}}
+    {{- if .Site.Params.EnableGlobalLanguageMenu }}
+      {{- if hugo.IsMultilingual }}
+        {{/* Wrap the switcher in an <li> to match the other menu items.
+          This will make it align correctly in the ul.menu__inner.
+        */}}
+        <li class="flag-switcher-wrapper">
+          <div class="flag-switcher">
+            {{ range .Translations }}
+              {{ $lang := .Language.Lang }}
+              {{ $flag := "" }}
+
+              {{ if eq $lang "sv" }}
+                {{ $flag = "🇸🇪" }}
+              {{ else if eq $lang "en" }}
+                {{ $flag = "🇬🇧" }}
+              {{ end }}
+
+              {{ if $flag }}
+                <a href="{{ .Permalink }}" title="{{ .Language.LanguageName }}" class="flag-link {{ if eq .Language.Lang $.Site.Language.Lang }}current-lang{{ end }}">
+                  <span class="flag-icon">{{ $flag }}</span>
+                </a>
+              {{ end }}
+            {{ end }}
+          </div>
+        </li>
+      {{- end }}
+    {{- end }}
+    {{/* --- End of the new flag switcher --- */}}
+
+  </ul>
+</nav>

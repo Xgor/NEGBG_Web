@@ -2,11 +2,11 @@ baseURL = 'https://negbg-web.pages.dev/'
 languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
-#sectionPagesMenu = 'main'
 pluralizeListTitles = false
 relativeURLs = true
 timeZone = "Europe/Stockholm"
 
+enableGlobalLanguageMenu = true
 
 defaultContentLanguage = "sv"
 defaultContentLanguageInSubdir = false

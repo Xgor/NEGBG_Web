@@ -4,7 +4,7 @@
 {{/* 2. Hämta alla andra språk-sajter (exklusive den aktuella) */}}
 {{ $otherSites := complement (slice .Site) site.Sites }}
 
-{{/* 3. Loopa igenom de andra sajterna och "slå ihop" deras eventsidor */}}
+{{/* 3. Loopa igenom de andra språken och "slå ihop" deras eventsidor */}}
 {{ range $otherSites }}
   {{ $preferredEvents = $preferredEvents | lang.Merge (where .RegularPages "Section" "events") }}
 {{ end }}
@@ -17,7 +17,6 @@
 {{ range $preferredEvents }}
   {{ $page := . }}
   
-  {{/* --- ⬇️ KORREKT DATA-HÄMTNINGSLOGIK ⬇️ --- */}}
   {{ $data := dict }}
   {{ $recurrence := dict }}
   {{ $start_date := "" }}
@@ -44,7 +43,6 @@
     {{ $end_date = .Params.end_date }}
     {{ $recurrence = .Params.recurrence }}
   {{ end }}
-  {{/* --- ⬆️ SLUT PÅ DATA-HÄMTNING ⬆️ --- */}}
   
 
   {{ if $start_date }}
@@ -90,7 +88,7 @@
   {{ end }}
 {{ end }}
 
-{{/* 5. Sortera och visa listan (oförändrad) */}}
+{{/* 5. Sortera och visa listan  */}}
 {{ $sorted_events := sort $master_event_list "SortDate" "asc" }}
 {{ $next_5_events := first 5 $sorted_events }}
 
