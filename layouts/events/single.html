@@ -1,34 +1,63 @@
 {{ define "main" }}
+
+{{/* --- ⬇️ NY DATA-HÄMTNINGSLOGIK ⬇️ --- */}}
+{{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
+{{ $data := dict }}
+{{ $is_bundle := false }}
+
+{{ if $dataResource }}
+  {{ $is_bundle = true }}
+  {{ $data = $dataResource.Content | unmarshal }}
+{{ else }}
+  {{ $data = .Params }}
+{{ end }}
+
+{{/* Hämta platsen från .md-filen (Params) */}}
+{{ $location := .Params.location }}
+
+{{/* Slå ihop recurrence-data från .toml med recurrence-text från .md */}}
+{{ $recur_data := $data.recurrence | default (dict) }}
+{{ $recur_text := .Params.recurrence | default (dict) }}
+{{ $recurrence := merge $recur_data $recur_text }}
+
+{{/* Hämta start/end-datum (främst för engångsevenemang) */}}
+{{ $start_date := $data.start_date }}
+{{ $end_date := $data.end_date }}
+{{/* --- ⬆️ SLUT PÅ NY LOGIK ⬆️ --- */}}
+
+
 <article class="post">
   <header>
     <h1>{{ .Title }}</h1>
     
-    {{/* --- Renders the Event's "Meta" Info --- */}}
     <div class="post-meta" style="margin-bottom: 2em; line-height: 1.6;">
       
-      {{ if .Params.recurrence }}
-        {{/* --- Info for RECURRING events (UPDATED) --- */}}
+      {{ if $recurrence.type }}
+        {{/* --- Info för RECURRING events --- */}}
         <div class="event-schedule">
-          <strong>Schedule:</strong>
-          <strong>{{ .Params.recurrence.type }}</strong>
-          ({{ .Params.recurrence.details }} {{ T "from" }} {{ .Params.recurrence.start_time }} {{ T "to" }} {{ .Params.recurrence.end_time }}
-          {{ .Site.Params.timeZoneAbbr }})
+          <strong>{{ T "event.schedule" }}:</strong>
+          <strong>{{ $recurrence.type }}</strong>
+          ({{ $recurrence.details }} {{ T "from" }} {{ $recurrence.start_time }} {{ T "to" }} {{ $recurrence.end_time }})
+          ({{ .Site.Params.timeZoneAbbr }})
         </div>
 
-      {{ else if .Params.start_date }}
-        {{/* --- Info for ONE-OFF events (Unchanged) --- */}}
+      {{ else if $start_date }}
+        {{/* --- Info för ONE-OFF events --- */}}
         <div class="event-time">
-          <strong>When:</strong> 
-          {{ (time .Params.start_date).Format "Monday, Jan 2, 2006 from 3:04 PM" }}
-          {{ with .Params.end_date }}
-            to {{ (time .).Format "3:04 PM" }}
+          <strong>{{ T "when" }}:</strong> 
+          {{ $eventTime := time $start_date }}
+          {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
+          {{ $dateTime := time.Format $format $eventTime }}
+          {{ $dateTime }}
+          {{ with $end_date }}
+            {{ T "to" }} {{ (time .).Format "15:04" }}
           {{ end }}
         </div>
       {{ end }}
       
-      {{ with .Params.location }}
+      {{ with $location }}
         <div class="event-location" style="margin-top: 0.5em;">
-          <strong>Where:</strong> {{ . }}
+          <strong>{{ T "where" }}:</strong> {{ . }}
         </div>
       {{ end }}
     </div>
@@ -39,11 +68,9 @@
     {{ .Content }}
   </div>
 
-  {{/* --- This section only appears for RECURRING events --- */}}
-  {{ if .Params.recurrence }}
-    {{ $recur := .Params.recurrence }}
+  {{ if $recurrence.schedule }}
+    {{ $recur := $recurrence }}
 
-    {{/* --- 1. Show a list of UPCOMING CANCELLED dates (UPDATED) --- */}}
     {{ with $recur.cancellations }}
       {{ $future_cancellations := slice }}
       {{ $today_string := now.Format "2006-01-02" }}
@@ -57,10 +84,10 @@
 
       {{ if ge (len $future_cancellations) 1 }}
         <div class="event-cancellations" style="background-color: var(--secondary-bg, #252525); border: 1px solid var(--main-border, #444); padding: 1em; margin-top: 2em; border-radius: 4px;">
-          <h3 style="margin-top: 0;">⚠️ Upcoming Cancelled Dates</h3>
+          <h3 style="margin-top: 0;"> ⚠️ {{ T "event.upcoming-cancellations-title" | default "Upcoming Cancelled Dates" }}</h3>
           <ul style="margin-top: 0.5em; margin-bottom: 0;">
             {{ range sort $future_cancellations }}
-              <li>{{ .Format "Monday, Jan 2, 2006" }}</li>
+              <li>{{ partial "dates.html" . }}</li>
             {{ end }}
           </ul>
         </div>
@@ -68,9 +95,8 @@
     {{ end }}
 
 
-    {{/* --- 2. Show a list of UPCOMING REGULAR occurrences --- */}}
     <div class="event-details" style="margin-top: 2em;">
-      <h3 style="margin-top: 0;">{{T "event.upcoming-occurrences-title"}}</h3>
+      <h3 style="margin-top: 0;">{{ T "event.upcoming-occurrences-title" }}</h3>
       
       {{ $schedule := $recur.schedule }}
       {{ $cancellations := $recur.cancellations | default (slice) }}
@@ -79,29 +105,25 @@
       {{ $upcoming_dates := slice }}
       {{ range $schedule }}
         {{ $date_string := . }}
-        {{/* Check 1: Is the date today or in the future? */}}
         {{ if ge $date_string $today_string }}
-          {{/* Check 2: Is this date in the cancellations list? */}}
           {{ if not (in $cancellations $date_string) }}
             {{ $upcoming_dates = $upcoming_dates | append (time $date_string) }}
           {{ end }}
         {{ end }}
       {{ end }}
 
-      {{/* Now, display the valid, upcoming dates */}}
       {{ if ge (len $upcoming_dates) 1 }}
-        <p> {{T "event.upcoming-occurrences-intro"}} ({{T "from"}} {{ $recur.start_time }} {{T "to"}} {{ $recur.end_time }}):</p>
+        <p>{{ T "event.upcoming-occurrences-intro" }} ({{ T "from" }} {{ $recur.start_time }} {{ T "to" }} {{ $recur.end_time }}):</p>
         <ul>
-          {{/* Show the next 10 */}}
           {{ range first 10 $upcoming_dates }}
             <li>{{ partial "dates.html" . }}</li>
           {{ end }}
         </ul>
       {{ else }}
-        <p>No new dates are scheduled for this event. Please check back later!</p>
+        <p>{{ T "event.no-new-dates" }}</p>
       {{ end }}
     </div>
-  {{ end }} {{/* End "if .Params.recurrence" */}}
+  {{ end }} {{/* End "if $recurrence.schedule" */}}
 
 </article>
 {{ end }}

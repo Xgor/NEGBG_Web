@@ -1,80 +1,111 @@
-{{/* 1. Hämta alla eventsidor från det *aktuella* språket */}}
-{{ $preferredEvents := where .Site.RegularPages "Section" "events" }}
+{{/* 1. Hämta alla variabler */}}
+{{ $currentLang := .Site.Language.Lang }}
+{{ $defaultLang := "sv" }}
 
-{{/* 2. Hämta alla andra språk-sajter (exklusive den aktuella) */}}
-{{ $otherSites := complement (slice .Site) site.Sites }}
+{{/* 2. Hämta ALLA eventsidor från ALLA språk */}}
+{{ $allEventPages := where site.RegularPages "Section" "events" }}
 
-{{/* 3. Loopa igenom de andra sajterna och "slå ihop" deras eventsidor */}}
-{{ range $otherSites }}
-  {{ $preferredEvents = $preferredEvents | lang.Merge (where .RegularPages "Section" "events") }}
+{{/* 3. Gruppera alla sidor efter deras delade "TranslationKey" */}}
+{{ $pagesByLang := $allEventPages | groupAsMultiMap "TranslationKey" }}
+
+{{ $preferredEvents := slice }} {{/* Skapa en tom lista */}}
+
+{{/* 4. Loopa igenom varje grupp av översättningar */}}
+{{ range $pagesByLang }}
+  {{ $p := .Pages.Get $currentLang }}
+
+  {{ if not $p }}
+    {{ $p = .Pages.Get $defaultLang }}
+  {{ end }}
+
+  {{ if not $p }}
+    {{ $p = index .Pages 0 }}
+  {{ end }}
+
+  {{ if $p }}
+    {{ $preferredEvents = $preferredEvents | append $p }}
+  {{ end }}
 {{ end }}
 
-{{/* 4. Nu har vi en ren lista med evenemangssidor. Bygg master-listan. */}}
-{{ $now := now }}
-{{ $today_string := $now.Format "2006-01-02" }}
-{{ $master_event_list := slice }}
+{{/* 5. Hantera de två olika datatyperna */}}
+{{ $dataType := printf "%T" $preferredEvents }}
+{{ $clean_list := slice }}
 
-{{ range $preferredEvents }}
-  {{ $page := . }}
-
-  {{ if $page.Params.start_date }}
-    {{ $event_time := time $page.Params.start_date }}
-    {{ if $event_time.After $now }}
-      {{ $master_event_list = $master_event_list | append (dict
-          "Page" $page
-          "SortDate" $event_time
-          "Time" (printf "%s - %s" ($event_time.Format "15:04") ((time $page.Params.end_date).Format "15:04"))
-        )
-      }}
-    {{ end }}
-
-  {{ else if $page.Params.recurrence.schedule }}
-    
-    {{ $recur := $page.Params.recurrence }}
-    
-    {{ if $recur.start_time }}
-      {{ $cancellations := $recur.cancellations | default (slice) }}
-      {{ $start_time_str := $recur.start_time }}
-      {{ $end_time_str := $recur.end_time }}
-      {{ $time_range_str := printf "%s - %s" $start_time_str $end_time_str }}
-
-      {{ range $recur.schedule }}
-        {{ $date_string := . }}
-        
-        {{ if ge $date_string $today_string }}
-          {{ if not (in $cancellations $date_string) }}
-          
-            {{ $event_datetime_string := printf "%sT%s:00" $date_string $start_time_str }}
-            {{ $event_time := time $event_datetime_string }}
-
-            {{ $master_event_list = $master_event_list | append (dict
-                "Page" $page
-                "SortDate" $event_time
-                "Time" $time_range_str
-              )
-            }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-    {{ else }}
-      {{ warnf "Event '%s' has a 'recurrence' block but is missing 'start_time'. It will not be listed." $page.File.Path }}
+{{ if eq $dataType "page.Pages" }}
+  {{ $clean_list = $preferredEvents }}
+{{ else }}
+  {{ range $preferredEvents }}
+    {{ if (eq (printf "%T" .) "*hugolib.pageState") }}
+      {{ $clean_list = $clean_list | append . }}
     {{ end }}
   {{ end }}
 {{ end }}
 
-{{/* 5. Sortera och visa listan (oförändrad) */}}
-{{ $sorted_events := sort $master_event_list "SortDate" "asc" }}
+{{/* 6. Nu har vi en ren lista. Bygg master-listan. */}}
+{{ $now := now }}
+{{ $master_event_list_dicts := slice }} {{/* Döp om för tydlighet */}}
+{{ $recurring_pages := slice }}
+
+{{ range $clean_list }}
+  {{ $page := . }}
+  {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
+  {{ $data := dict }}
+
+  {{ if $dataResource }}
+    {{ $data = $dataResource.Content | unmarshal }}
+  {{ else }}
+    {{ $data = .Params }}
+  {{ end }}
+
+  {{/* --- ⬇️ DIN FÖRBÄTTRADE LOGIK ⬇️ --- */}}
+  {{ if $data.recurrence }}
+    {{/* Det är ett återkommande evenemang */}}
+    {{ $recurring_pages = $recurring_pages | append $page }}
+  {{ else }}
+    {{/* Det är ett engångsevenemang (saknar recurrence) */}}
+    {{ if $data.start_date }}
+      {{ $event_time := time $data.start_date }}
+      {{ if $event_time.After $now }}
+        {{ $master_event_list_dicts = $master_event_list_dicts | append (dict
+            "Page" $page
+            "SortDate" $event_time
+          )
+        }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{/* --- ⬆️ SLUT PÅ FÖRBÄTTRING ⬆️ --- */}}
+{{ end }}
+
+{{/* 7. Sortera och hämta de 5 nästa (endast one-offs) */}}
+{{ $sorted_events := sort $master_event_list_dicts "SortDate" "asc" }}
 {{ $next_5_events := first 5 $sorted_events }}
 
 <section class="next-events">
-  <h2>Recent News</h2>
+  <h2>{{ T "event.upcoming-title" | default "Upcoming Events" }}</h2>
   {{ if ge (len $next_5_events) 1 }}
     <ul class="event-card-list">
       {{ range $next_5_events }}
-        {{ partial "event-summary.html" . }}
+        {{ $page := .Page }}
+        {{ $eventTime := .SortDate }}
+
+        {{ $dataResource := $page.Resources.GetMatch "data.toml" | default ($page.Resources.GetMatch "schedule.toml") }}
+        {{ $data := dict }}
+        {{ if $dataResource }}
+          {{ $data = $dataResource.Content | unmarshal }}
+        {{ end }}
+        
+        {{ $time_str := printf "%s - %s" ($eventTime.Format "15:04") ((time ($data.end_date | default $page.Params.end_date)).Format "15:04") }}
+
+        {{ partial "event-summary.html" (dict 
+            "Page" $page 
+            "SortDate" $eventTime
+            "Time" $time_str
+          )
+        }}
       {{ end }}
     </ul>
   {{ else }}
-    <p>No upcoming events are scheduled at this time.</p>
+    <p>{{ T "event.no-upcoming" | default "No upcoming events are scheduled at this time." }}</p>
   {{ end }}
 </section>

@@ -1,4 +1,5 @@
 <li class="event-card">
+  
   <div class="event-card-info">
     <h3 class="event-card-title">
       <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
@@ -11,12 +12,13 @@
   <div class="event-card-details">
     <p>
       <strong>{{ T "when" }}:</strong> 
+      
+      {{ $dateHuman := time.Format ":date_long" .SortDate }}
+      {{ $timeStr := .Time }}
+      {{ $tz := .SortDate.Format "MST" }}
 
-
-      {{partial "dates.html" .SortDate}}
-      {{T "at"}}
-      {{.Time}}
-
+      {{ printf "%s %s %s (%s)" $dateHuman (T "at") $timeStr $tz }}
+      
       {{ with .Page.Params.recurrence }}
         <span class="event-type">({{ .type }})</span>
       {{ end }}

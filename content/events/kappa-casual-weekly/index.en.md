@@ -6,21 +6,6 @@ draft: false
 recurrence:
   type: "Weekly"
   details: "Alternates between tuesday and wednesday every week"
-  start_time: "18:00"
-  end_time: "22:00"
-
-  schedule:
-    - "2025-11-04" # Tue
-    - "2025-11-12" # Wed
-    - "2025-11-18" # Tue
-    - "2025-11-26" # Wed
-    - "2025-12-02" # Tue
-    - "2025-12-10" # Wed
-    # ...etc.
-
-  cancellations:
-    - "2025-11-12"
-
 location: "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
 summary: "Casual gaming at Kappa Bar"
 ---
