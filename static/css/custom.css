@@ -30,7 +30,6 @@
 .flag-link.current-lang {
   opacity: 1; /* Active flag is fully opaque */
   /* Add a subtle glow in the theme's primary color */
-  box-shadow: 0 0 8px var(--primary-color, #ff7e07);
 }
 
 /* Adjust for mobile menu (when inside .menu) */
@@ -41,6 +40,14 @@
 }
 
  
+.flag-link.disabled {
+  opacity: 0.3;
+  filter: grayscale(100%);
+  pointer-events: none; /* Makes it not clickable */
+  cursor: not-allowed; /* Shows a "not-allowed" cursor on hover */
+}
+
+
 /*
  * Card styles that use the hello-friend-ng theme's CSS variables
  */
