@@ -10,16 +10,19 @@
 
   <div class="event-card-details">
     <p>
-      <strong>When:</strong> 
-      {{ .SortDate.Format "Mon, Jan 2, 2006" }}
-      at {{ .Time }}
-      ({{ .SortDate.Format "MST" }})
+      <strong>{{ T "when" }}:</strong> 
+
+
+      {{partial "dates.html" .SortDate}}
+      {{T "at"}}
+      {{.Time}}
+
       {{ with .Page.Params.recurrence }}
         <span class="event-type">({{ .type }})</span>
       {{ end }}
     </p>
     {{ with .Page.Params.location }}
-      <p><strong>Where:</strong> {{ . }}</p>
+      <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
     {{ end }}
   </div>
 </li>

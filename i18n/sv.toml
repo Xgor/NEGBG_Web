@@ -1,0 +1,20 @@
+at = "kl."
+from = "från"
+to = "till"
+
+when = "När"
+where = "Var"
+
+
+
+[event]
+  upcoming-occurrences-title = "Framtida datum"
+  upcoming-occurrences-intro = "Här är de 10 nästkommande tillfällena för det här evenemanget"
+  no-upcoming-one-off = "Inga enstaka evenemang är schemalagda för tillfället."
+  no-upcoming-recurring = "Inga återkommande evenemang är schemalagda för tillfället."
+  one-off-title = "Enstaka Evenemang"
+  recurring-title = "Återkommande Evenemang"
+  schedule = "Schema"
+  next = "Nästa"
+  no-new-dates = "Inga nya datum schemalagda."
+  time = "Tid"

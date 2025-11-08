@@ -1,9 +1,5 @@
 {{ define "main" }} 
   <article>
-    <header>
-      <h1>{{ .Title }}</h1>
-    </header>
-    
     <div class="content">
       {{ .Content }}
       {{ partial "recent-news.html" . }}
@@ -15,7 +11,5 @@
       {{ end }}
 
     </div>
-
-
   </article>
 {{ end }}

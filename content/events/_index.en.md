@@ -2,7 +2,7 @@
 title = "Events"
 [menu.main]
 identifier = "3_events"
-name = "Evenemang"
+name = "Events"
 weight = 20
 +++
 

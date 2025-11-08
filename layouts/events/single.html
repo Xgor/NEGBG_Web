@@ -11,7 +11,7 @@
         <div class="event-schedule">
           <strong>Schedule:</strong>
           <strong>{{ .Params.recurrence.type }}</strong>
-          ({{ .Params.recurrence.details }} from {{ .Params.recurrence.start_time }} to {{ .Params.recurrence.end_time }}
+          ({{ .Params.recurrence.details }} {{ T "from" }} {{ .Params.recurrence.start_time }} {{ T "to" }} {{ .Params.recurrence.end_time }}
           {{ .Site.Params.timeZoneAbbr }})
         </div>
 
@@ -68,9 +68,9 @@
     {{ end }}
 
 
-    {{/* --- 2. Show a list of UPCOMING REGULAR occurrences (UPDATED) --- */}}
+    {{/* --- 2. Show a list of UPCOMING REGULAR occurrences --- */}}
     <div class="event-details" style="margin-top: 2em;">
-      <h3 style="margin-top: 0;">Upcoming Occurrences</h3>
+      <h3 style="margin-top: 0;">{{T "event.upcoming-occurrences-title"}}</h3>
       
       {{ $schedule := $recur.schedule }}
       {{ $cancellations := $recur.cancellations | default (slice) }}
@@ -90,11 +90,11 @@
 
       {{/* Now, display the valid, upcoming dates */}}
       {{ if ge (len $upcoming_dates) 1 }}
-        <p>Here are the next 10 dates for this event (from {{ $recur.start_time }} to {{ $recur.end_time }}):</p>
+        <p> {{T "event.upcoming-occurrences-intro"}} ({{T "from"}} {{ $recur.start_time }} {{T "to"}} {{ $recur.end_time }}):</p>
         <ul>
           {{/* Show the next 10 */}}
           {{ range first 10 $upcoming_dates }}
-            <li>{{ .Format "Monday, Jan 2, 2006" }}</li>
+            <li>{{ partial "dates.html" . }}</li>
           {{ end }}
         </ul>
       {{ else }}
