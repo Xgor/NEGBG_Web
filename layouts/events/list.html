@@ -1,178 +1,190 @@
 {{ define "main" }}
-  <article class="post">
-    <header>
-      <h1>{{ .Title }}</h1>
-    </header>
-    
-    <div class="content">
-      {{ .Content }}
-    </div>
+<article class="post">
+  <header>
+    <h1>{{ .Title }}</h1>
+  </header>
+  
+  <div class="content">
+    {{ .Content }}
+  </div>
 
-    {{ $all_events := where .Site.RegularPages "Section" "events" }}
-    {{ $otherSites := complement (slice .Site) site.Sites }}
-    {{ range $otherSites }}
-      {{ $all_events = $all_events | lang.Merge (where .RegularPages "Section" "events") }}
-    {{ end }}
-    
-    {{ $now := now }}
-    {{ $langParams := .Site.Language.Params }}
+  {{ $all_events := where .Site.RegularPages "Section" "events" }}
+  {{ $otherSites := complement (slice .Site) site.Sites }}
+  {{ range $otherSites }}
+    {{ $all_events = $all_events | lang.Merge (where .RegularPages "Section" "events") }}
+  {{ end }}
+  
+  {{ $now := now }}
+  {{ $langParams := .Site.Language.Params }}
 
-    {{/* Skapa tomma listor */}}
-    {{ $future_one_off_pages := slice }}
-    {{ $recurring_pages := slice }}
+  {{/* --- KORRIGERAD SORTERINGSLOGIK --- */}}
+  {{ $future_one_off_dicts := slice }}
+  {{ $recurring_pages := slice }}
 
-    {{/* Loopa igenom den sammanslagna listan och sortera */}}
-    {{ range $all_events }}
-      {{ $page := . }}
-      {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
-      {{ $data := dict }}
+  {{ range $all_events }}
+    {{ $page := . }}
+    {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
+    {{ $data := dict }}
 
-      {{ if $dataResource }}
-        {{ $data = $dataResource.Content | unmarshal }}
-      {{ else }}
-        {{ $data = .Params }}
-      {{ end }}
-
-      {{ if $data.recurrence }}
-        {{ $recurring_pages = $recurring_pages | append $page }}
-      {{ else if $data.start_date }}
-        {{ if (time $data.start_date).After $now }}
-          {{ $future_one_off_pages = $future_one_off_pages | append $page }}
-        {{ end }}
-      {{ end }}
+    {{ if $dataResource }}
+      {{ $data = $dataResource.Content | unmarshal }}
+    {{ else }}
+      {{ $data = .Params }}
     {{ end }}
 
-    {{/* Sortera listorna */}}
-    {{ $sorted_one_off := sort $future_one_off_pages "Date" "asc" }}
-    {{ $sorted_recurring := sort $recurring_pages "Title" "asc" }}
+    {{ if $data.recurrence }}
+      {{ $recurring_pages = $recurring_pages | append $page }}
+    {{ else if $data.start_date }}
+      {{ $event_time := time $data.start_date }}
+      {{ if $event_time.After $now }}
+        {{ $future_one_off_dicts = $future_one_off_dicts | append (dict
+            "Page" $page
+            "SortDate" $event_time
+          )
+        }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
 
-    <section class="events-list-section" style="margin-top: 2em;">
-      <h2>{{ T "event.one-off-title" | default "One-off Events" }}</h2>
+  {{ $sorted_one_off_dicts := sort $future_one_off_dicts "SortDate" "asc" }}
+  {{ $sorted_recurring := sort $recurring_pages "Title" "asc" }}
+  {{/* --- SLUT PÅ KORRIGERING --- */}}
 
-      {{ if ge (len $sorted_one_off) 1 }}
-        <ul class="event-card-list">
-          {{ range $sorted_one_off }}
-            {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
-            {{ $data := dict }}
-            {{ $start_date := "" }}
 
-            {{ if $dataResource }}
-              {{ $data = $dataResource.Content | unmarshal }}
-              {{ $start_date = $data.start_date }}
-            {{ else }}
-              {{ $start_date = .Params.start_date }}
-            {{ end }}
+  <section class="events-list-section" style="margin-top: 2em;">
+    <h2>{{ T "event.one-off-title" | default "One-off Events" }}</h2>
 
-            {{/* Leta i data.toml först, fall sedan tillbaka till .Params */}}
-            {{ $location := $data.location | default .Params.location }}
-            {{ $eventTime := time $start_date }}
-            
-            <li class="event-card">
-              <div class="event-card-info">
-                <h3 class="event-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                {{ with .Params.summary }}
-                  <p class="event-card-summary">{{ . }}</p>
-                {{ end }}
-              </div>
-              <div class="event-card-details">
-                <p>
-                  <strong>{{ T "when" }}:</strong> 
-                  {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
-                  {{ $dateTime := time.Format $format $eventTime }}
-                  {{ $dateTime }} 
-                  ({{ time.Format "MST" $eventTime }})
-                </p>
-                {{ with $location }}
-                  <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
-                {{ end }}
-              </div>
-            </li>
+    {{ if ge (len $sorted_one_off_dicts) 1 }}
+      <ul class="event-card-list">
+        {{ range $sorted_one_off_dicts }}
+          {{ $page := .Page }}
+          {{ $eventTime := .SortDate }}
+
+          {{ $dataResource := $page.Resources.GetMatch "data.toml" | default ($page.Resources.GetMatch "schedule.toml") }}
+          {{ $data := dict }}
+
+          {{ if $dataResource }}
+            {{ $data = $dataResource.Content | unmarshal }}
+          {{ else }}
+            {{ $data = $page.Params }}
           {{ end }}
-        </ul>
-      {{ else }}
-        <p>{{ T "event.no-upcoming-one-off" }}</p>
-      {{ end }}
-    </section>
 
-    <hr class="home-section-divider" style="border-color: var(--main-border, #444); margin-top: 2em; margin-bottom: 2em;">
-
-    <section class="events-list-section">
-      <h2>{{ T "event.recurring-title" | default "Recurring Events" }}</h2>
-      
-      {{ $today_string := $now.Format "2006-01-02" }}
-
-      {{ if ge (len $sorted_recurring) 1 }}
-        <ul class="event-card-list">
-          {{ range $sorted_recurring }}
-            
-            {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
-            {{ $data := $dataResource.Content | unmarshal }}
-            
-            {{ $recur_data := $data.recurrence | default (dict) }}
-            {{ $recur_text := .Params.recurrence | default (dict) }}
-            {{ $recur := merge $recur_data $recur_text }}
-            
-            {{/* Leta i data.toml först, fall sedan tillbaka till .Params */}}
-            {{ $location := $data.location | default .Params.location }}
-            
-            {{ $cancellations := $recur.cancellations | default (slice) }}
-            {{ $next_occurrence := "" }}
-            {{ $upcoming_dates := slice }}
-            
-            {{ range $recur.schedule }}
-              {{ $date_string := . }}
-              {{ if ge $date_string $today_string }}
-                {{ if not (in $cancellations $date_string) }}
-                  {{ $upcoming_dates = $upcoming_dates | append (time $date_string) }}
+          {{ $location := $data.location | default $page.Params.location }}
+          {{ $end_date := $data.end_date | default $page.Params.end_date }}
+          
+          <li class="event-card">
+            <div class="event-card-info">
+              <h3 class="event-card-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+              {{ with $page.Params.summary }}
+                <p class="event-card-summary">{{ . }}</p>
+              {{ end }}
+            </div>
+            <div class="event-card-details">
+              <p>
+                <strong>{{ T "when" }}:</strong> 
+                {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
+                
+                {{/* --- ⬇️ KORRIGERING AV DATUMFORMATERING ⬇️ --- */}}
+                {{ $dateTime := time.Format $format $eventTime }}
+                {{ $dateTime }}
+                {{ with $end_date }}
+                  {{ T "to" }} {{ (time .).Format "15:04" }}
                 {{ end }}
+                {{/* --- ⬆️ SLUT PÅ KORRIGERING ⬆️ --- */}}
+                
+                ({{ time.Format "MST" $eventTime }})
+              </p>
+              {{ with $location }}
+                <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
+              {{ end }}
+            </div>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p>{{ T "event.no-upcoming-one-off" }}</p>
+    {{ end }}
+  </section>
+
+  <hr class="home-section-divider" style="border-color: var(--main-border, #444); margin-top: 2em; margin-bottom: 2em;">
+
+  <section class="events-list-section">
+    <h2>{{ T "event.recurring-title" | default "Recurring Events" }}</h2>
+    
+    {{ $today_string := $now.Format "2006-01-02" }}
+
+    {{ if ge (len $sorted_recurring) 1 }}
+      <ul class="event-card-list">
+        {{ range $sorted_recurring }}
+          {{ $page := . }}
+          
+          {{ $dataResource := $page.Resources.GetMatch "data.toml" | default ($page.Resources.GetMatch "schedule.toml") }}
+          {{ $data := $dataResource.Content | unmarshal }}
+          
+          {{ $recur_data := $data.recurrence | default (dict) }}
+          {{ $recur_text := $page.Params.recurrence | default (dict) }}
+          {{ $recur := merge $recur_data $recur_text }}
+          
+          {{ $location := $data.location | default $page.Params.location }}
+          
+          {{ $cancellations := $recur.cancellations | default (slice) }}
+          {{ $next_occurrence := "" }}
+          {{ $upcoming_dates := slice }}
+          
+          {{ range $recur.schedule }}
+            {{ $date_string := . }}
+            {{ if ge $date_string $today_string }}
+              {{ if not (in $cancellations $date_string) }}
+                {{ $upcoming_dates = $upcoming_dates | append (time $date_string) }}
               {{ end }}
             {{ end }}
-            
-            {{ if ge (len $upcoming_dates) 1 }}
-              {{ $next_occurrence = index $upcoming_dates 0 }}
-            {{ end }}
-
-            <li class="event-card">
-              <div class="event-card-info">
-                <h3 class="event-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                {{ with .Params.summary }}
-                  <p class="event-card-summary">{{ . }}</p>
-                {{ end }}
-              </div>
-              <div class="event-card-details">
-                <p>
-                  <strong>{{ T "event.schedule" | default "Schedule" }}:</strong> 
-                  {{ $recur.type }} 
-                  ({{ $recur.details }})
-                </p>
-
-                {{ if $next_occurrence }}
-                  <p>
-                    <strong>{{ T "event.next" | default "Next" }}:</strong> 
-                    {{ $pageLangParams := .Language.Params }}
-                    {{ $format := $pageLangParams.date_format | default "Mon, Jan 2, 2006" }}
-                    {{ time.Format $format $next_occurrence }}
-                  </p>
-                {{ else }}
-                  <p><strong>{{ T "event.next" | default "Next" }}:</strong> {{ T "event.no-new-dates" | default "No new dates scheduled." }}</p>
-                {{ end }}
-                
-                <p>
-                  <strong>{{ T "event.time" | default "Time" }}:</strong> 
-                  {{ $recur.start_time }} - {{ $recur.end_time }} 
-                  ({{ .Site.Params.timeZoneAbbr }})
-                </p>
-                {{ with $location }}
-                  <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
-                {{ end }}
-              </div>
-            </li>
           {{ end }}
-        </ul>
-      {{ else }}
-        <p>{{ T "event.no-upcoming-recurring" }}</p>
-      {{ end }}
-    </section>
+          
+          {{ if ge (len $upcoming_dates) 1 }}
+            {{ $next_occurrence = index $upcoming_dates 0 }}
+          {{ end }}
+
+          <li class="event-card">
+            <div class="event-card-info">
+              <h3 class="event-card-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+              {{ with $page.Params.summary }}
+                <p class="event-card-summary">{{ . }}</p>
+              {{ end }}
+            </div>
+            <div class="event-card-details">
+              <p>
+                <strong>{{ T "event.schedule" | default "Schedule" }}:</strong> 
+                {{ $recur.type }} 
+                ({{ $recur.details }})
+              </p>
+
+              {{ if $next_occurrence }}
+                <p>
+                  <strong>{{ T "event.next" | default "Next" }}:</strong> 
+                  {{ $pageLangParams := $page.Language.Params }}
+                  {{ $format := $pageLangParams.date_format | default "Mon, Jan 2, 2006" }}
+                  {{ time.Format $format $next_occurrence }}
+                </p>
+              {{ else }}
+                <p><strong>{{ T "event.next" | default "Next" }}:</strong> {{ T "event.no-new-dates" | default "No new dates scheduled." }}</p>
+              {{ end }}
+              
+              <p>
+                <strong>{{ T "event.time" | default "Time" }}:</strong> 
+                {{ $recur.start_time }} - {{ $recur.end_time }} 
+                ({{ $.Site.Params.timeZoneAbbr }})
+              </p>
+              {{ with $location }}
+                <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
+              {{ end }}
+            </div>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p>{{ T "event.no-upcoming-recurring" }}</p>
+    {{ end }}
+  </section>
   
-  </article>
+</article>
 {{ end }}

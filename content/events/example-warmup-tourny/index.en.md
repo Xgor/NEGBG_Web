@@ -6,7 +6,7 @@ draft = false
 
 # jag kan inte få det att funka utan att ha den här wäää
 start_date = "2025-12-06T10:00:00"
-
+end_date = "2025-12-06T12:00:00"
 location ="Kappa Bar, Gothenburg"
 summary = "A special one-day tournament to kick off the winter season."
 +++
