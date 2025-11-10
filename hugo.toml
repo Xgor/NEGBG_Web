@@ -67,10 +67,14 @@ defaultContentLanguageInSubdir = false
   [[params.social]]
     name = "twitch"
     url  = "https://www.twitch.tv/negativeedgegbg"
+
   [[params.social]]
     name = "youtube"
     url = "http://www.youtube.com/user/NegativeEdgeGBG"
 
+  [[params.social]]
+    name = "email"
+    url = "negativeedgegbg@gmail.com"
   
 [caches]
   [caches.images]
