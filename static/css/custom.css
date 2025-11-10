@@ -24,7 +24,7 @@
 
 .flag-link:hover {
   opacity: 1; /* Full opacity on hover */
-  transform: scale(1.1); /* Slightly enlarge on hover */
+  /* transform: scale(1.1); /* Slightly enlarge on hover */ */
 }
 
 .flag-link.current-lang {
@@ -179,6 +179,7 @@
 .homepage-hero .social-icons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 1em; 
   margin-top: 2em; 
 }
