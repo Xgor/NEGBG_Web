@@ -24,3 +24,55 @@ no-articles = "Det finns inga nyhetsartiklar för tillfället."
   next = "Nästa"
   no-new-dates = "Inga nya datum schemalagda."
   time = "Tid"
+
+
+
+
+
+
+
+# Translations for theme
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# Generic
+#
+[translations]
+other = "Översättningar"
+
+[postAvailable]
+other = "Också tillgängligt på"
+
+
+# 404.html
+#
+[archives]
+other = "Arkiv"
+
+[home]
+other = "Hem"
+
+[notFound]
+other = "Ajdå, den sidan hittades inte..."
+
+
+# posts/single.html
+#
+[readingTime]
+one   = "En minut"
+other = "{{ .Count }} minuter"
+
+[tableOfContents]
+other = "Innehållsförtäckning"
+
+[wordCount]
+one   = "Ett ord"
+other = "{{ .Count }} ord"
+
+[lastModified]
+other = "Senast uppdaterad"
+
+# partials/pagination-list.html
+[pagination]
+newerPosts = "Nyare poster"
+olderPosts = "Äldre poster"
+
