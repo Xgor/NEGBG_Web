@@ -8,6 +8,10 @@ where = "Var"
 recent-news-title = "Senaste Nytt"
 
 
+[news]
+no-articles = "Det finns inga nyhetsartiklar för tillfället."
+
+
 [event]
   upcoming-occurrences-title = "Framtida datum"
   upcoming-occurrences-intro = "Här är de 10 nästkommande tillfällena för det här evenemanget"

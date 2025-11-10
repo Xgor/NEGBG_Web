@@ -1,0 +1,65 @@
+{{ define "main" }}
+<article class="post">
+  <header>
+    <h1>{{ .Title }}</h1>
+  </header>
+  
+  <div class="content" style="margin-bottom: 2em;">
+    {{ .Content }}
+  </div>
+
+  {{/* --- 1. Get all news pages from the current language --- */}}
+  {{ $preferredNews := where .Site.RegularPages "Section" "news" }}
+
+  {{/* --- 2. Get all other language sites --- */}}
+  {{ $otherSites := complement (slice .Site) site.Sites }}
+
+  {{/* --- 3. Merge in news from other languages that don't have a translation --- */}}
+  {{ range $otherSites }}
+    {{ $preferredNews = $preferredNews | lang.Merge (where .RegularPages "Section" "news") }}
+  {{ end }}
+
+  {{/* --- 4. Sort the complete list by date (newest first) --- */}}
+  {{ $all_news := $preferredNews.ByDate.Reverse }}
+
+  {{/* --- 5. Render the list --- */}}
+  {{ if ge (len $all_news) 1 }}
+    <section class="all-news">
+      {{/* We can reuse the same list class as the homepage for consistency */}}
+      <ul class="event-card-list">
+        {{ range $all_news }}
+          {{ $page := . }}
+          {{/* This layout is copied directly from layouts/partials/recent-news.html 
+            to maintain a consistent look.
+          */}}
+          <li class="event-card">
+            <div class="event-card-info" style="flex-basis: 100%;">
+              
+              <h3 class="event-card-title">
+                <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+              </h3>
+              
+              <p class="event-card-date" style="font-size: 0.9em; opacity: 0.7; margin: 0 0 0.5em 0;">
+                {{ partial "dates.html" $page.Date }}
+              </p>
+
+              {{ with $page.Params.cover }}
+                <a href="{{ $page.RelPermalink }}">
+                  <img src="{{ . | absURL }}" alt="{{ $page.Title }}" class="news-card-cover">
+                </a>
+              {{ end }}
+              
+              <div class="event-card-content">
+                {{ $page.Summary }}
+              </div>
+            </div>
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ else }}
+    <p>{{ T "news.no-articles" | default "There are no news articles at this time." }}</p>
+  {{ end }}
+
+</article>
+{{ end }}

@@ -7,6 +7,9 @@ where = "Where"
 
 recent-news-title = "Recent News"
 
+[news]
+no-articles = "There are no news articles at this time."
+
 
 
 [event]
