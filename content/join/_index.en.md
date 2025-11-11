@@ -25,4 +25,4 @@ Pay the membership fee via either Bankgiro or Swish.
 
 ### Payment
 Bankgiro: 607-1658 \
-Swish: [1235213509](swish://payment?data=%7B%22version%22%3A%221.0%22%2C%22payee%22%3A%7B%22value%22%3A%221235213509%22%7D%2C%22amount%22%3A%7B%22value%22%3A%22100.00%22%7D%2C%22message%22%3A%7B%22value%22%3A%22Anv%C3%A4ndarnamn%20(Byt%20ut%20till%20egen%20tag)%22%2C%22editable%22%3Atrue%7D%7D)
+Swish: {{< swish "swish://payment?data=%7B%22version%22%3A%221.0%22%2C%22payee%22%3A%7B%22value%22%3A%221235213509%22%7D%2C%22amount%22%3A%7B%22value%22%3A%22100.00%22%7D%2C%22message%22%3A%7B%22value%22%3A%22Anv%C3%A4ndarnamn%20(Byt%20ut%20till%20egen%20tag)%22%2C%22editable%22%3Atrue%7D%7D" >}}1235213509{{< /swish >}}
