@@ -17,7 +17,6 @@
   {{ $now := now }}
   {{ $langParams := .Site.Language.Params }}
 
-  {{/* --- KORRIGERAD SORTERINGSLOGIK --- */}}
   {{ $future_one_off_dicts := slice }}
   {{ $recurring_pages := slice }}
 
@@ -48,7 +47,6 @@
 
   {{ $sorted_one_off_dicts := sort $future_one_off_dicts "SortDate" "asc" }}
   {{ $sorted_recurring := sort $recurring_pages "Title" "asc" }}
-  {{/* --- SLUT PÅ KORRIGERING --- */}}
 
 
   <section class="events-list-section" style="margin-top: 2em;">
@@ -84,13 +82,11 @@
                 <strong>{{ T "when" }}:</strong> 
                 {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
                 
-                {{/* --- ⬇️ KORRIGERING AV DATUMFORMATERING ⬇️ --- */}}
                 {{ $dateTime := time.Format $format $eventTime }}
                 {{ $dateTime }}
                 {{ with $end_date }}
                   {{ T "to" }} {{ (time .).Format "15:04" }}
                 {{ end }}
-                {{/* --- ⬆️ SLUT PÅ KORRIGERING ⬆️ --- */}}
                 
                 ({{ time.Format "MST" $eventTime }})
               </p>

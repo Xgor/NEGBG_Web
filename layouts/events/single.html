@@ -30,7 +30,7 @@
     <div class="post-meta" style="margin-bottom: 2em; line-height: 1.6;">
       
       {{ if $recurrence.type }}
-        {{/* --- Info för RECURRING events --- */}}
+        {{/* --- Info for RECURRING events --- */}}
         <div class="event-schedule">
           <strong>{{ T "event.schedule" }}:</strong>
           <strong>{{ $recurrence.type }}</strong>
@@ -39,7 +39,7 @@
         </div>
 
       {{ else if $start_date }}
-        {{/* --- Info för ONE-OFF events --- */}}
+        {{/* --- Info for ONE-OFF events --- */}}
         <div class="event-time">
           <strong>{{ T "when" }}:</strong> 
           {{ $eventTime := time $start_date }}
