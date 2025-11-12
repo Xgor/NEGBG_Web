@@ -1,0 +1,78 @@
+at = "kl."
+from = "från"
+to = "till"
+
+when = "När"
+where = "Var"
+
+recent-news-title = "Senaste Nytt"
+
+
+[news]
+no-articles = "Det finns inga nyhetsartiklar för tillfället."
+
+
+[event]
+  upcoming-occurrences-title = "Framtida datum"
+  upcoming-occurrences-intro = "Här är de 10 nästkommande tillfällena för det här evenemanget"
+  upcoming-title = "Kommande Evenemang"
+  no-upcoming-one-off = "Inga enstaka evenemang är schemalagda för tillfället."
+  no-upcoming-recurring = "Inga återkommande evenemang är schemalagda för tillfället."
+  one-off-title = "Enstaka Evenemang"
+  recurring-title = "Återkommande Evenemang"
+  schedule = "Schema"
+  next = "Nästa"
+  no-new-dates = "Inga nya datum schemalagda."
+  time = "Tid"
+
+
+
+
+
+
+
+# Translations for theme
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# Generic
+#
+[translations]
+other = "Översättningar"
+
+[postAvailable]
+other = "Också tillgängligt på"
+
+
+# 404.html
+#
+[archives]
+other = "Arkiv"
+
+[home]
+other = "Hem"
+
+[notFound]
+other = "Ajdå, den sidan hittades inte..."
+
+
+# posts/single.html
+#
+[readingTime]
+one   = "En minut"
+other = "{{ .Count }} minuter"
+
+[tableOfContents]
+other = "Innehållsförtäckning"
+
+[wordCount]
+one   = "Ett ord"
+other = "{{ .Count }} ord"
+
+[lastModified]
+other = "Senast uppdaterad"
+
+# partials/pagination-list.html
+[pagination]
+newerPosts = "Nyare poster"
+olderPosts = "Äldre poster"
+

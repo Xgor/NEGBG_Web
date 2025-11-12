@@ -1,0 +1,26 @@
+at = "at"
+from = "from"
+to = "to"
+
+when = "When"
+where = "Where"
+
+recent-news-title = "Recent News"
+
+[news]
+no-articles = "There are no news articles at this time."
+
+
+
+[event]
+upcoming-occurrences-title = "Upcoming Occurrences"
+upcoming-occurrences-intro = "Here are the next 10 dates for this event"
+upcoming-title = "Upcoming Events"
+no-upcoming-one-off = "No upcoming one-off events are scheduled at this time."
+no-upcoming-recurring = "No upcoming recurring events are currently scheduled."
+one-off-title = "One-off Events"
+recurring-title = "Recurring Events"
+schedule = "Schedule"
+next = "Next"
+no-new-dates = "No new dates scheduled."
+time = "Time"

@@ -1,0 +1,4 @@
+{{ $date := . }}
+{{ $dateIso := $date | time.Format "2006-01-02T15:04:05-07:00" }}
+{{ $dateHuman := $date | time.Format ":date_long" }}
+<time datetime="{{ $dateIso }}">{{ $dateHuman }}</time>

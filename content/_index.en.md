@@ -1,7 +1,7 @@
 +++
 title = "Home"
 [menu.main]
-identifier = "1home"
+identifier = "1_home"
 weight = 10
 +++
 {{< homepage-hero

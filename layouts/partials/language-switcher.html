@@ -1,0 +1,36 @@
+{{ if hugo.IsMultilingual }}
+  {{ if .Site.Params.enableGlobalLanguageMenu }}
+    <!-- 
+      This is the new flag-based language switcher.
+      It ranges over all available languages and displays a flag for each.
+    -->
+    <div class="flag-switcher">
+      {{/* We range over .Site.Home.AllTranslations (which includes the current homepage).
+        This gives us a collection of Page objects, one for each language's homepage.
+        This is safer because each Page object definitely has a .Permalink.
+      */}}
+      {{ range .Site.Home.AllTranslations }}
+        {{ $lang := .Language.Lang }}
+        {{ $flag := "" }}
+
+        <!-- Assign a flag emoji based on the language code -->
+        {{ if eq $lang "sv" }}
+          {{ $flag = "🇸🇪" }}
+        {{ else if eq $lang "en" }}
+          {{ $flag = "🇬🇧" }}
+        {{ end }}
+
+        <!-- 
+          Render the flag as a link.
+          We also add a "current-lang" class if this flag's language
+          matches the *current page's* language ($.Site.Language.Lang).
+        -->
+        {{ if $flag }}
+          <a href="{{ .Permalink }}" title="{{ .Language.LanguageName }}" class="flag-link {{ if eq .Language.Lang $.Site.Language.Lang }}current-lang{{ end }}">
+            <span class="flag-icon">{{ $flag }}</span>
+          </a>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ end }}
+{{ end }}

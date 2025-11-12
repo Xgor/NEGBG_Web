@@ -2,15 +2,41 @@ baseURL = 'https://negbg-web.pages.dev/'
 languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
-#sectionPagesMenu = 'main'
 pluralizeListTitles = false
 relativeURLs = true
 timeZone = "Europe/Stockholm"
 
+enableGlobalLanguageMenu = true
+
+defaultContentLanguage = "sv"
+defaultContentLanguageInSubdir = false
+
+[languages]
+  [languages.sv]
+    title = "Negative Edge - Göteborgs FGC"
+    languageName = "Svenska"
+    languageCode = "sv-SE"
+    weight = 1
+    [languages.sv.params]
+      subtitle = "Göteborgs fightingspelsförening!"
+      date_format = "Mon, 2 Jan 2006"
+      datetime_format = "Mon 2 Jan 2006 kl. 15:04"
+  [languages.en]
+    title = "Negative Edge - Gothenburg's FGC"
+    languageName = "English"
+    languageCode = "en-GB"
+    weight = 2
+    [languages.en.params]
+      subtitle = "Gothenburg's fighting game community!"
+      date_format = "Mon, Jan 2, 2006"
+      datetime_format = "Mon, Jan 2, 2006 at 3:04 PM"
 [params]
   timeZoneAbbr = "CET/CEST"
   customCSS = ["/css/custom.css"]
   enableSharingButtons = true
+  enableGlobalLanguageMenu = true
+  description = "Göteborgs helt egna fightingspelsförening!"
+
 [params.logo]
     path = "/NegativeEdge_Color_1024_1.png"
     alt = "NE-logga"
@@ -20,7 +46,7 @@ timeZone = "Europe/Stockholm"
 
 
 [params.author]
-    name = "Jane Doe"
+    name = "Negative Edge"
 
 [params.footer]
   trademark = "Negative Edge 2025"
@@ -42,6 +68,13 @@ timeZone = "Europe/Stockholm"
     name = "twitch"
     url  = "https://www.twitch.tv/negativeedgegbg"
 
+  [[params.social]]
+    name = "youtube"
+    url = "http://www.youtube.com/user/NegativeEdgeGBG"
+
+  [[params.social]]
+    name = "email"
+    url = "negativeedgegbg@gmail.com"
   
 [caches]
   [caches.images]

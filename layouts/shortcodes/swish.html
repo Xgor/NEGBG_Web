@@ -1,0 +1,8 @@
+
+{{/* Get the URL from either a named 'url' param or the first positional param */}}
+{{ $url := .Get "url" | default (.Get 0) }}
+
+{{/* Get the link text from either a named 'text' param, the inner content, or default to the URL itself */}}
+{{ $text := .Get "text" | default .Inner | default $url }}
+
+<a href="{{ $url | safeURL }}">{{ $text }}</a>

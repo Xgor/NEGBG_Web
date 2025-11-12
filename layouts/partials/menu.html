@@ -1,0 +1,65 @@
+<nav class="menu">
+  <ul class="menu__inner">
+    {{- $currentPage := . -}}
+    {{/* --- This is the theme's standard menu loop --- */}}
+    {{ range sort .Site.Menus.main ".Identifier" -}}
+      <li><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+    {{- end }}
+
+    {{/* --- This is the new flag switcher, replacing the theme's dropdown --- */}}
+    {{/* We use the case-sensitive param from the theme that you fixed
+      by adding it to the root of hugo.toml
+    */}}
+    {{- if .Site.Params.EnableGlobalLanguageMenu }}
+      {{- if hugo.IsMultilingual }}
+        {{/* Wrap the switcher in an <li> to match the other menu items.
+          This will make it align correctly in the ul.menu__inner.
+        */}}
+        <li class="flag-switcher-wrapper">
+          <div class="flag-switcher">
+
+            {{/* 1. Build a map of all available translations, including the current page */}}
+            {{ $translationsMap := dict .Language.Lang . }}
+            {{ range .Translations }}
+              {{ $translationsMap = merge $translationsMap (dict .Language.Lang .) }}
+            {{ end }}
+
+            {{/* 2. Loop over ALL site languages (sv, en) */}}
+            {{ range .Site.Languages }}
+              {{ $lang := .Lang }}
+              {{ $flag := "" }}
+              {{ $isCurrent := eq .Lang $.Site.Language.Lang }}
+
+              {{/* 3. Check our map to see if a translation exists for this language */}}
+              {{ $translation := index $translationsMap .Lang }}
+
+              {{/* 4. Assign flag emoji */}}
+              {{ if eq $lang "sv" }}
+                {{ $flag = "🇸🇪" }}
+              {{ else if eq $lang "en" }}
+                {{ $flag = "🇬🇧" }}
+              {{ end }}
+
+              {{ if $flag }}
+                {{ if $translation }}
+                  {{/* 5a. A translation exists! Render a clickable link. */}}
+                  <a href="{{ $translation.Permalink }}" title="{{ .LanguageName }}" class="flag-link {{ if $isCurrent }}current-lang{{ end }}">
+                    <span class="flag-icon">{{ $flag }}</span>
+                  </a>
+                {{ else }}
+                  {{/* 5b. No translation. Render a disabled, greyed-out span. */}}
+                  <span title="{{ .LanguageName }} ({{ T "translation.not-available" | default "Not available" }})" class="flag-link disabled">
+                    <span class="flag-icon">{{ $flag }}</span>
+                  </span>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+          </div>
+        </li>
+      {{- end }}
+    {{- end }}
+    {{/* --- End of the new flag switcher --- */}}
+
+  </ul>
+</nav>

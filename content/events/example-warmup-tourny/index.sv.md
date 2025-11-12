@@ -1,16 +1,11 @@
----
-title: "Winter Warm-up Tournament 2025"
-date: 2025-11-03
-draft: false
++++
+title ="Winter Warm-up Tournament 2025"
+date = 2025-11-03
+draft = false
 
-# --- This is a ONE-OFF event ---
-start_date: 2025-12-06T10:00:00
-end_date: 2025-12-06T18:00:00
-
-# --- Common Fields ---
-location: "Kappa Bar, Gothenburg"
-summary: "A special one-day tournament to kick off the winter season."
----
+location ="Kappa Bar, Gothenburg"
+summary = "A special one-day tournament to kick off the winter season."
++++
 
 Get ready for our biggest one-day event of the year!
 

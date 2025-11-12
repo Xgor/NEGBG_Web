@@ -1,71 +1,99 @@
-{{/* This layout builds a single, sorted list of all future event occurrences.
-*/}}
-{{ $all_pages := where .Site.RegularPages "Section" "events" }}
+{{/* 1. Hämta alla eventsidor från det *aktuella* språket */}}
+{{ $preferredEvents := where .Site.RegularPages "Section" "events" }}
+
+{{/* 2. Hämta alla andra språk-sajter (exklusive den aktuella) */}}
+{{ $otherSites := complement (slice .Site) site.Sites }}
+
+{{/* 3. Loopa igenom de andra språken och "slå ihop" deras eventsidor */}}
+{{ range $otherSites }}
+  {{ $preferredEvents = $preferredEvents | lang.Merge (where .RegularPages "Section" "events") }}
+{{ end }}
+
+{{/* 4. Nu har vi en ren lista med evenemangssidor. Bygg master-listan. */}}
 {{ $now := now }}
 {{ $today_string := $now.Format "2006-01-02" }}
-
-{{/* 1. Create an empty list to hold all upcoming event instances */}}
 {{ $master_event_list := slice }}
 
-{{/* 2. Loop through every event page */}}
-{{ range $all_pages }}
+{{ range $preferredEvents }}
   {{ $page := . }}
+  
+  {{ $data := dict }}
+  {{ $recurrence := dict }}
+  {{ $start_date := "" }}
+  {{ $end_date := "" }}
 
-  {{ if $page.Params.start_date }}
-    {{/* --- A. Handle ONE-OFF events --- */}}
-    {{ $event_time := time $page.Params.start_date }}
+  {{/* Leta efter datafilen (data.toml ELLER schedule.toml) */}}
+  {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
+  
+  {{ if $dataResource }}
+    {{/* Det är en Page Bundle (Ny stil) */}}
+    {{ $data = $dataResource.Content | unmarshal }}
+    
+    {{/* Slå ihop datan: text från sidan, schema/tider från datafilen */}}
+    {{ $recur_data := $data.recurrence | default (dict) }}
+    {{ $recur_text := $page.Params.recurrence | default (dict) }}
+    {{ $recurrence = merge $recur_data $recur_text }}
+    
+    {{ $start_date = $data.start_date }}
+    {{ $end_date = $data.end_date }}
+    
+  {{ else }}
+    {{/* Det är en enkel sida (Gammal stil, fallback) */}}
+    {{ $start_date = .Params.start_date }}
+    {{ $end_date = .Params.end_date }}
+    {{ $recurrence = .Params.recurrence }}
+  {{ end }}
+  
+
+  {{ if $start_date }}
+    {{/* Logik för engångsevenemang */}}
+    {{ $event_time := time $start_date }}
     {{ if $event_time.After $now }}
       {{ $master_event_list = $master_event_list | append (dict
           "Page" $page
           "SortDate" $event_time
-          "Time" (printf "%s - %s" ($event_time.Format "15:04") ((time $page.Params.end_date).Format "15:04"))
+          "Time" (printf "%s - %s" ($event_time.Format "15:04") ((time $end_date).Format "15:04"))
         )
       }}
     {{ end }}
 
-  {{ else if $page.Params.recurrence.schedule }}
-    {{/* --- B. Handle RECURRING events --- */}}
+  {{ else if $recurrence.schedule }}
+    {{/* Logik för återkommande evenemang */}}
+    {{ $recur := $recurrence }}
     
-    {{/* Get data from the nested recurrence block */}}
-    {{ $recur := $page.Params.recurrence }}
-    {{ $cancellations := $recur.cancellations | default (slice) }}
-    {{ $start_time_str := $recur.start_time }}
-    {{ $end_time_str := $recur.end_time }}
-    {{ $time_range_str := printf "%s - %s" $start_time_str $end_time_str }}
+    {{ if $recur.start_time }}
+      {{ $cancellations := $recur.cancellations | default (slice) }}
+      {{ $start_time_str := $recur.start_time }}
+      {{ $end_time_str := $recur.end_time }}
+      {{ $time_range_str := printf "%s - %s" $start_time_str $end_time_str }}
 
-    {{/* Loop through every date in this event's schedule */}}
-    {{ range $recur.schedule }}
-      {{ $date_string := . }}
-      
-      {{/* Check 1: Is the date today or in the future? */}}
-      {{ if ge $date_string $today_string }}
-      
-        {{/* Check 2: Is this date in the cancellations list? */}}
-        {{ if not (in $cancellations $date_string) }}
-        
-          {{/* It's a valid, future event. Add it to the master list. */}}
-          {{ $event_datetime_string := printf "%sT%s:00" $date_string $start_time_str }}
-          {{ $event_time := time $event_datetime_string }}
-
-          {{ $master_event_list = $master_event_list | append (dict
-              "Page" $page
-              "SortDate" $event_time
-              "Time" $time_range_str
-            )
-          }}
+      {{ range $recur.schedule }}
+        {{ $date_string := . }}
+        {{ if ge $date_string $today_string }}
+          {{ if not (in $cancellations $date_string) }}
+            {{ $event_datetime_string := printf "%sT%s:00" $date_string $start_time_str }}
+            {{ $event_time := time $event_datetime_string }}
+            {{ $master_event_list = $master_event_list | append (dict
+                "Page" $page
+                "SortDate" $event_time
+                "Time" $time_range_str
+              )
+            }}
+          {{ end }}
         {{ end }}
       {{ end }}
+    {{ else }}
+      {{ warnf "Event '%s' has a 'recurrence' block but is missing 'start_time'. It will not be listed." $page.File.Path }}
     {{ end }}
   {{ end }}
 {{ end }}
 
-
-{{/* 3. Sort the final master list by date and take the first 5 */}}
+{{/* 5. Sortera och visa listan  */}}
 {{ $sorted_events := sort $master_event_list "SortDate" "asc" }}
 {{ $next_5_events := first 5 $sorted_events }}
 
 <section class="next-events">
-  <h2>Next 5 Events</h2>
+  <h2>{{ T "event.upcoming-title" | default "Upcoming Events" }}</h2>
   {{ if ge (len $next_5_events) 1 }}
     <ul class="event-card-list">
       {{ range $next_5_events }}
@@ -73,6 +101,6 @@
       {{ end }}
     </ul>
   {{ else }}
-    <p>No upcoming events are scheduled at this time.</p>
+    <p>{{ T "event.no-upcoming" | default "No upcoming events are scheduled at this time." }}</p>
   {{ end }}
 </section>
