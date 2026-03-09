@@ -70,7 +70,7 @@ defaultContentLanguageInSubdir = false
 
   [[params.social]]
     name = "youtube"
-    url = "http://www.youtube.com/user/NegativeEdgeGBG"
+    url = "https://www.youtube.com/@nedgegbg"
 
   [[params.social]]
     name = "email"
