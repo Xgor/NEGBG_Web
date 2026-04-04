@@ -1,10 +1,10 @@
 +++
-title = "Guilty Gear Strive 2.0 Release Tournament"
+title = "Guilty Gear Strive 2.00 Release Tournament"
 date = 2026-04-04
 draft = false
 
 location = "Kappa Bar, Göteborg"
-summary = "Celebrate the release of Strive 2.0 with a tournament!"
+summary = "Celebrate the release of Strive 2.00 with a tournament!"
 +++
 
 Guilty Gear Strive 2.0 is out — and we're celebrating with an all-day tournament!
@@ -20,4 +20,6 @@ Whether you're a seasoned veteran or a newcomer, everyone is welcome to compete.
   * 1st: 500 kr · 2nd: 200 kr · 3rd: 150 kr · 4th: 100 kr · 5th: 50 kr
 * **Rules:** Standard tournament rules apply.
 
-Bring your best and show what you've got!
+HEAVEN OR HELL
+
+**LET'S ROCK!**
