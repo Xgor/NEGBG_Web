@@ -284,6 +284,11 @@
  * (Applies to screens 768px wide or smaller)
  */
 
+/* Fix header position on short pages */
+.container { justify-content: flex-start !important; }
+
+.container > article { flex: 1 auto; }
+
 @media (max-width: 768px) {
 
 

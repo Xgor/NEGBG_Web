@@ -74,8 +74,15 @@ defaultContentLanguageInSubdir = false
 
   [[params.social]]
     name = "email"
-    url = "negativeedgegbg@gmail.com"
-  
+    url = "mailto:negativeedgegbg@gmail.com"
+
+  [[params.social]]
+    name = "matrix"
+    url  = "https://matrix.to/#/!eCTTvSWDbcYCKFixSR:feffe.moe?via=feffe.moe&via=matrix.org"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
 [caches]
   [caches.images]
     dir = ':cacheDir'

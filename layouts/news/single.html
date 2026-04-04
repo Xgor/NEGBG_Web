@@ -1,0 +1,26 @@
+{{ define "main" }}
+<article class="post">
+  <header>
+    <h1>{{ .Title }}</h1>
+    <p class="event-card-date">{{ partial "dates.html" .Date }}</p>
+  </header>
+
+  <div class="content">
+    {{ .Content }}
+  </div>
+
+  {{ with .Params.event_link }}
+    <section class="linked-events">
+      <h2>{{ T "news.linked-event" | default "Event" }}</h2>
+      <ul class="event-card-list">
+        {{ range . }}
+          {{ $eventPage := $.Site.GetPage (printf "/events/%s" .) }}
+          {{ with $eventPage }}
+            {{ partial "linked-event-card.html" . }}
+          {{ end }}
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+</article>
+{{ end }}

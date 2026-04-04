@@ -1,7 +1,7 @@
 +++
 date = '2025-10-30T00:15:29+01:00'
 title = 'Turnering X Resultat'
-draft = false
+draft = true
 cover = '/images/ai-example.jpg'
 +++
 
