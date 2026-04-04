@@ -65,6 +65,10 @@ defaultContentLanguageInSubdir = false
     url  = "https://www.facebook.com/share/1B3JfCMQGS/"
 
   [[params.social]]
+    name = "instagram"
+    url = "https://www.instagram.com/goteborgfgc_negative_edge/"
+
+  [[params.social]]
     name = "twitch"
     url  = "https://www.twitch.tv/negativeedgegbg"
 

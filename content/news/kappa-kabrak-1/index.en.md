@@ -6,19 +6,18 @@ cover = "/images/Kappa_Kabrak_1_Gruppfoto_Cropped.jpg"
 event_link = ["Kappa_Kabrak_Gruppfoto"]
 +++
 
-Text om tourneringen Kappa Kabrak. Väntar på färdig text från KongoBongo
+Welcome to Kappa Kabrak!!! 
+Kappa Kabrak is the GothenburgFGC - Negative Edge Street Fighter 6 tournament hosted at Kappa Bar in Gothenburg. Fight for honor and glory! Or just come, meet the community and grab a few cold ones with the boys.
+We plan to hold these tournaments on one Sunday a month starting at 16:00.
 
 <!--more-->
 
+# Results
 
-
-
-# Resultat
-
-![Resultat](/images/Kappa_Kabrak_1.png)
+![Results](/images/Kappa_Kabrak_1.png)
 # Stream
-Titta på tournerings VOD här
-{{< youtube 3rjiXykITw8 >}}
+Watch the tournament VOD here
+https://www.youtube.com/watch?v=3rjiXykITw8
 
-## Tourneringsidan
+## Tournament Page
 https://ceca1a6a1a76169ba1e5b00c.challonge.com/sv/61dphi84#/signup/puy26b0jlp

@@ -16,8 +16,7 @@ Whether you're a seasoned veteran or a newcomer, everyone is welcome to compete.
 
 * **Date:** April 12, 2026
 * **Location:** Kappa Bar, Rosenlundsgatan 8, Gothenburg
-* **Sign-ups:** 10:00 – 10:45
-* **Bracket Starts:** 11:00
+* **Bracket Starts:** 16:00
 * **Entry Fee:** 50 SEK
 * **Prize Pool:** 1 000 SEK
   * 1st: 500 kr · 2nd: 200 kr · 3rd: 150 kr · 4th: 100 kr · 5th: 50 kr
