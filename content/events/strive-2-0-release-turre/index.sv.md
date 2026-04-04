@@ -7,7 +7,7 @@ location = "Kappa Bar, Göteborg"
 summary = "Fira releasen av Strive 2.00 med en turnering!"
 +++
 
-Guilty Gear Strive 2.0 är ute — och vi firar med en turre!
+Guilty Gear Strive 2.00 släpps — och vi firar med en turre!
 
 Oavsett om du är veteran eller nybörjare är alla välkomna att tävla. Vi kör dubbeleliminering och topp 5 vinner priser.
 

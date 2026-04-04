@@ -7,7 +7,7 @@ location = "Kappa Bar, Göteborg"
 summary = "Celebrate the release of Strive 2.00 with a tournament!"
 +++
 
-Guilty Gear Strive 2.0 is out — and we're celebrating with an all-day tournament!
+Guilty Gear Strive 2.0 is releasing — and we're celebrating with a tournament!
 
 Whether you're a seasoned veteran or a newcomer, everyone is welcome to compete. We're running double elimination and top 5 take home prizes.
 

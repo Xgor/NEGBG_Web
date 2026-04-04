@@ -6,7 +6,7 @@ cover = "/images/strive-2-0-turre-cover.jpg"
 event_link = ["strive-2-0-release-turre"]
 +++
 
-Guilty Gear Strive 2.0 är ute — och vi firar med en heldagsturnering på Kappa Bar den 12:e april!
+Guilty Gear Strive 2.0 släpps — och vi firar med en heldagsturnering på Kappa Bar den 12:e april!
 
 <!--more-->
 
