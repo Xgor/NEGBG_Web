@@ -11,6 +11,9 @@ Vi planerar att hålla dessa turneringar på en söndag i månaden med start kl 
 
 <!--more-->
 
+![Group](/images/Kappa_Kabrak_1_Gruppfoto_Cropped.jpg)
+
+
 # Resultat
 
 ![Resultat](/images/Kappa_Kabrak_1.png)
