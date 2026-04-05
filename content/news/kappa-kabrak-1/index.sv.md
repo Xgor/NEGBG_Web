@@ -18,5 +18,5 @@ Vi planerar att hålla dessa turneringar på en söndag i månaden med start kl 
 Titta på tournerings VOD här
 https://www.youtube.com/watch?v=3rjiXykITw8
 
-## Tourneringsidan
+## Turneringsidan
 https://ceca1a6a1a76169ba1e5b00c.challonge.com/sv/61dphi84#/signup/puy26b0jlp
