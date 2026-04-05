@@ -2,7 +2,7 @@
 date = "2026-02-27T17:30:00+01:00"
 title = "Kappa Kabrak 1"
 draft = false
-cover = "/images/Kappa_Kabrak_1_Gruppfoto_Cropped.jpg"
+cover = "/images/Kappa_Kabrak_1_1.png"
 event_link = ["Kappa_Kabrak_Gruppfoto"]
 +++
 
