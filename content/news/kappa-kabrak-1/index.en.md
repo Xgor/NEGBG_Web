@@ -10,7 +10,11 @@ Kappa Kabrak is the GothenburgFGC - Negative Edge Street Fighter 6 tournament ho
 We plan to hold these tournaments on one Sunday a month starting at 16:00.
 
 <!--more-->
+## Group picture
 ![Group](/images/Kappa_Kabrak_1_Gruppfoto_Cropped.jpg)
+
+## Top 3
+![Top3](/images/Kappa_Kabrak_Top_3.jpg)
 
 
 # Results

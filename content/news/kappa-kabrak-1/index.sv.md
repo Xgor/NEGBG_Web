@@ -10,9 +10,11 @@ Kappa Kabrak är GöteborgFGC - Negative Edge Street Fighter 6 turnering som hos
 Vi planerar att hålla dessa turneringar på en söndag i månaden med start kl 16:00.
 
 <!--more-->
-
+## Gruppfoto
 ![Group](/images/Kappa_Kabrak_1_Gruppfoto_Cropped.jpg)
 
+## Topp 3
+![Top3](/images/Kappa_Kabrak_Top_3.jpg)
 
 # Resultat
 
