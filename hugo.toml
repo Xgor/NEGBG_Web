@@ -65,17 +65,28 @@ defaultContentLanguageInSubdir = false
     url  = "https://www.facebook.com/share/1B3JfCMQGS/"
 
   [[params.social]]
+    name = "instagram"
+    url = "https://www.instagram.com/goteborgfgc_negative_edge/"
+
+  [[params.social]]
     name = "twitch"
     url  = "https://www.twitch.tv/negativeedgegbg"
 
   [[params.social]]
     name = "youtube"
-    url = "http://www.youtube.com/user/NegativeEdgeGBG"
+    url = "https://www.youtube.com/@nedgegbg"
 
   [[params.social]]
     name = "email"
-    url = "negativeedgegbg@gmail.com"
-  
+    url = "mailto:negativeedgegbg@gmail.com"
+
+  [[params.social]]
+    name = "matrix"
+    url  = "https://matrix.to/#/!eCTTvSWDbcYCKFixSR:feffe.moe?via=feffe.moe&via=matrix.org"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
 [caches]
   [caches.images]
     dir = ':cacheDir'

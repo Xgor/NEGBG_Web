@@ -1,7 +1,7 @@
 +++
 date = "2025-11-05T17:30:00+01:00"
 title = "Winter Warm-up Results Are In!"
-draft = false
+draft = true
 cover = "/images/winter-warmup-results-cover.jpg"
 event_link = ["winter-warmup-2025"]
 +++
