@@ -9,6 +9,8 @@ weight = 30
   <strong>🚧 This page is under construction</strong> – more information is coming soon!
 </div>
 
-Gothenburg's largest fighting game association – focusing on Street Fighter 6, Tekken 8, and 2XKO.
+Gothenburg's largest fighting game association – focusing on Street Fighter 6, Tekken 8, Guilty Gear -Strive-, and 2XKO.
 We meet every week at Kappa Bar for a great time and even greater matches.
 Whether you are a beginner or a veteran – all levels are warmly welcome!
+
+See you there!
