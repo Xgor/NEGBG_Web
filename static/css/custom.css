@@ -207,10 +207,10 @@
  */
 .news-card-cover {
   width: 100%;
-  height: 180px; /* You can adjust this height */
-  object-fit: cover; /* This crops the image nicely */
-  border-radius: 6px; /* Matches the .event-card-details style */
-  margin-bottom: 1em; /* Space between image and title */
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  margin-bottom: 1em;
   border: 1px solid var(--main-border, #444);
 }
 
@@ -375,10 +375,10 @@
 
   .news-card-cover {
     width: 100%;
-    height: 180px; /* You can adjust this height */
-    object-fit: cover; /* This crops the image nicely */
-    border-radius: 6px; /* Matches the .event-card-details style */
-    margin-top: 1em;    /* Space between date and image */
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    margin-top: 1em;
     border: 1px solid var(--main-border, #444);
   }
 
