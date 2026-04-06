@@ -45,7 +45,7 @@
 
               {{ with $page.Params.cover }}
                 <a href="{{ $page.RelPermalink }}">
-                  <img src="{{ . | absURL }}" alt="{{ $page.Title }}" class="news-card-cover">
+                  <img src="{{ . }}" alt="{{ $page.Title }}" class="news-card-cover">
                 </a>
               {{ end }}
               
