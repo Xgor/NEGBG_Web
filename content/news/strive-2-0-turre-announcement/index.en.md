@@ -26,6 +26,12 @@ Whether you're a seasoned veteran or a newcomer, everyone is welcome to compete.
   * and collected entry fees distributed the same way!
 * **Rules:** Standard tournament rules apply. Negative Edge membership required — can be sorted on the day.
 
+[Challonge](https://ceca1a6a1a76169ba1e5b00c.challonge.com/vgp1btoj)
+
+[Discord event](https://discord.com/events/581034602865360898/1490717882198524164)
+
+{{< spacer >}}
+
 <div class="text-center">
 
 HEAVEN OR HELL

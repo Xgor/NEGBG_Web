@@ -23,6 +23,16 @@ Oavsett om du är veteran eller nybörjare är alla välkomna att tävla. Vi kö
   * och insamlade anmälningsavgifter i samma utdelning!
 * **Regler:** Standard turneringsregler gäller. Medlemskap i Negative Edge krävs och kan ordnas på plats.
 
+[Challonge](https://ceca1a6a1a76169ba1e5b00c.challonge.com/vgp1btoj)
+
+[Discord event](https://discord.com/events/581034602865360898/1490717882198524164)
+
+{{< spacer >}}
+
+<div class="text-center">
+
 HEAVEN OR HELL
 
 **LET'S ROCK!**
+
+</div>
