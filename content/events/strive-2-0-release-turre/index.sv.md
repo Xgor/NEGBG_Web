@@ -1,6 +1,6 @@
 +++
 title = "Guilty Gear Strive 2.00 Releaseturre"
-date = 2026-04-04
+date = 2026-04-06
 draft = false
 
 location = "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
@@ -16,7 +16,8 @@ Oavsett om du är veteran eller nybörjare är alla välkomna att tävla. Vi kö
 ### Eventdetaljer
 
 * **Bracket startar:** 16:00
-* **Anmälningsavgift:** 50 SEK
+* **Check-in:** 15:30
+* **Anmälningsavgift:** 25 SEK
 * **Prispott:** 1 000 SEK
   * 1:a: 500 kr · 2:a: 200 kr · 3:a: 150 kr · 4:a: 100 kr · 5:a: 50 kr
   * och insamlade anmälningsavgifter i samma utdelning!

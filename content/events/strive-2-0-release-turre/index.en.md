@@ -1,6 +1,6 @@
 +++
 title = "Guilty Gear Strive 2.00 Release Tournament"
-date = 2026-04-04
+date = 2026-04-06
 draft = false
 
 location = "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
@@ -16,7 +16,8 @@ Whether you're a seasoned veteran or a newcomer, everyone is welcome to compete.
 ### Event Details
 
 * **Bracket Starts:** 16:00
-* **Entry Fee:** 50 SEK
+* **Check-in:** 15:30
+* **Entry Fee:** 25 SEK
 * **Prize Pool:** 1 000 SEK
   * 1st: 500 kr · 2nd: 200 kr · 3rd: 150 kr · 4th: 100 kr · 5th: 50 kr
   * and collected entry fees distributed the same way!
