@@ -26,7 +26,7 @@
           matches the *current page's* language ($.Site.Language.Lang).
         -->
         {{ if $flag }}
-          <a href="{{ .Permalink }}" title="{{ .Language.LanguageName }}" class="flag-link {{ if eq .Language.Lang $.Site.Language.Lang }}current-lang{{ end }}">
+          <a href="{{ .RelPermalink }}" title="{{ .Language.LanguageName }}" class="flag-link {{ if eq .Language.Lang $.Site.Language.Lang }}current-lang{{ end }}">
             <span class="flag-icon">{{ $flag }}</span>
           </a>
         {{ end }}

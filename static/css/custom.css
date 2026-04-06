@@ -284,6 +284,11 @@
  * (Applies to screens 768px wide or smaller)
  */
 
+/* Utility: center a specific block of content inside a post */
+.text-center {
+  text-align: center;
+}
+
 /* Fix header position on short pages */
 .container { justify-content: flex-start !important; }
 

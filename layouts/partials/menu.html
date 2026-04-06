@@ -43,7 +43,7 @@
               {{ if $flag }}
                 {{ if $translation }}
                   {{/* 5a. A translation exists! Render a clickable link. */}}
-                  <a href="{{ $translation.Permalink }}" title="{{ .LanguageName }}" class="flag-link {{ if $isCurrent }}current-lang{{ end }}">
+                  <a href="{{ $translation.RelPermalink }}" title="{{ .LanguageName }}" class="flag-link {{ if $isCurrent }}current-lang{{ end }}">
                     <span class="flag-icon">{{ $flag }}</span>
                   </a>
                 {{ else }}

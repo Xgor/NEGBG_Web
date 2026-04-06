@@ -1,11 +1,10 @@
-baseURL = 'https://negbg-web.pages.dev/'
+baseURL = 'https://negativeedge.se/'
 languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
 pluralizeListTitles = false
 relativeURLs = true
 timeZone = "Europe/Stockholm"
-
 enableGlobalLanguageMenu = true
 
 defaultContentLanguage = "sv"
@@ -19,6 +18,8 @@ defaultContentLanguageInSubdir = false
     weight = 1
     [languages.sv.params]
       subtitle = "Göteborgs fightingspelsförening!"
+      homeSubtitle = "Göteborgs fightingspelsförening – turneringar, casuals och community för alla fightingspel."
+      description = "Göteborgs helt egna fightingspelsförening!"
       date_format = "Mon, 2 Jan 2006"
       datetime_format = "Mon 2 Jan 2006 kl. 15:04"
   [languages.en]
@@ -28,6 +29,8 @@ defaultContentLanguageInSubdir = false
     weight = 2
     [languages.en.params]
       subtitle = "Gothenburg's fighting game community!"
+      homeSubtitle = "Gothenburg's fighting game community – tournaments, casuals and a home for all fighting game players."
+      description = "Gothenburg's very own fighting game community!"
       date_format = "Mon, Jan 2, 2006"
       datetime_format = "Mon, Jan 2, 2006 at 3:04 PM"
 [params]
