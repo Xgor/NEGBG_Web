@@ -6,13 +6,12 @@ cover = "/images/strive-2-0-turre-cover.jpg"
 event_link = ["strive-2-0-release-turre"]
 +++
 
-![cover](/images/strive-2-0-turre-cover.jpg)
-
 Guilty Gear Strive 2.00 is releasing — and we're celebrating with a tournament at Kappa Bar on April 12!
 
 Whether you're a seasoned veteran or a newcomer, everyone is welcome to compete. We're running double elimination and top 5 take home prizes.
 <!--more-->
 
+![cover](/images/strive-2-0-turre-cover.jpg)
 
 ### Event Details
 
