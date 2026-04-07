@@ -1,5 +1,7 @@
 +++
-title = 'About Us'
+title = 'About Negative Edge – Fighting Games in Gothenburg'
+description = "Negative Edge is Gothenburg's largest fighting game association. We play Tekken 8, Street Fighter 6, Guilty Gear Strive and 2XKO every week at Kappa Bar."
+tags = ['tekken gothenburg', 'street fighter gothenburg', 'guilty gear gothenburg', '2xko gothenburg', 'under night gothenburg', 'uni2 gothenburg', 'fatal fury gothenburg', 'blazblue gothenburg', 'fighting games gothenburg', 'FGC gothenburg']
 [menu.main]
 identifier = "4_about"
 name = "About"

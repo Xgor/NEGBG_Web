@@ -1,5 +1,7 @@
 +++
 title = "Hem"
+description = "Negative Edge är Göteborgs största fightingspelsförening. Vi spelar Tekken 8, Street Fighter 6, Guilty Gear Strive och 2XKO varje vecka på Kappa Bar."
+tags = ['fightingspel göteborg', 'FGC göteborg', 'tekken göteborg', 'street fighter göteborg', 'guilty gear göteborg', 'kappa bar göteborg', '2xko göteborg', 'fightingspelsförening göteborg']
 [menu.main]
 identifier = "1_home"
 weight = 10
