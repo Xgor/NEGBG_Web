@@ -292,6 +292,9 @@
 /* Fix header position on short pages */
 .container { justify-content: flex-start !important; }
 
+/* Fix event page body text alignment (theme's .content uses align-items: center) */
+.content { align-items: flex-start; }
+
 .container > article { flex: 1 auto; }
 
 @media (max-width: 768px) {
