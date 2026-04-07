@@ -292,8 +292,8 @@
 /* Fix header position on short pages */
 .container { justify-content: flex-start !important; }
 
-/* Fix event page body text alignment (theme's .content uses align-items: center) */
-.content { align-items: flex-start; }
+/* Fix event page body text — scope to event pages only to avoid breaking homepage */
+.event-page-content { align-items: stretch; }
 
 .container > article { flex: 1 auto; }
 
