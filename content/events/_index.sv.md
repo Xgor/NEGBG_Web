@@ -1,5 +1,7 @@
 +++
 title = "Evenemang"
+description = "Fightingspelsevenemang, turneringar och veckoträffar i Göteborg. Negative Edge träffas varje vecka på Kappa Bar – alla nivåer välkomna."
+tags = ['fightingspel evenemang göteborg', 'FGC evenemang göteborg', 'tekken turnering göteborg', 'kappa bar evenemang', 'veckoträff fightingspel göteborg']
 [menu.main]
 identifier = "3_events"
 name = "Evenemang"
