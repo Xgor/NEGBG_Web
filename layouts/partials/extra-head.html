@@ -2,7 +2,7 @@
 
 {{ if eq .Type "events" }}
   {{/* Load event data from data.toml if it's a bundle, otherwise from front matter */}}
-  {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
+  {{ $dataResource := .Resources.GetMatch "data.toml"}}
   {{ $data := dict }}
   {{ if $dataResource }}
     {{ $data = $dataResource.Content | unmarshal }}
