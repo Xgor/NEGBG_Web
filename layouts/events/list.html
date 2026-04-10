@@ -8,6 +8,12 @@
     {{ .Content }}
   </div>
 
+  {{ with .OutputFormats.Get "ical" }}
+  <p class="ical-subscribe">
+    <a href="{{ .RelPermalink }}">{{ T "event.subscribe-ical" | default "Subscribe to calendar (iCal)" }}</a>
+  </p>
+  {{ end }}
+
   {{ $all_events := where .Site.RegularPages "Section" "events" }}
   {{ $otherSites := complement (slice .Site) site.Sites }}
   {{ range $otherSites }}
