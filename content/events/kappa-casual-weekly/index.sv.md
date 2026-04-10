@@ -1,5 +1,5 @@
 ---
-title: "Veckoliga Casuals på Kappa Bar"
+title: "Veckoträff på Kappa Bar"
 date: 2025-11-03
 draft: false
 
