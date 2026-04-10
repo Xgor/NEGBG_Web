@@ -1,30 +1,46 @@
 <li class="event-card">
-  
+
   <div class="event-card-info">
     <h3 class="event-card-title">
       <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
     </h3>
+    {{ with .Cover }}
+      <a href="{{ $.Page.RelPermalink }}">
+        <img src="{{ . }}" alt="{{ $.Page.Title }}" class="event-card-cover">
+      </a>
+    {{ end }}
     {{ with .Page.Params.summary }}
       <p class="event-card-summary">{{ . }}</p>
+    {{ end }}
+    {{ with .Announcement }}
+      <p class="event-card-announcement-link">
+        <a href="{{ .RelPermalink }}">{{ T "event.read-announcement" | default "Read announcement" }} →</a>
+      </p>
     {{ end }}
   </div>
 
   <div class="event-card-details">
     <p>
-      <strong>{{ T "when" }}:</strong> 
-      
+      <strong>{{ T "when" }}:</strong>
       {{ $dateHuman := time.Format ":date_long" .SortDate }}
-      {{ $timeStr := .Time }}
       {{ $tz := .SortDate.Format "MST" }}
-
-      {{ printf "%s %s %s (%s)" $dateHuman (T "at") $timeStr $tz }}
-      
+      {{ printf "%s %s %s (%s)" $dateHuman (T "at") .Time $tz }}
       {{ with .Page.Params.recurrence }}
         <span class="event-type">({{ .type }})</span>
       {{ end }}
     </p>
-    {{ with .Page.Params.location }}
+    {{ with .CheckinTime }}
+      <p><strong>{{ T "event.check-in" }}:</strong> {{ . }}</p>
+    {{ end }}
+    {{ with .Location }}
       <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
     {{ end }}
+    {{ with .Price }}
+      <p><strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $.PriceCurrency }}</p>
+    {{ end }}
+    {{ with .PrizePool }}
+      <p><strong>{{ T "event.prize-pool" }}:</strong> {{ .total }} {{ .currency }}</p>
+    {{ end }}
   </div>
+
 </li>

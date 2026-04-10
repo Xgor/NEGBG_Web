@@ -1,71 +1,82 @@
-{{/* 1. Hämta alla eventsidor från det *aktuella* språket */}}
-{{ $preferredEvents := where .Site.RegularPages "Section" "events" }}
-
-{{/* 2. Hämta alla andra språk-sajter (exklusive den aktuella) */}}
+{{/* Collect all news pages for announcement lookup */}}
+{{ $all_news := where .Site.RegularPages "Section" "news" }}
 {{ $otherSites := complement (slice .Site) site.Sites }}
+{{ range $otherSites }}
+  {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
+{{ end }}
 
-{{/* 3. Loopa igenom de andra språken och "slå ihop" deras eventsidor */}}
+{{/* Collect all event pages, preferring current language */}}
+{{ $preferredEvents := where .Site.RegularPages "Section" "events" }}
 {{ range $otherSites }}
   {{ $preferredEvents = $preferredEvents | lang.Merge (where .RegularPages "Section" "events") }}
 {{ end }}
 
-{{/* 4. Nu har vi en ren lista med evenemangssidor. Bygg master-listan. */}}
 {{ $now := now }}
 {{ $today_string := $now.Format "2006-01-02" }}
 {{ $master_event_list := slice }}
 
 {{ range $preferredEvents }}
   {{ $page := . }}
-  
+
   {{ $data := dict }}
   {{ $recurrence := dict }}
   {{ $start_date := "" }}
   {{ $end_date := "" }}
 
-  {{/* Leta efter datafilen (data.toml ELLER schedule.toml) */}}
   {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
-  
+
   {{ if $dataResource }}
-    {{/* Det är en Page Bundle (Ny stil) */}}
     {{ $data = $dataResource.Content | unmarshal }}
-    
-    {{/* Slå ihop datan: text från sidan, schema/tider från datafilen */}}
     {{ $recur_data := $data.recurrence | default (dict) }}
     {{ $recur_text := $page.Params.recurrence | default (dict) }}
     {{ $recurrence = merge $recur_data $recur_text }}
-    
     {{ $start_date = $data.start_date }}
     {{ $end_date = $data.end_date }}
-    
   {{ else }}
-    {{/* Det är en enkel sida (Gammal stil, fallback) */}}
     {{ $start_date = .Params.start_date }}
     {{ $end_date = .Params.end_date }}
     {{ $recurrence = .Params.recurrence }}
   {{ end }}
-  
+
+  {{/* Per-page metadata */}}
+  {{ $location     := $data.location      | default $page.Params.location }}
+  {{ $cover        := $data.cover         | default $page.Params.cover }}
+  {{ $checkin_time := $data.checkin_time }}
+  {{ $price        := $data.price }}
+  {{ $price_currency := $data.price_currency }}
+  {{ $prize_pool   := $data.prize_pool }}
+
+  {{/* Announcement news post lookup */}}
+  {{ $eventSlug := path.Base (strings.TrimSuffix $page.File.Dir "/") }}
+  {{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
+  {{ $announcement := where $linked_news ".Params.event_role" "announcement" | first 1 | index 0 }}
 
   {{ if $start_date }}
-    {{/* Logik för engångsevenemang */}}
     {{ $event_time := time $start_date }}
     {{ if $event_time.After $now }}
       {{ $master_event_list = $master_event_list | append (dict
-          "Page" $page
-          "SortDate" $event_time
-          "Time" (printf "%s - %s" ($event_time.Format ($.Site.Language.Params.time_format | default "15:04")) ((time $end_date).Format ($.Site.Language.Params.time_format | default "15:04")))
+          "Page"          $page
+          "SortDate"      $event_time
+          "Time"          (printf "%s - %s" ($event_time.Format ($.Site.Language.Params.time_format | default "15:04")) ((time $end_date).Format ($.Site.Language.Params.time_format | default "15:04")))
+          "Location"      $location
+          "Cover"         $cover
+          "CheckinTime"   $checkin_time
+          "Price"         $price
+          "PriceCurrency" $price_currency
+          "PrizePool"     $prize_pool
+          "Announcement"  $announcement
         )
       }}
     {{ end }}
 
   {{ else if $recurrence.schedule }}
-    {{/* Logik för återkommande evenemang */}}
     {{ $recur := $recurrence }}
-    
+
     {{ if $recur.start_time }}
-      {{ $cancellations := $recur.cancellations | default (slice) }}
-      {{ $start_time_str := $recur.start_time }}
-      {{ $end_time_str := $recur.end_time }}
-      {{ $time_range_str := printf "%s - %s" $start_time_str $end_time_str }}
+      {{ $cancellations    := $recur.cancellations | default (slice) }}
+      {{ $start_time_str   := $recur.start_time }}
+      {{ $end_time_str     := $recur.end_time }}
+      {{ $time_range_str   := printf "%s - %s" $start_time_str $end_time_str }}
 
       {{ range $recur.schedule }}
         {{ $date_string := . }}
@@ -74,9 +85,16 @@
             {{ $event_datetime_string := printf "%sT%s:00" $date_string $start_time_str }}
             {{ $event_time := time $event_datetime_string }}
             {{ $master_event_list = $master_event_list | append (dict
-                "Page" $page
-                "SortDate" $event_time
-                "Time" $time_range_str
+                "Page"          $page
+                "SortDate"      $event_time
+                "Time"          $time_range_str
+                "Location"      $location
+                "Cover"         $cover
+                "CheckinTime"   $checkin_time
+                "Price"         $price
+                "PriceCurrency" $price_currency
+                "PrizePool"     $prize_pool
+                "Announcement"  $announcement
               )
             }}
           {{ end }}
@@ -88,9 +106,8 @@
   {{ end }}
 {{ end }}
 
-{{/* 5. Sortera och visa listan  */}}
-{{ $sorted_events := sort $master_event_list "SortDate" "asc" }}
-{{ $next_5_events := first 5 $sorted_events }}
+{{ $sorted_events  := sort $master_event_list "SortDate" "asc" }}
+{{ $next_5_events  := first 5 $sorted_events }}
 
 <section class="next-events">
   <h2>{{ T "event.upcoming-title" | default "Upcoming Events" }}</h2>

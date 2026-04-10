@@ -329,12 +329,16 @@
   margin-top: 1.25em;
 }
 
-.recent-news,
-.next-events {
+.recent-news {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
+}
 
+.next-events {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
@@ -353,11 +357,10 @@
 /*
  * Center the titles on the "Recent News" cards
  */
-.recent-news .event-card-title,
-.next-events .event-card-title {
-  display: block;     
-  width: 100%;       
-  text-align: center; 
+.recent-news .event-card-title {
+  display: block;
+  width: 100%;
+  text-align: center;
 }
 
 /* news card summary left aligned*/
@@ -377,8 +380,7 @@
   gap: 1em; /* Creates space between the cards */
 }
 
-.recent-news .event-card-info,
-.next-events .event-card-info {
+.recent-news .event-card-info {
   flex-basis: 100%;
   flex-grow: 1;
   min-width: 0;
