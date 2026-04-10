@@ -23,7 +23,7 @@
     {{- $dtstart := (time $data.start_date).Format "20060102T150405" -}}
     {{- $dtend := $dtstart -}}
     {{- if $data.end_date -}}{{- $dtend = (time $data.end_date).Format "20060102T150405" -}}{{- end -}}
-    {{- printf "BEGIN:VEVENT\nUID:%s@negativeedge.se\nDTSTAMP:%s\nDTSTART;TZID=Europe/Stockholm:%s\nDTEND;TZID=Europe/Stockholm:%s\nSUMMARY:%s\nLOCATION:%s\nURL:%s\nEND:VEVENT\n" $eventSlug $dtstamp $dtstart $dtend $page.Title $location $page.Permalink -}}
+    {{- printf "BEGIN:VEVENT\nUID:%s@negativeedge.se\nDTSTAMP:%s\nDTSTART;TZID=Europe/Stockholm:%s\nDTEND;TZID=Europe/Stockholm:%s\nSUMMARY:%s\nLOCATION:%s\nURL:%s\nDESCRIPTION:%s\nEND:VEVENT\n" $eventSlug $dtstamp $dtstart $dtend $page.Title $location $page.Permalink $page.Permalink -}}
   {{- else if $recurrence.schedule -}}
     {{- $cancellations := $recurrence.cancellations | default (slice) -}}
     {{- $start_time_str := $recurrence.start_time | default "00:00" -}}
@@ -33,7 +33,7 @@
       {{- if not (in $cancellations $date_string) -}}
         {{- $dtstart := (time (printf "%sT%s:00" $date_string $start_time_str)).Format "20060102T150405" -}}
         {{- $dtend := (time (printf "%sT%s:00" $date_string $end_time_str)).Format "20060102T150405" -}}
-        {{- printf "BEGIN:VEVENT\nUID:%s-%s@negativeedge.se\nDTSTAMP:%s\nDTSTART;TZID=Europe/Stockholm:%s\nDTEND;TZID=Europe/Stockholm:%s\nSUMMARY:%s\nLOCATION:%s\nURL:%s\nEND:VEVENT\n" $eventSlug $date_string $dtstamp $dtstart $dtend $page.Title $location $page.Permalink -}}
+        {{- printf "BEGIN:VEVENT\nUID:%s-%s@negativeedge.se\nDTSTAMP:%s\nDTSTART;TZID=Europe/Stockholm:%s\nDTEND;TZID=Europe/Stockholm:%s\nSUMMARY:%s\nLOCATION:%s\nURL:%s\nDESCRIPTION:%s\nEND:VEVENT\n" $eventSlug $date_string $dtstamp $dtstart $dtend $page.Title $location $page.Permalink $page.Permalink -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
