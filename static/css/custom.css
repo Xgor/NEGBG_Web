@@ -495,6 +495,34 @@
   }
 
 
+  .event-embed {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-top: 2em;
+    position: relative;
+    padding-top: 2em;
+  }
+
+  /* Hairline separator above the embed, matching the card pattern */
+  .event-embed::before {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 1px;
+    background-color: var(--main-border, #444);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .event-embed-cover {
+    border-radius: 6px;
+    border: 1px solid var(--main-border, #444);
+  }
+
   .home-section-divider {
     display: block; /* Show the element */
     border: none;   /* Hide the actual line */
