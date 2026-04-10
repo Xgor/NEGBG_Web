@@ -53,6 +53,13 @@
  */
 
 
+/* Reset default <ul> indentation on all card lists */
+.event-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* This is the main card style */
 .event-card {
   /* Use the theme's border color */
