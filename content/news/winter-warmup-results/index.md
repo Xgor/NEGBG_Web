@@ -4,6 +4,7 @@ title = "Winter Warm-up Results Are In!"
 draft = true
 cover = "/images/winter-warmup-results-cover.jpg"
 event_link = ["winter-warmup-2025"]
+event_role = "recap"
 +++
 
 The Winter Warm-up Tournament was a massive success! We had a full bracket of 32 players battling it out all day.

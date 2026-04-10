@@ -6,7 +6,6 @@ draft: false
 recurrence:
   type: "Weekly"
   details: "Alternates between tuesday and wednesday every week"
-location: "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
 summary: "Casual gaming at Kappa Bar"
 ---
 We're playing casuals at Kappa Bar every week!

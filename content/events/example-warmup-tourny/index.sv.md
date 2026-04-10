@@ -3,7 +3,6 @@ title ="Winter Warm-up Tournament 2025"
 date = 2025-11-03
 draft = true
 
-location ="Kappa Bar, Gothenburg"
 summary = "A special one-day tournament to kick off the winter season."
 +++
 

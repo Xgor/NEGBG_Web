@@ -10,17 +10,26 @@
   </div>
 
   {{ with .Params.event_link }}
-    <section class="linked-events">
-      <h2>{{ T "news.linked-event" | default "Event" }}</h2>
-      <ul class="event-card-list">
-        {{ range . }}
-          {{ $eventPage := $.Site.GetPage (printf "/events/%s" .) }}
-          {{ with $eventPage }}
-            {{ partial "linked-event-card.html" . }}
-          {{ end }}
+    {{ if eq $.Params.event_role "announcement" }}
+      {{ range . }}
+        {{ $eventPage := $.Site.GetPage (printf "/events/%s" .) }}
+        {{ with $eventPage }}
+          {{ partial "event-embed.html" . }}
         {{ end }}
-      </ul>
-    </section>
+      {{ end }}
+    {{ else }}
+      <section class="linked-events">
+        <h2>{{ T "news.linked-event" | default "Event" }}</h2>
+        <ul class="event-card-list">
+          {{ range . }}
+            {{ $eventPage := $.Site.GetPage (printf "/events/%s" .) }}
+            {{ with $eventPage }}
+              {{ partial "linked-event-card.html" . }}
+            {{ end }}
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
   {{ end }}
 </article>
 {{ end }}

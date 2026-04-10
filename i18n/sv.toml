@@ -24,6 +24,13 @@ no-articles = "Det finns inga nyhetsartiklar för tillfället."
   next = "Nästa"
   no-new-dates = "Inga nya datum schemalagda."
   time = "Tid"
+  check-in = "Check-in"
+  entry-fee = "Anmälningsavgift"
+  prize-pool = "Prispott"
+  prize-pool-entry-note = "plus insamlade anmälningsavgifter, samma fördelning"
+  challonge-bracket = "Challonge-bracket"
+  discord-event = "Discord-event"
+  links = "Länkar"
 
 
 

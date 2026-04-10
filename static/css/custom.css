@@ -4,7 +4,15 @@
 
 
 /*
- * --- NEW FLAG SWITCHER STYLES --- 
+ * Active menu item
+ */
+.menu__inner a.menu-active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/*
+ * --- NEW FLAG SWITCHER STYLES ---
  */
 .flag-switcher {
   display: flex;
@@ -53,6 +61,13 @@
  */
 
 
+/* Reset default <ul> indentation on all card lists */
+.event-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* This is the main card style */
 .event-card {
   /* Use the theme's border color */
@@ -68,7 +83,7 @@
   display: flex;
   flex-wrap: wrap; /* Allows stacking on small screens */
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 1.5em; /* Space between the info and details */
 }
 
@@ -82,14 +97,27 @@
 .event-card-details {
   flex: 1; /* Takes up 1/3 of the space */
   min-width: 200px;
-  
-  /* Use the theme's "secondary" background */
-  background-color: var(--secondary-bg, #252525);
-  border: 1px solid var(--main-border, #444);
-  
-  border-radius: 6px;
+
+  /* Use the theme's secondary background (same as code blocks/tables) */
+  background-color: #2a2b2f;
+
+  /* Separator line instead of full border */
+  border-left: 1px solid var(--main-border, #444);
+
+  /* Match the parent card's right-side rounded corners */
+  border-radius: 0 8px 8px 0;
+
+  /* Pull flush to the card's top, bottom, and right edges */
+  margin-top: -1.25em;
+  margin-bottom: -1.25em;
+  margin-right: -1.25em;
+
   padding: 0.75em 1.25em;
   font-size: 0.9em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Make sure the <p> tags inside the details look nice */
@@ -214,12 +242,120 @@
   border: 1px solid var(--main-border, #444);
 }
 
-.recent-news,
-.next-events {
+.event-card-cover {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  border-radius: 6px;
+  margin-bottom: 1em;
+  border: 1px solid var(--main-border, #444);
+}
+
+.event-card-announcement-link {
+  margin-top: 0.75em;
+  margin-bottom: 0;
+  font-size: 0.9em;
+}
+.event-card-announcement-link a {
+  color: var(--primary-color, #ff7e07);
+  text-decoration: none;
+}
+.event-card-announcement-link a:hover {
+  text-decoration: underline;
+}
+
+.event-related-posts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5em 0 0;
+}
+.event-related-posts-list li {
+  margin-bottom: 0.4em;
+}
+
+.post-role-badge {
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  margin-right: 0.4em;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.post-role-announcement {
+  background-color: var(--primary-color, #ff7e07);
+  color: #1b1b1b;
+}
+.post-role-recap {
+  background-color: var(--secondary-bg, #252525);
+  border: 1px solid var(--main-border, #444);
+  color: var(--main-fg, #ccc);
+}
+
+/*
+ * Embedded event on announcement news posts
+ */
+.event-embed {
+  border: 1px solid var(--main-border, #444);
+  border-radius: 8px;
+  padding: 1.5em;
+  margin-top: 2em;
+  background-color: var(--main-card-bg, var(--main-bg, #1b1b1b));
+}
+
+.event-embed-header {
+  margin-bottom: 1.25em;
+}
+
+.event-embed-title {
+  margin-top: 0;
+  margin-bottom: 0.4em;
+}
+.event-embed-title a {
+  color: var(--primary-color, #ff7e07);
+  text-decoration: none;
+}
+.event-embed-title a:hover {
+  text-decoration: underline;
+}
+
+.event-embed-meta {
+  font-size: 0.95em;
+  color: var(--main-fg, #ccc);
+  line-height: 1.6;
+}
+
+.event-embed-cover {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  border-radius: 6px;
+  margin-bottom: 1.5em;
+  border: 1px solid var(--main-border, #444);
+}
+
+.event-embed-content {
+  margin-top: 1.25em;
+}
+
+.recent-news {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
+}
 
+.next-events {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
@@ -238,11 +374,10 @@
 /*
  * Center the titles on the "Recent News" cards
  */
-.recent-news .event-card-title,
-.next-events .event-card-title {
-  display: block;     
-  width: 100%;       
-  text-align: center; 
+.recent-news .event-card-title {
+  display: block;
+  width: 100%;
+  text-align: center;
 }
 
 /* news card summary left aligned*/
@@ -262,8 +397,7 @@
   gap: 1em; /* Creates space between the cards */
 }
 
-.recent-news .event-card-info,
-.next-events .event-card-info {
+.recent-news .event-card-info {
   flex-basis: 100%;
   flex-grow: 1;
   min-width: 0;
@@ -362,11 +496,12 @@
   .event-card-details {
     background-color: transparent;
     border: none;
-    padding: 0;
-    margin-top: 1em; /* Space between summary and details */
+    border-radius: 0;
+    padding: 0.75em 0 0;
+    margin-top: 1em;
+    margin-bottom: 0;
+    margin-right: 0;
     width: 100%;
-
-    
   }
   /*force news cards to appear vertically regardless of size if in mobile mode*/
   .recent-news .event-card-list {
@@ -390,6 +525,34 @@
     border: 1px solid var(--main-border, #444);
   }
 
+
+  .event-embed {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-top: 2em;
+    position: relative;
+    padding-top: 2em;
+  }
+
+  /* Hairline separator above the embed, matching the card pattern */
+  .event-embed::before {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 1px;
+    background-color: var(--main-border, #444);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .event-embed-cover {
+    border-radius: 6px;
+    border: 1px solid var(--main-border, #444);
+  }
 
   .home-section-divider {
     display: block; /* Show the element */

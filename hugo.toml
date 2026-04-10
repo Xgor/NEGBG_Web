@@ -22,6 +22,7 @@ defaultContentLanguageInSubdir = false
       description = "Göteborgs helt egna fightingspelsförening!"
       date_format = "Mon, 2 Jan 2006"
       datetime_format = "Mon 2 Jan 2006 kl. 15:04"
+      time_format = "15:04"
   [languages.en]
     title = "Negative Edge - Gothenburg's FGC"
     languageName = "English"
@@ -33,6 +34,7 @@ defaultContentLanguageInSubdir = false
       description = "Gothenburg's very own fighting game community!"
       date_format = "Mon, Jan 2, 2006"
       datetime_format = "Mon, Jan 2, 2006 at 3:04 PM"
+      time_format = "3:04 PM"
 [params]
   timeZoneAbbr = "CET/CEST"
   customCSS = ["/css/custom.css"]
