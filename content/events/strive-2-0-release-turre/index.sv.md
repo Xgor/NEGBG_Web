@@ -1,12 +1,12 @@
 +++
-title = "Guilty Gear Strive 2.00 Releaseturre"
+title = "Guilty Gear Strive 2.00 Releaseturnering"
 date = 2026-04-06
 draft = false
 
 summary = "Fira releasen av Strive 2.00 med en turnering!"
 +++
 
-Guilty Gear Strive 2.00 släpps — och vi firar med en turre!
+Guilty Gear Strive 2.00 släpps — och vi firar med en turnering!
 
 Oavsett om du är veteran eller nybörjare är alla välkomna att tävla. Vi kör dubbeleliminering och topp 5 vinner priser.
 

@@ -7,6 +7,6 @@ event_link = ["strive-2-0-release-turre"]
 event_role = "announcement"
 +++
 
-Guilty Gear Strive 2.00 släpps — och vi firar med en turre på Kappa Bar den 12:e april!
+Guilty Gear Strive 2.00 släpps — och vi firar med en turnering på Kappa Bar den 12:e april!
 
 Oavsett om du är veteran eller nybörjare är alla välkomna att tävla. Vi kör dubbeleliminering och topp 5 vinner priser.
