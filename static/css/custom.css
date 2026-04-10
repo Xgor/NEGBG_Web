@@ -92,9 +92,18 @@
 
   /* Use the theme's "secondary" background */
   background-color: var(--secondary-bg, #252525);
-  border: 1px solid var(--main-border, #444);
 
-  border-radius: 6px;
+  /* Separator line instead of full border */
+  border-left: 1px solid var(--main-border, #444);
+
+  /* Match the parent card's right-side rounded corners */
+  border-radius: 0 8px 8px 0;
+
+  /* Pull flush to the card's top, bottom, and right edges */
+  margin-top: -1.25em;
+  margin-bottom: -1.25em;
+  margin-right: -1.25em;
+
   padding: 0.75em 1.25em;
   font-size: 0.9em;
 
@@ -479,11 +488,12 @@
   .event-card-details {
     background-color: transparent;
     border: none;
-    padding: 0;
-    margin-top: 1em; /* Space between summary and details */
+    border-radius: 0;
+    padding: 0.75em 0 0;
+    margin-top: 1em;
+    margin-bottom: 0;
+    margin-right: 0;
     width: 100%;
-
-    
   }
   /*force news cards to appear vertically regardless of size if in mobile mode*/
   .recent-news .event-card-list {
