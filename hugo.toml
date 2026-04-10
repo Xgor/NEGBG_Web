@@ -95,3 +95,14 @@ defaultContentLanguageInSubdir = false
 [caches]
   [caches.images]
     dir = ':cacheDir'
+
+[mediaTypes]
+  [mediaTypes."text/calendar"]
+    suffixes = ["ics"]
+
+[outputFormats]
+  [outputFormats.ical]
+    mediaType = "text/calendar"
+    baseName = "negative-edge-events"
+    isPlainText = true
+    notAlternative = true

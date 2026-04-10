@@ -1,0 +1,41 @@
+{{- printf "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Negative Edge//negativeedge.se//%s\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:Negative Edge Events\r\n" (.Site.Language.Lang | upper) -}}
+{{- $otherSites := complement (slice .Site) site.Sites -}}
+{{- $allEvents := where .Site.RegularPages "Section" "events" -}}
+{{- range $otherSites -}}
+  {{- $allEvents = $allEvents | lang.Merge (where .RegularPages "Section" "events") -}}
+{{- end -}}
+{{- $dtstamp := now.UTC.Format "20060102T150405Z" -}}
+{{- range $allEvents -}}
+  {{- $page := . -}}
+  {{- $eventSlug := path.Base (path.Dir $page.File.Path) -}}
+  {{- $data := dict -}}
+  {{- $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") -}}
+  {{- if $dataResource -}}
+    {{- $data = $dataResource.Content | unmarshal -}}
+  {{- else -}}
+    {{- $data = $page.Params -}}
+  {{- end -}}
+  {{- $recur_data := $data.recurrence | default (dict) -}}
+  {{- $recur_text := $page.Params.recurrence | default (dict) -}}
+  {{- $recurrence := merge $recur_data $recur_text -}}
+  {{- $location := $data.location | default $page.Params.location | default "" -}}
+  {{- if $data.start_date -}}
+    {{- $dtstart := (time $data.start_date).UTC.Format "20060102T150405Z" -}}
+    {{- $dtend := $dtstart -}}
+    {{- if $data.end_date -}}{{- $dtend = (time $data.end_date).UTC.Format "20060102T150405Z" -}}{{- end -}}
+    {{- printf "BEGIN:VEVENT\r\nUID:%s@negativeedge.se\r\nDTSTAMP:%s\r\nDTSTART:%s\r\nDTEND:%s\r\nSUMMARY:%s\r\nLOCATION:%s\r\nURL:%s\r\nDESCRIPTION:%s\r\nEND:VEVENT\r\n" $eventSlug $dtstamp $dtstart $dtend $page.Title $location $page.Permalink $page.Permalink -}}
+  {{- else if $recurrence.schedule -}}
+    {{- $cancellations := $recurrence.cancellations | default (slice) -}}
+    {{- $start_time_str := $recurrence.start_time | default "00:00" -}}
+    {{- $end_time_str := $recurrence.end_time | default "00:00" -}}
+    {{- range $recurrence.schedule -}}
+      {{- $date_string := . -}}
+      {{- if not (in $cancellations $date_string) -}}
+        {{- $dtstart := (time (printf "%sT%s:00" $date_string $start_time_str)).UTC.Format "20060102T150405Z" -}}
+        {{- $dtend := (time (printf "%sT%s:00" $date_string $end_time_str)).UTC.Format "20060102T150405Z" -}}
+        {{- printf "BEGIN:VEVENT\r\nUID:%s-%s@negativeedge.se\r\nDTSTAMP:%s\r\nDTSTART:%s\r\nDTEND:%s\r\nSUMMARY:%s\r\nLOCATION:%s\r\nURL:%s\r\nDESCRIPTION:%s\r\nEND:VEVENT\r\n" $eventSlug $date_string $dtstamp $dtstart $dtend $page.Title $location $page.Permalink $page.Permalink -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- print "END:VCALENDAR\r\n" -}}

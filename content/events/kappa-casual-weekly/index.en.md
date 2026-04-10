@@ -1,5 +1,5 @@
 ---
-title: "Weekly Casuals at Kappa Bar"
+title: "Weekly Meetup at Kappa Bar"
 date: 2025-11-03
 draft: false
 
