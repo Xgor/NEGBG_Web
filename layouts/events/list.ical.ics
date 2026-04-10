@@ -1,4 +1,4 @@
-{{- printf "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Negative Edge//negativeedge.se//%s\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\nX-WR-CALNAME:Negative Edge Events\nX-WR-TIMEZONE:Europe/Stockholm\n" (.Site.Language.Lang | upper) -}}
+{{- printf "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Negative Edge//negativeedge.se//%s\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\nX-WR-CALNAME:Negative Edge Events\n" (.Site.Language.Lang | upper) -}}
 {{- $otherSites := complement (slice .Site) site.Sites -}}
 {{- $allEvents := where .Site.RegularPages "Section" "events" -}}
 {{- range $otherSites -}}
@@ -20,10 +20,10 @@
   {{- $recurrence := merge $recur_data $recur_text -}}
   {{- $location := $data.location | default $page.Params.location | default "" -}}
   {{- if $data.start_date -}}
-    {{- $dtstart := (time $data.start_date).Format "20060102T150405" -}}
+    {{- $dtstart := (time $data.start_date).UTC.Format "20060102T150405Z" -}}
     {{- $dtend := $dtstart -}}
-    {{- if $data.end_date -}}{{- $dtend = (time $data.end_date).Format "20060102T150405" -}}{{- end -}}
-    {{- printf "BEGIN:VEVENT\nUID:%s@negativeedge.se\nDTSTAMP:%s\nDTSTART;TZID=Europe/Stockholm:%s\nDTEND;TZID=Europe/Stockholm:%s\nSUMMARY:%s\nLOCATION:%s\nURL:%s\nDESCRIPTION:%s\nEND:VEVENT\n" $eventSlug $dtstamp $dtstart $dtend $page.Title $location $page.Permalink $page.Permalink -}}
+    {{- if $data.end_date -}}{{- $dtend = (time $data.end_date).UTC.Format "20060102T150405Z" -}}{{- end -}}
+    {{- printf "BEGIN:VEVENT\nUID:%s@negativeedge.se\nDTSTAMP:%s\nDTSTART:%s\nDTEND:%s\nSUMMARY:%s\nLOCATION:%s\nURL:%s\nDESCRIPTION:%s\nEND:VEVENT\n" $eventSlug $dtstamp $dtstart $dtend $page.Title $location $page.Permalink $page.Permalink -}}
   {{- else if $recurrence.schedule -}}
     {{- $cancellations := $recurrence.cancellations | default (slice) -}}
     {{- $start_time_str := $recurrence.start_time | default "00:00" -}}
@@ -31,9 +31,9 @@
     {{- range $recurrence.schedule -}}
       {{- $date_string := . -}}
       {{- if not (in $cancellations $date_string) -}}
-        {{- $dtstart := (time (printf "%sT%s:00" $date_string $start_time_str)).Format "20060102T150405" -}}
-        {{- $dtend := (time (printf "%sT%s:00" $date_string $end_time_str)).Format "20060102T150405" -}}
-        {{- printf "BEGIN:VEVENT\nUID:%s-%s@negativeedge.se\nDTSTAMP:%s\nDTSTART;TZID=Europe/Stockholm:%s\nDTEND;TZID=Europe/Stockholm:%s\nSUMMARY:%s\nLOCATION:%s\nURL:%s\nDESCRIPTION:%s\nEND:VEVENT\n" $eventSlug $date_string $dtstamp $dtstart $dtend $page.Title $location $page.Permalink $page.Permalink -}}
+        {{- $dtstart := (time (printf "%sT%s:00" $date_string $start_time_str)).UTC.Format "20060102T150405Z" -}}
+        {{- $dtend := (time (printf "%sT%s:00" $date_string $end_time_str)).UTC.Format "20060102T150405Z" -}}
+        {{- printf "BEGIN:VEVENT\nUID:%s-%s@negativeedge.se\nDTSTAMP:%s\nDTSTART:%s\nDTEND:%s\nSUMMARY:%s\nLOCATION:%s\nURL:%s\nDESCRIPTION:%s\nEND:VEVENT\n" $eventSlug $date_string $dtstamp $dtstart $dtend $page.Title $location $page.Permalink $page.Permalink -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
