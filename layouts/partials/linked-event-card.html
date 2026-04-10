@@ -28,9 +28,10 @@
         <strong>{{ T "when" | default "When" }}:</strong>
         {{ $start := time $start_date }}
         {{ time.Format ":date_long" $start }}
-        {{ $start.Format "15:04" }}
+        {{ $timeFormat := $.Site.Language.Params.time_format | default "15:04" }}
+        {{ $start.Format $timeFormat }}
         {{ if $end_date }}
-          – {{ (time $end_date).Format "15:04" }}
+          – {{ (time $end_date).Format $timeFormat }}
         {{ end }}
       </p>
     {{ end }}

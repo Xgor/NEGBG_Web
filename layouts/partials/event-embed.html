@@ -41,7 +41,8 @@
           {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
           {{ time.Format $format $eventTime }}
           {{ with $end_date }}
-            {{ T "to" }} {{ (time .).Format "15:04" }}
+            {{ $timeFormat := $.Site.Language.Params.time_format | default "15:04" }}
+            {{ T "to" }} {{ (time .).Format $timeFormat }}
           {{ end }}
         </div>
       {{ end }}
@@ -56,6 +57,48 @@
 
   {{ with $cover }}
     <img src="{{ . }}" alt="{{ $.Title }}" class="event-embed-cover">
+  {{ end }}
+
+  {{/* Structured event info rendered from data.toml */}}
+  {{ $checkin := $data.checkin_time }}
+  {{ $challonge := $data.challonge_url }}
+  {{ $discord := $data.discord_url }}
+  {{ $prize_pool := $data.prize_pool }}
+
+  {{ if or $checkin $data.price $challonge $discord $prize_pool }}
+  <div class="event-info-box" style="background-color: var(--secondary-bg, #252525); border: 1px solid var(--main-border, #444); padding: 1em 1.25em; margin-bottom: 1.5em; border-radius: 4px;">
+    <ul style="margin: 0; padding-left: 1.25em; line-height: 1.8;">
+      {{ with $checkin }}
+        <li><strong>{{ T "event.check-in" }}:</strong> {{ . }}</li>
+      {{ end }}
+      {{ with $data.price }}
+        <li><strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $data.price_currency }}</li>
+      {{ end }}
+      {{ with $prize_pool }}
+        <li>
+          <strong>{{ T "event.prize-pool" }}:</strong> {{ .total }} {{ .currency }}
+          {{ if .places }}
+            <ul style="margin: 0.25em 0 0.25em 1em;">
+              {{ range $i, $p := .places }}
+                <li>{{ add $i 1 }}. {{ $p }} {{ $prize_pool.currency }}</li>
+              {{ end }}
+            </ul>
+            {{ if .entry_fee_contributed }}
+              <em>{{ T "event.prize-pool-entry-note" }}</em>
+            {{ end }}
+          {{ end }}
+        </li>
+      {{ end }}
+      {{ if or $challonge $discord }}
+        <li>
+          <strong>{{ T "event.links" }}:</strong>
+          {{ with $challonge }}<a href="{{ . }}">{{ T "event.challonge-bracket" }}</a>{{ end }}
+          {{ if and $challonge $discord }} · {{ end }}
+          {{ with $discord }}<a href="{{ . }}">{{ T "event.discord-event" }}</a>{{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  </div>
   {{ end }}
 
   <div class="event-embed-content">

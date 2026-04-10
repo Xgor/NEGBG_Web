@@ -4,3 +4,6 @@ price = 25
 price_currency = "SEK"
 location = "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
 cover = "/images/kappa-kabrak-2-cover.png"
+checkin_time = "15:30"
+challonge_url = "https://ceca1a6a1a76169ba1e5b00c.challonge.com/x997tv3c"
+discord_url = "https://discord.com/events/581034602865360898/1490461867712319629"

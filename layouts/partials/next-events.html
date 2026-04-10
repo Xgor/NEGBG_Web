@@ -52,7 +52,7 @@
       {{ $master_event_list = $master_event_list | append (dict
           "Page" $page
           "SortDate" $event_time
-          "Time" (printf "%s - %s" ($event_time.Format "15:04") ((time $end_date).Format "15:04"))
+          "Time" (printf "%s - %s" ($event_time.Format ($.Site.Language.Params.time_format | default "15:04")) ((time $end_date).Format ($.Site.Language.Params.time_format | default "15:04")))
         )
       }}
     {{ end }}

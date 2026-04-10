@@ -4,3 +4,12 @@ price = 25
 price_currency = "SEK"
 location = "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
 cover = "/images/strive-2-0-turre-cover.jpg"
+checkin_time = "15:30"
+challonge_url = "https://ceca1a6a1a76169ba1e5b00c.challonge.com/vgp1btoj"
+discord_url = "https://discord.com/events/581034602865360898/1490717882198524164"
+
+[prize_pool]
+  total = 1000
+  currency = "SEK"
+  entry_fee_contributed = true
+  places = [500, 200, 150, 100, 50]
