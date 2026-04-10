@@ -11,8 +11,9 @@
   {{ $data = .Params }}
 {{ end }}
 
-{{/* Hämta platsen från .md-filen (Params) */}}
-{{ $location := .Params.location }}
+{{/* Hämta platsen — data.toml har prioritet, .md-filen som fallback */}}
+{{ $location := $data.location | default .Params.location }}
+{{ $cover := $data.cover | default .Params.cover }}
 
 {{/* Slå ihop recurrence-data från data.toml med recurrence-text från .md */}}
 {{ $recur_data := $data.recurrence | default (dict) }}
@@ -59,7 +60,11 @@
       {{ end }}
     </div>
   </header>
-  
+
+  {{ with $cover }}
+    <img src="{{ . }}" alt="{{ $.Title }}" class="post-cover" style="margin-bottom: 1.5em;">
+  {{ end }}
+
   {{/* --- Renders the main markdown content --- */}}
   <div class="content event-page-content">
     {{ .Content }}

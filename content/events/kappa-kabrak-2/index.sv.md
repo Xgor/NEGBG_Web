@@ -2,11 +2,8 @@
 title = "Kappa Kabrak 2"
 date = 2026-04-05
 draft = false
-location = "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
 summary = "SF6-turnering på Kappa Bar – kom och kämpa!"
 +++
-
-![cover](/images/kappa-kabrak-2-cover.png)
 
 Nu är det dags igen! Kappa Kabrak är tillbaka för ännu mer kabrakande, mer upsets och mer goda vibes.
 

@@ -69,10 +69,16 @@
 
           {{ $location := $data.location | default $page.Params.location }}
           {{ $end_date := $data.end_date | default $page.Params.end_date }}
-          
+          {{ $cover := $data.cover | default $page.Params.cover }}
+
           <li class="event-card">
             <div class="event-card-info">
               <h3 class="event-card-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+              {{ with $cover }}
+                <a href="{{ $page.RelPermalink }}">
+                  <img src="{{ . }}" alt="{{ $page.Title }}" class="event-card-cover">
+                </a>
+              {{ end }}
               {{ with $page.Params.summary }}
                 <p class="event-card-summary">{{ . }}</p>
               {{ end }}
@@ -133,7 +139,8 @@
           {{ $recur := merge $recur_data $recur_text }}
           
           {{ $location := $data.location | default $page.Params.location }}
-          
+          {{ $cover := $data.cover | default $page.Params.cover }}
+
           {{ $cancellations := $recur.cancellations | default (slice) }}
           {{ $next_occurrence := "" }}
           {{ $upcoming_dates := slice }}
@@ -153,6 +160,11 @@
 
           <li class="event-card">
             <div class="event-card-info">
+              {{ with $cover }}
+                <a href="{{ $page.RelPermalink }}">
+                  <img src="{{ . }}" alt="{{ $page.Title }}" class="event-card-cover">
+                </a>
+              {{ end }}
               <h3 class="event-card-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
               {{ with $page.Params.summary }}
                 <p class="event-card-summary">{{ . }}</p>

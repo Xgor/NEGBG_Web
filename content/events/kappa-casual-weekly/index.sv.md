@@ -22,7 +22,6 @@ recurrence:
 #    - "2025-11-04"
 #    - "2025-11-12" # Wed
 
-location: "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
 summary: "Casuals på Kappa Bar"
 ---
 Vi kör casuals på Kappa Bar varje vecka!

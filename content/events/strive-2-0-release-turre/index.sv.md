@@ -3,11 +3,8 @@ title = "Guilty Gear Strive 2.00 Releaseturre"
 date = 2026-04-06
 draft = false
 
-location = "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
 summary = "Fira releasen av Strive 2.00 med en turnering!"
 +++
-
-![cover](/images/strive-2-0-turre-cover.jpg)
 
 Guilty Gear Strive 2.00 släpps — och vi firar med en turre!
 

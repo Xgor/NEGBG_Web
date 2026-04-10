@@ -214,6 +214,18 @@
   border: 1px solid var(--main-border, #444);
 }
 
+.event-card-cover {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  border-radius: 6px;
+  margin-bottom: 1em;
+  border: 1px solid var(--main-border, #444);
+}
+
 .recent-news,
 .next-events {
   max-width: 1300px;
