@@ -73,7 +73,7 @@
   {{ $prize_pool := $data.prize_pool }}
 
   {{ if or $checkin $data.price $challonge $discord $prize_pool }}
-  <div class="event-info-box" style="background-color: var(--secondary-bg, #252525); border: 1px solid var(--main-border, #444); padding: 1em 1.25em; margin-bottom: 1.5em; border-radius: 4px;">
+  <div class="event-info-box" style="background-color: #2a2b2f; border: 1px solid var(--main-border, #444); padding: 1em 1.25em; margin-bottom: 1.5em; border-radius: 4px;">
     <ul style="margin: 0; padding-left: 1.25em; line-height: 1.8;">
       {{ with $checkin }}
         <li><strong>{{ T "event.check-in" }}:</strong> {{ . }}</li>
@@ -128,7 +128,7 @@
       {{ end }}
 
       {{ if ge (len $future_cancellations) 1 }}
-        <div class="event-cancellations" style="background-color: var(--secondary-bg, #252525); border: 1px solid var(--main-border, #444); padding: 1em; margin-top: 2em; border-radius: 4px;">
+        <div class="event-cancellations" style="background-color: #2a2b2f; border: 1px solid var(--main-border, #444); padding: 1em; margin-top: 2em; border-radius: 4px;">
           <h3 style="margin-top: 0;"> ⚠️ {{ T "event.upcoming-cancellations-title" | default "Upcoming Cancelled Dates" }}</h3>
           <ul style="margin-top: 0.5em; margin-bottom: 0;">
             {{ range sort $future_cancellations }}

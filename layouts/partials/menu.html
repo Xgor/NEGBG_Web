@@ -3,7 +3,13 @@
     {{- $currentPage := . -}}
     {{/* --- This is the theme's standard menu loop --- */}}
     {{ range sort .Site.Menus.main ".Identifier" -}}
-      <li><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+      {{ $menuURL := .URL | relLangURL }}
+      {{ $homeURL := $currentPage.Site.Home.RelPermalink }}
+      {{ $isActive := or
+          (and (eq $menuURL $homeURL) (eq $currentPage.RelPermalink $homeURL))
+          (and (ne $menuURL $homeURL) (strings.HasPrefix $currentPage.RelPermalink $menuURL))
+      }}
+      <li><a href="{{ $menuURL }}"{{ if $isActive }} class="menu-active"{{ end }}>{{ .Name }}</a></li>
     {{- end }}
 
     {{/* --- This is the new flag switcher, replacing the theme's dropdown --- */}}
