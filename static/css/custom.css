@@ -226,6 +226,98 @@
   border: 1px solid var(--main-border, #444);
 }
 
+.event-card-announcement-link {
+  margin-top: 0.75em;
+  margin-bottom: 0;
+  font-size: 0.9em;
+}
+.event-card-announcement-link a {
+  color: var(--primary-color, #ff7e07);
+  text-decoration: none;
+}
+.event-card-announcement-link a:hover {
+  text-decoration: underline;
+}
+
+.event-related-posts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5em 0 0;
+}
+.event-related-posts-list li {
+  margin-bottom: 0.4em;
+}
+
+.post-role-badge {
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  margin-right: 0.4em;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.post-role-announcement {
+  background-color: var(--primary-color, #ff7e07);
+  color: #1b1b1b;
+}
+.post-role-recap {
+  background-color: var(--secondary-bg, #252525);
+  border: 1px solid var(--main-border, #444);
+  color: var(--main-fg, #ccc);
+}
+
+/*
+ * Embedded event on announcement news posts
+ */
+.event-embed {
+  border: 1px solid var(--main-border, #444);
+  border-radius: 8px;
+  padding: 1.5em;
+  margin-top: 2em;
+  background-color: var(--main-card-bg, var(--main-bg, #1b1b1b));
+}
+
+.event-embed-header {
+  margin-bottom: 1.25em;
+}
+
+.event-embed-title {
+  margin-top: 0;
+  margin-bottom: 0.4em;
+}
+.event-embed-title a {
+  color: var(--primary-color, #ff7e07);
+  text-decoration: none;
+}
+.event-embed-title a:hover {
+  text-decoration: underline;
+}
+
+.event-embed-meta {
+  font-size: 0.95em;
+  color: var(--main-fg, #ccc);
+  line-height: 1.6;
+}
+
+.event-embed-cover {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  border-radius: 6px;
+  margin-bottom: 1.5em;
+  border: 1px solid var(--main-border, #444);
+}
+
+.event-embed-content {
+  margin-top: 1.25em;
+}
+
 .recent-news,
 .next-events {
   max-width: 1300px;

@@ -1,72 +1,64 @@
-{{ define "main" }}
-
+{{/*
+  Renders the full content of an event inline.
+  Expects an event Page as context.
+*/}}
 {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
 {{ $data := dict }}
-{{ $is_bundle := false }}
-
 {{ if $dataResource }}
-  {{ $is_bundle = true }}
   {{ $data = $dataResource.Content | unmarshal }}
 {{ else }}
   {{ $data = .Params }}
 {{ end }}
 
-{{/* Hämta platsen — data.toml har prioritet, .md-filen som fallback */}}
 {{ $location := $data.location | default .Params.location }}
-{{ $cover := $data.cover | default .Params.cover }}
+{{ $cover    := $data.cover    | default .Params.cover }}
 
-{{/* Slå ihop recurrence-data från data.toml med recurrence-text från .md */}}
-{{ $recur_data := $data.recurrence | default (dict) }}
-{{ $recur_text := .Params.recurrence | default (dict) }}
+{{ $recur_data := $data.recurrence      | default (dict) }}
+{{ $recur_text := .Params.recurrence    | default (dict) }}
 {{ $recurrence := merge $recur_data $recur_text }}
 
-{{/* Hämta start/end-datum för engångsevenemang */}}
 {{ $start_date := $data.start_date }}
-{{ $end_date := $data.end_date }}
+{{ $end_date   := $data.end_date }}
 
-<article class="post">
-  <header>
-    <h1>{{ .Title }}</h1>
-    
-    <div class="post-meta" style="margin-bottom: 2em; line-height: 1.6;">
-      
+<section class="event-embed">
+  <div class="event-embed-header">
+    <h2 class="event-embed-title">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h2>
+
+    <div class="event-embed-meta">
       {{ if $recurrence.type }}
-        {{/* --- Info for RECURRING events --- */}}
-        <div class="event-schedule">
+        <div>
           <strong>{{ T "event.schedule" }}:</strong>
           <strong>{{ $recurrence.type }}</strong>
           ({{ $recurrence.details }} {{ T "from" }} {{ $recurrence.start_time }} {{ T "to" }} {{ $recurrence.end_time }})
           ({{ .Site.Params.timeZoneAbbr }})
         </div>
-
       {{ else if $start_date }}
-        {{/* --- Info for ONE-OFF events --- */}}
-        <div class="event-time">
-          <strong>{{ T "when" }}:</strong> 
+        <div>
+          <strong>{{ T "when" }}:</strong>
           {{ $eventTime := time $start_date }}
           {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
-          {{ $dateTime := time.Format $format $eventTime }}
-          {{ $dateTime }}
+          {{ time.Format $format $eventTime }}
           {{ with $end_date }}
             {{ T "to" }} {{ (time .).Format "15:04" }}
           {{ end }}
         </div>
       {{ end }}
-      
+
       {{ with $location }}
-        <div class="event-location" style="margin-top: 0.5em;">
+        <div style="margin-top: 0.35em;">
           <strong>{{ T "where" }}:</strong> {{ . }}
         </div>
       {{ end }}
     </div>
-  </header>
+  </div>
 
   {{ with $cover }}
-    <img src="{{ . }}" alt="{{ $.Title }}" class="post-cover" style="margin-bottom: 1.5em;">
+    <img src="{{ . }}" alt="{{ $.Title }}" class="event-embed-cover">
   {{ end }}
 
-  {{/* --- Renders the main markdown content --- */}}
-  <div class="content event-page-content">
+  <div class="event-embed-content">
     {{ .Content }}
   </div>
 
@@ -76,14 +68,12 @@
     {{ with $recur.cancellations }}
       {{ $future_cancellations := slice }}
       {{ $today_string := now.Format "2006-01-02" }}
-      
       {{ range . }}
         {{ $cancellation_string := (time .).Format "2006-01-02" }}
         {{ if ge $cancellation_string $today_string }}
           {{ $future_cancellations = $future_cancellations | append (time .) }}
         {{ end }}
       {{ end }}
-
       {{ if ge (len $future_cancellations) 1 }}
         <div class="event-cancellations" style="background-color: var(--secondary-bg, #252525); border: 1px solid var(--main-border, #444); padding: 1em; margin-top: 2em; border-radius: 4px;">
           <h3 style="margin-top: 0;"> ⚠️ {{ T "event.upcoming-cancellations-title" | default "Upcoming Cancelled Dates" }}</h3>
@@ -96,14 +86,11 @@
       {{ end }}
     {{ end }}
 
-
     <div class="event-details" style="margin-top: 2em;">
       <h3 style="margin-top: 0;">{{ T "event.upcoming-occurrences-title" }}</h3>
-      
-      {{ $schedule := $recur.schedule }}
+      {{ $schedule     := $recur.schedule }}
       {{ $cancellations := $recur.cancellations | default (slice) }}
       {{ $today_string := now.Format "2006-01-02" }}
-      
       {{ $upcoming_dates := slice }}
       {{ range $schedule }}
         {{ $date_string := . }}
@@ -113,7 +100,6 @@
           {{ end }}
         {{ end }}
       {{ end }}
-
       {{ if ge (len $upcoming_dates) 1 }}
         <p>{{ T "event.upcoming-occurrences-intro" }} ({{ T "from" }} {{ $recur.start_time }} {{ T "to" }} {{ $recur.end_time }}):</p>
         <ul>
@@ -125,40 +111,5 @@
         <p>{{ T "event.no-new-dates" }}</p>
       {{ end }}
     </div>
-  {{ end }} {{/* End "if $recurrence.schedule" */}}
-
-  {{ $eventSlug := path.Base (strings.TrimSuffix .File.Dir "/") }}
-  {{ $all_news := where .Site.RegularPages "Section" "news" }}
-  {{ range complement (slice .Site) site.Sites }}
-    {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
   {{ end }}
-  {{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
-  {{ $announcements := where $linked_news ".Params.event_role" "announcement" }}
-  {{ $recaps := where $linked_news ".Params.event_role" "recap" }}
-  {{ $other_links := where $linked_news ".Params.event_role" "" }}
-
-  {{ if ge (len $linked_news) 1 }}
-    <section class="event-related-posts" style="margin-top: 2em;">
-      <h3>{{ T "event.related-posts" | default "Related Posts" }}</h3>
-      <ul class="event-related-posts-list">
-        {{ range $announcements }}
-          <li>
-            <span class="post-role-badge post-role-announcement">{{ T "event.role-announcement" | default "Announcement" }}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </li>
-        {{ end }}
-        {{ range $recaps }}
-          <li>
-            <span class="post-role-badge post-role-recap">{{ T "event.role-recap" | default "Recap" }}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </li>
-        {{ end }}
-        {{ range $other_links }}
-          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-      </ul>
-    </section>
-  {{ end }}
-
-</article>
-{{ end }}
+</section>
