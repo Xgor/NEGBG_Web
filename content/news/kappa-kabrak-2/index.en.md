@@ -9,4 +9,5 @@ event_role = "announcement"
 
 It's time again!
 
-Kappa Kabrak is back for even more kabrak-ing, more upsets, more 3-1s and more good vibes! Whether you're coming to take home the win or just to hang out and grab a few cold ones — come join us!
+Kappa Kabrak is back for even more kabrak-ing, more upsets, more 3-1s and more good vibes!
+Whether you're coming to take home the win or just to hang out and grab a few cold ones — come join us!
