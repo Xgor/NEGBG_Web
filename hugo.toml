@@ -103,6 +103,6 @@ defaultContentLanguageInSubdir = false
 [outputFormats]
   [outputFormats.ical]
     mediaType = "text/calendar"
-    baseName = "event_calendar"
+    baseName = "negative-edge-events"
     isPlainText = true
     notAlternative = true
