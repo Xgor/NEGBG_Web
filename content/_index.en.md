@@ -1,9 +1,10 @@
 +++
-title = "Home"
+title = "Negative Edge - Gothenburg FGC"
 description = "Negative Edge is Gothenburg's largest fighting game association. Join us every week at Kappa Bar for Tekken 8, Street Fighter 6, Guilty Gear Strive, and 2XKO."
 tags = ['fighting games gothenburg', 'FGC gothenburg', 'tekken gothenburg', 'street fighter gothenburg', 'guilty gear gothenburg', 'kappa bar gothenburg', '2xko gothenburg', 'fighting game association gothenburg']
 [menu.main]
 identifier = "1_home"
+name = "Home"
 weight = 10
 +++
 {{< homepage-hero

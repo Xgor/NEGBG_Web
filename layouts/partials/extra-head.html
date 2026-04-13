@@ -1,5 +1,14 @@
 {{ template "_internal/opengraph.html" . }}
 
+{{ if .IsHome }}
+  {{ $sameAs := slice }}
+  {{ range .Site.Params.Social }}
+    {{ $sameAs = $sameAs | append .url }}
+  {{ end }}
+  {{ $json := printf `{"@context":"https://schema.org","@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se","description":%s,"location":{"@type":"Place","name":"Kappa Bar","address":{"@type":"PostalAddress","addressLocality":"Göteborg","addressCountry":"SE"}},"sameAs":%s}` (.Site.Params.Description | jsonify) ($sameAs | jsonify) }}
+  {{ printf "<script type=\"application/ld+json\">%s</script>" $json | safeHTML }}
+{{ end }}
+
 {{ if eq .Type "events" }}
   {{/* Load event data from data.toml if it's a bundle, otherwise from front matter */}}
   {{ $dataResource := .Resources.GetMatch "data.toml"}}
