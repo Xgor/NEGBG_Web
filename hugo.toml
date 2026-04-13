@@ -6,6 +6,7 @@ pluralizeListTitles = false
 relativeURLs = true
 timeZone = "Europe/Stockholm"
 enableGlobalLanguageMenu = true
+disableKinds = ["RSS"]
 
 defaultContentLanguage = "sv"
 defaultContentLanguageInSubdir = false
@@ -55,7 +56,7 @@ defaultContentLanguageInSubdir = false
 
 [params.footer]
   trademark = "Negative Edge 2025"
-  rss = true
+  rss = false
 
   [[params.social]]
     name = "discord"
