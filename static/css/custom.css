@@ -204,6 +204,10 @@
  * Style the social icons inside the hero
  */
 
+.homepage-hero {
+  max-width: 1300px;
+}
+
 .homepage-hero .social-icons {
   display: flex;
   justify-content: center;

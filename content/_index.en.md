@@ -16,5 +16,7 @@ weight = 10
 >}}
 Gothenburg's **F**ighting **G**ame **C**ommunity!
 
+We play games like Street Fighter 6, Tekken 8, Guilty Gear -Strive- and 2XKO. We meet every week at Kappa Bar for weekly meetings and sometimes we hold tournaments.
+
 Check out our upcoming events and join our discord server!
 {{< /homepage-hero >}}

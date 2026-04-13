@@ -17,6 +17,7 @@ weight = 10
 
 Göteborgs **F**ighting **G**ame **C**ommunity!
 
+Vi spelar spel som Street Fighter 6, Tekken 8, Guilty Gear -Strive- och 2XKO. Vi ses varje vecka på Kappa Bar för veckoträffar och ibland håller vi turneringar. 
 
 Se våra framtida evenemang och gå med i vår Discord server!
 {{< /homepage-hero >}}
