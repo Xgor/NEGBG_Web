@@ -1,6 +1,6 @@
 ---
 title: "Resultat: Guilty Gear Strive 2.00 Releaseturnering"
-date: "2026-04-13T12:00:00+02:00"
+date: "2026-04-14T12:00:00+02:00"
 draft: false
 cover: "/images/strive-2-0/gruppbild.jpg"
 event_link: ["strive-2-0-release-turre"]
