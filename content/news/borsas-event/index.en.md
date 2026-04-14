@@ -2,7 +2,7 @@
 date = "2025-11-05T17:30:00+01:00"
 title = "Tournament Borås Gaming Convention 2025"
 draft = false
-cover = "/images/boros2025_cover.jpg"
+cover = "boros2025_cover.jpg"
 +++
 
 Well played everyone! Thank you to all of you who came to Borås and made the event as great as it was! Thanks to the folks from Trollhättan, TunikaG and Gusing, for helping to organize the event! 🫶 

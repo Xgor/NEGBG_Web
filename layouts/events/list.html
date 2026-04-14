@@ -91,7 +91,7 @@
               <h3 class="event-card-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
               {{ with $cover }}
                 <a href="{{ $page.RelPermalink }}">
-                  <img src="{{ . }}" alt="{{ $page.Title }}" class="event-card-cover">
+                  {{ partial "img.html" (dict "src" . "alt" $page.Title "class" "event-card-cover" "page" $page) }}
                 </a>
               {{ end }}
               {{ with $page.Params.summary }}
@@ -197,7 +197,7 @@
               <h3 class="event-card-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
               {{ with $cover }}
                 <a href="{{ $page.RelPermalink }}">
-                  <img src="{{ . }}" alt="{{ $page.Title }}" class="event-card-cover">
+                  {{ partial "img.html" (dict "src" . "alt" $page.Title "class" "event-card-cover" "page" $page) }}
                 </a>
               {{ end }}
               {{ with $page.Params.summary }}

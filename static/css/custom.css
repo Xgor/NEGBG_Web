@@ -125,6 +125,13 @@
   margin: 0.5em 0;
 }
 
+/* Date on news cards — no opacity to ensure contrast ratio passes */
+.event-card-date {
+  font-size: 0.9em;
+  margin: 0 0 0.5em 0;
+  color: var(--main-fg, #ccc);
+}
+
 /* Make the title use the theme's main accent color */
 .event-card-title {
   margin-top: 0;
@@ -233,6 +240,30 @@
   color: var(--primary-color, #ff7e07);
 }
 
+
+/*
+ * Processed images — <picture> wrapper emitted by partials/img.html
+ */
+picture {
+  display: block;
+  width: 100%;
+}
+
+picture img {
+  height: auto;
+}
+
+.logo img {
+  width: auto;
+}
+
+/*
+ * Cover image on event single pages
+ */
+.post-cover {
+  margin-bottom: 1.5em;
+  height: auto;
+}
 
 /*
  * Cover image on the recent news card

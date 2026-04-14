@@ -1,0 +1,30 @@
+{{/*
+  Shortcode: figure.html
+  Shadows Hugo's built-in figure shortcode.
+  Delegates all rendering to partials/img.html.
+
+  Parameters:
+    src      — required, image path or filename
+    alt      — alt text (falls back to caption if omitted)
+    caption  — optional caption
+    class    — optional CSS class on the <img>
+
+  Usage:
+    Bundle image:  {{< figure src="gruppbild.jpg" caption="..." >}}
+    Shared asset:  {{< figure src="/images/foo.jpg" caption="..." >}}
+    Old static:    {{< figure src="/images/foo.jpg" caption="..." >}} (falls through to static)
+*/}}
+{{ $src     := .Get "src" }}
+{{ $caption := .Get "caption" | default "" }}
+{{ $alt     := .Get "alt"     | default $caption }}
+{{ $class   := .Get "class"   | default "" }}
+
+{{ if $src }}
+  {{ partial "img.html" (dict
+      "src"     $src
+      "alt"     $alt
+      "class"   $class
+      "caption" $caption
+      "page"    .Page
+  ) }}
+{{ end }}

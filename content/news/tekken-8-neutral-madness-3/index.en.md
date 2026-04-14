@@ -3,7 +3,7 @@ date = "2026-04-09T17:30:00+01:00"
 title = "Tekken 8 Neutral Madness 3"
 draft = false
 tags = ['tekken göteborg','tekken gothenburg', 'fighting games gothenburg', 'fightingspel göteborg', 'FGC gothenburg','tekken sweden']
-cover = "/images/neutral_madness_3.jpg"
+cover = "neutral_madness_3.jpg"
 +++
 
 Now the results are in for the Top 3 in Neutral Madness #3:

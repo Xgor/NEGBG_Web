@@ -1,5 +1,8 @@
 {{ template "_internal/opengraph.html" . }}
 
+<link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin>
+
 {{ if .IsHome }}
   {{ $sameAs := slice }}
   {{ range .Site.Params.Social }}

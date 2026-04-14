@@ -2,7 +2,7 @@
 title: "Results: Guilty Gear Strive 2.00 Release Tournament"
 date: "2026-04-14T12:00:00+02:00"
 draft: false
-cover: "/images/strive-2-0/gruppbild.jpg"
+cover: "gruppbild.jpg"
 event_link: ["strive-2-0-release-turre"]
 event_role: "recap"
 ---
@@ -12,17 +12,17 @@ The atmosphere was great, the matches were intense, and there was a nice mix of 
 
 <!--more-->
 
-{{< figure src="/images/strive-2-0/gruppbild.jpg" caption="A group photo of all the participants — look how many showed up!" >}}
+{{< figure src="gruppbild.jpg" caption="A group photo of all the participants — look how many showed up!" >}}
 
 Sixteen players entered the double elimination bracket and the competition was fierce from the start,
 and with no Wild Assault to fall back on!
 The audience stayed engaged throughout, and once things really got going it was hard to look away.
 
-{{< figure src="/images/strive-2-0/theboyswatchingthebiggame.png" caption="The audience had to pay close attention to catch the bed's tricky buttons" >}}
+{{< figure src="theboyswatchingthebiggame.png" caption="The audience had to pay close attention to catch the bed's tricky buttons" >}}
 
 ## Top 8
 
-{{< figure src="/images/strive-2-0/top8.png" alt="Top 8 — Guilty Gear Strive 2.00 Release Tournament" >}}
+{{< figure src="top8.png" alt="Top 8 — Guilty Gear Strive 2.00 Release Tournament" >}}
 
 | Place | Player | Character |
 |---|---|---|
@@ -40,7 +40,7 @@ The full bracket is available to browse on [Challonge](https://ceca1a6a1a76169ba
 
 ## Podium
 
-{{< figure src="/images/strive-2-0/top3.jpg" caption="aircake (3rd), Rapthorn (1st), Jenxey (2nd)" >}}
+{{< figure src="top3.jpg" caption="aircake (3rd), Rapthorn (1st), Jenxey (2nd)" >}}
 
 Big congratulations to **Rapthorn** for taking the tournament with Bedman?, and to **Jenxey** and **aircake** for climbing to the top of the podium!
 

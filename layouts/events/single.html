@@ -63,7 +63,7 @@
   </header>
 
   {{ with $cover }}
-    <img src="{{ . }}" alt="{{ $.Title }}" class="post-cover" style="margin-bottom: 1.5em;">
+    {{ partial "img.html" (dict "src" . "alt" $.Title "class" "post-cover" "page" $) }}
   {{ end }}
 
   {{/* --- Structured event info rendered from data.toml --- */}}
