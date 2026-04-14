@@ -7,6 +7,7 @@ relativeURLs = true
 timeZone = "Europe/Stockholm"
 enableGlobalLanguageMenu = true
 disableKinds = ["RSS"]
+minify = true
 
 defaultContentLanguage = "sv"
 defaultContentLanguageInSubdir = false
