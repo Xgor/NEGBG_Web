@@ -1,0 +1,75 @@
+{{/*
+  Partial: img.html
+  Renders an optimized <picture> element with WebP + JPEG fallback,
+  or a plain <img> if the image is not processable (static fallback).
+
+  Expected context (dict):
+    - src     string  : image src (path or filename)
+    - alt     string  : alt text
+    - class   string  : CSS class on the <img>
+    - caption string  : optional caption text (wraps output in <figure>/<figcaption>)
+    - page    Page    : the calling Hugo page (for bundle resource lookup)
+
+  Lookup chain:
+    1. page bundle   — src is a bare filename, e.g. "gruppbild.jpg"
+    2. assets/images — src is an absolute path like "/images/foo.jpg"
+    3. static        — plain <img> fallback, no processing
+*/}}
+{{ $src     := .src }}
+{{ $alt     := .alt     | default "" }}
+{{ $class   := .class   | default "" }}
+{{ $caption := .caption | default "" }}
+{{ $page    := .page }}
+
+{{/* ── Lookup chain ─────────────────────────────────────────────── */}}
+{{ $img := false }}
+
+{{/* 1. Page bundle: src is a bare filename like "gruppbild.jpg" */}}
+{{ if $page }}
+  {{ with $page.Resources.GetMatch $src }}
+    {{ $img = . }}
+  {{ end }}
+{{ end }}
+
+{{/* 2. Shared asset: strip leading "/" and look under assets/images/ */}}
+{{ if not $img }}
+  {{ $assetPath := $src | strings.TrimPrefix "/" }}
+  {{ if hasPrefix $assetPath "images/" }}
+    {{ with resources.Get $assetPath }}
+      {{ $img = . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* ── Render ───────────────────────────────────────────────────── */}}
+{{ if $img }}
+  {{ $maxWidth := 1200 }}
+  {{ $webp := "" }}
+  {{ $jpeg := "" }}
+  {{ if gt $img.Width $maxWidth }}
+    {{ $webp = $img.Process (printf "webp q85 resize %dx" $maxWidth) }}
+    {{ $jpeg = $img.Process (printf "jpeg q85 resize %dx" $maxWidth) }}
+  {{ else }}
+    {{ $webp = $img.Process "webp q85" }}
+    {{ $jpeg = $img.Process "jpeg q85" }}
+  {{ end }}
+  {{ if $caption }}<figure>{{ end }}
+  <picture>
+    <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+    <img src="{{ $jpeg.RelPermalink }}"
+         alt="{{ $alt }}"
+         {{ with $class }}class="{{ . }}"{{ end }}
+         width="{{ $jpeg.Width }}"
+         height="{{ $jpeg.Height }}"
+         loading="lazy">
+  </picture>
+  {{ if $caption }}<figcaption>{{ $caption }}</figcaption></figure>{{ end }}
+{{ else }}
+  {{/* Static fallback — image lives in /static/, serve as-is */}}
+  {{ if $caption }}<figure>{{ end }}
+  <img src="{{ $src }}"
+       alt="{{ $alt }}"
+       {{ with $class }}class="{{ . }}"{{ end }}
+       loading="lazy">
+  {{ if $caption }}<figcaption>{{ $caption }}</figcaption></figure>{{ end }}
+{{ end }}

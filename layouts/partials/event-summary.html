@@ -6,7 +6,7 @@
     </h3>
     {{ with .Cover }}
       <a href="{{ $.Page.RelPermalink }}">
-        <img src="{{ . }}" alt="{{ $.Page.Title }}" class="event-card-cover">
+        {{ partial "img.html" (dict "src" . "alt" $.Page.Title "class" "event-card-cover" "page" $.Page) }}
       </a>
     {{ end }}
     {{ with .Page.Params.summary }}

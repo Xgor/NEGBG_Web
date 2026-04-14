@@ -7,6 +7,7 @@ relativeURLs = true
 timeZone = "Europe/Stockholm"
 enableGlobalLanguageMenu = true
 disableKinds = ["RSS"]
+minify = true
 
 defaultContentLanguage = "sv"
 defaultContentLanguageInSubdir = false
@@ -44,10 +45,10 @@ defaultContentLanguageInSubdir = false
   description = "Göteborgs helt egna fightingspelsförening!"
 
 [params.logo]
-    path = "/NegativeEdge_Color_1024_1.png"
+    path = "/NegativeEdge_Color.svg"
     alt = "NE-logga"
 [params.header.logo]
-    path = "/NegativeEdge_Color_1024_1.png"
+    path = "/NegativeEdge_Color.svg"
     alt = "NE-logga"
 
 

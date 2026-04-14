@@ -30,13 +30,13 @@
             <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
           </h3>
           
-          <p class="event-card-date" style="font-size: 0.9em; opacity: 0.7; margin: 0 0 0.5em 0;">
+          <p class="event-card-date">
             {{ partial "dates.html" $page.Date }}
           </p>
 
           {{ with $page.Params.cover }}
             <a href="{{ $page.RelPermalink }}">
-              <img src="{{ . }}" alt="{{ $page.Title }}" class="news-card-cover">
+              {{ partial "img.html" (dict "src" . "alt" $page.Title "class" "news-card-cover" "page" $page) }}
             </a>
           {{ end }}
           

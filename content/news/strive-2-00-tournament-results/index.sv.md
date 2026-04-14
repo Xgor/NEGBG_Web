@@ -2,7 +2,7 @@
 title: "Resultat: Guilty Gear Strive 2.00 Releaseturnering"
 date: "2026-04-14T12:00:00+02:00"
 draft: false
-cover: "/images/strive-2-0/gruppbild.jpg"
+cover: "gruppbild.jpg"
 event_link: ["strive-2-0-release-turre"]
 event_role: "recap"
 ---
@@ -13,17 +13,17 @@ Stämningen var god, matcherna intensiva och det bjöds på en fin blandning av 
 
 <!--more-->
 
-{{< figure src="/images/strive-2-0/gruppbild.jpg" caption="En gruppbild på alla deltagarna, kolla så många de är!" >}}
+{{< figure src="gruppbild.jpg" caption="En gruppbild på alla deltagarna, kolla så många de är!" >}}
 
 Sexton goa gubbar ställde upp i dubbeleliminering och konkurrensen var stenhård från start,
 och Wild Assault kunde de heller inte längre falla bak på!
 Publiken hängde med hela vägen och när det väl satte igång på allvar var det svårt att kolla bort.
 
-{{< figure src="/images/strive-2-0/theboyswatchingthebiggame.png" caption="Publiken får fokusera ordentligt om de vill se sängens kluriga knappar" >}}
+{{< figure src="theboyswatchingthebiggame.png" caption="Publiken får fokusera ordentligt om de vill se sängens kluriga knappar" >}}
 
 ## Top 8
 
-{{< figure src="/images/strive-2-0/top8.png" alt="Top 8 — Guilty Gear Strive 2.00 Releaseturnering" >}}
+{{< figure src="top8.png" alt="Top 8 — Guilty Gear Strive 2.00 Releaseturnering" >}}
 
 | Plats | Spelare | Karaktär |
 |---|---|---|
@@ -41,7 +41,7 @@ Hela bracketen finns att bläddra igenom på [Challonge](https://ceca1a6a1a76169
 
 ## Pallen
 
-{{< figure src="/images/strive-2-0/top3.jpg" caption="aircake (3:a), Rapthorn (1:a), Jenxey (2:a)" >}}
+{{< figure src="top3.jpg" caption="aircake (3:a), Rapthorn (1:a), Jenxey (2:a)" >}}
 
 Stort grattis till **Rapthorn** som tog hem turneringen med Bedman?, och till **Jenxey** och **aircake** som klättrade till toppen av pallen!
 

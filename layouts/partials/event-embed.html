@@ -56,7 +56,7 @@
   </div>
 
   {{ with $cover }}
-    <img src="{{ . }}" alt="{{ $.Title }}" class="event-embed-cover">
+    {{ partial "img.html" (dict "src" . "alt" $.Title "class" "event-embed-cover" "page" $) }}
   {{ end }}
 
   {{/* Structured event info rendered from data.toml */}}
