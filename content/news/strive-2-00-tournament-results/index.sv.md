@@ -47,5 +47,4 @@ Stort grattis till **Rapthorn** som tog hem turneringen med Bedman?, och till **
 
 Tack till alla som deltog, tittade på och bidrog till en suverän kväll.
 
-<<<<VOD LINK HERE>>>>>
-<!-- VOD: [Se hela turneringen här](URL) --> 
+VOD: [Se hela turneringen här](https://www.youtube.com/watch?v=HN65I4g04TQ)
