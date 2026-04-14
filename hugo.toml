@@ -45,10 +45,10 @@ defaultContentLanguageInSubdir = false
   description = "Göteborgs helt egna fightingspelsförening!"
 
 [params.logo]
-    path = "/NegativeEdge_Color.svg"
+    path = "/NegativeEdge_Minimal.svg"
     alt = "NE-logga"
 [params.header.logo]
-    path = "/NegativeEdge_Color.svg"
+    path = "/NegativeEdge_Minimal.svg"
     alt = "NE-logga"
 
 
