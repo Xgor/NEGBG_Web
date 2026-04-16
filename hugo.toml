@@ -3,7 +3,6 @@ languageCode = 'sv-SE'
 title = 'Göteborgs största förening för fightingspel'
 theme = 'hello-friend-ng'
 pluralizeListTitles = false
-relativeURLs = true
 timeZone = "Europe/Stockholm"
 enableGlobalLanguageMenu = true
 disableKinds = ["RSS"]
