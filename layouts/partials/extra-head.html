@@ -30,6 +30,8 @@
   {{ $location := $data.location }}
   {{ $price := $data.price }}
   {{ $price_currency := $data.price_currency | default "SEK" }}
+  {{ $image := "https://negativeedge.se/web-app-manifest-512x512.png" }}
+  {{ with $data.cover }}{{ $image = . | absURL }}{{ end }}
 
   {{ $json := printf `{"@context":"https://schema.org","@type":"Event","name":%s,"description":%s,"eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","url":%s,"organizer":{"@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se"}` (.Title | jsonify) (.Summary | jsonify) (.RelPermalink | absURL | jsonify) }}
   {{ if $start_date }}{{ $json = printf `%s,"startDate":%s` $json ($start_date | jsonify) }}{{ end }}
