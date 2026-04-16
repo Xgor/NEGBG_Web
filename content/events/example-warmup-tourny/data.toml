@@ -1,3 +1,8 @@
 start_date = "2025-12-06T10:00:00"
 end_date = "2025-12-06T18:00:00"
-location = "Kappa Bar, Gothenburg"
+[location]
+name = "Kappa Bar"
+street = "Rosenlundsgatan 8"
+postal_code = "411 20"
+city = "Göteborg"
+country = "SE"

@@ -1,4 +1,9 @@
-location = "Kappa Bar, Rosenlundsgatan 8, 411 20 Göteborg"
+[location]
+name = "Kappa Bar"
+street = "Rosenlundsgatan 8"
+postal_code = "411 20"
+city = "Göteborg"
+country = "SE"
 
 [recurrence]
   start_time = "18:00"
