@@ -49,7 +49,7 @@
 
       {{ with $location }}
         <div style="margin-top: 0.35em;">
-          <strong>{{ T "where" }}:</strong> {{ . }}
+          <strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}
         </div>
       {{ end }}
     </div>

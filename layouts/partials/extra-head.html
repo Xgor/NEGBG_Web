@@ -27,14 +27,19 @@
 
   {{ $start_date := $data.start_date }}
   {{ $end_date := $data.end_date }}
-  {{ $location := .Params.location }}
+  {{ $location := $data.location }}
   {{ $price := $data.price }}
   {{ $price_currency := $data.price_currency | default "SEK" }}
+  {{ $image := "https://negativeedge.se/web-app-manifest-512x512.png" }}
+  {{ with $data.cover }}{{ $image = . | absURL }}{{ end }}
 
-  {{ $json := printf `{"@context":"https://schema.org","@type":"Event","name":%s,"description":%s,"eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","url":%s,"organizer":{"@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se"}` (.Title | jsonify) (.Summary | jsonify) (.RelPermalink | absURL | jsonify) }}
+  {{ $json := printf `{"@context":"https://schema.org","@type":"Event","name":%s,"description":%s,"image":%s,"eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","url":%s,"organizer":{"@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se"}` (.Title | jsonify) (.Summary | jsonify) ($image | jsonify) (.RelPermalink | absURL | jsonify) }}
   {{ if $start_date }}{{ $json = printf `%s,"startDate":%s` $json ($start_date | jsonify) }}{{ end }}
   {{ if $end_date }}{{ $json = printf `%s,"endDate":%s` $json ($end_date | jsonify) }}{{ end }}
-  {{ if $location }}{{ $json = printf `%s,"location":{"@type":"Place","name":%s}` $json ($location | jsonify) }}{{ end }}
+  {{ if $location }}
+    {{ $locationObj := dict "@type" "Place" "name" $location.name "address" (dict "@type" "PostalAddress" "streetAddress" $location.street "addressLocality" $location.city "postalCode" $location.postal_code "addressCountry" $location.country) }}
+    {{ $json = printf `%s,"location":%s` $json ($locationObj | jsonify) }}
+  {{ end }}
   {{ if $price }}{{ $json = printf `%s,"offers":{"@type":"Offer","price":%s,"priceCurrency":%s,"availability":"https://schema.org/InStock"}` $json ($price | jsonify) ($price_currency | jsonify) }}{{ end }}
   {{ $json = printf "%s}" $json }}
 

@@ -33,7 +33,7 @@
       <p><strong>{{ T "event.check-in" }}:</strong> {{ . }}</p>
     {{ end }}
     {{ with .Location }}
-      <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
+      <p><strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}</p>
     {{ end }}
     {{ with .Price }}
       <p><strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $.PriceCurrency }}</p>

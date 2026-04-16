@@ -114,14 +114,14 @@
                   {{ $timeFormat := $.Site.Language.Params.time_format | default "15:04" }}
                   {{ T "to" }} {{ (time .).Format $timeFormat }}
                 {{ end }}
-                
-                ({{ time.Format "MST" $eventTime }})
+
+                ({{ $eventTime.Format "MST" }})
               </p>
               {{ with $data.checkin_time }}
                 <p><strong>{{ T "event.check-in" }}:</strong> {{ . }}</p>
               {{ end }}
               {{ with $location }}
-                <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
+                <p><strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}</p>
               {{ end }}
               {{ with $data.price }}
                 <p><strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $data.price_currency }}</p>
@@ -233,7 +233,7 @@
                 ({{ $.Site.Params.timeZoneAbbr }})
               </p>
               {{ with $location }}
-                <p><strong>{{ T "where" }}:</strong> {{ . }}</p>
+                <p><strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}</p>
               {{ end }}
               {{ with $data.checkin_time }}
                 <p><strong>{{ T "event.check-in" }}:</strong> {{ . }}</p>
