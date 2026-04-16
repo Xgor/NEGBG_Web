@@ -8,7 +8,7 @@
   {{ range .Site.Params.Social }}
     {{ $sameAs = $sameAs | append .url }}
   {{ end }}
-  {{ $knowsAbout := slice "Tekken 8" "Tekken 7" "Street Fighter 6" "Street Fighter V" "Guilty Gear Strive" "Dragon Ball FighterZ" "Mortal Kombat" "The King of Fighters" "Granblue Fantasy Versus" "fightingspel" "fighting games" "esports" "fightingspelsturnering" "spelförening Göteborg" }}
+  {{ $knowsAbout := slice "Tekken 8" "Tekken 7" "Street Fighter 6" "Street Fighter V" "Guilty Gear Strive" "2XKO" "Under Night In-Birth 2" "Fatal Fury: City of the Wolves" "BlazBlue" "Dragon Ball FighterZ" "Mortal Kombat" "The King of Fighters" "Granblue Fantasy Versus" "fightingspel" "fighting games" "esports" "FGC" "fightingspelsturnering" "spelförening Göteborg" }}
   {{ $areaServed := slice (dict "@type" "Country" "name" "Sweden") (dict "@type" "City" "name" "Göteborg") }}
   {{ $address := dict "@type" "PostalAddress" "streetAddress" "Rosenlundsgatan 8" "addressLocality" "Göteborg" "postalCode" "411 20" "addressCountry" "SE" }}
   {{ $schema := dict "@context" "https://schema.org" "@type" (slice "LocalBusiness" "SportsOrganization") "name" "Negative Edge" "url" "https://negativeedge.se" "description" .Site.Params.Description "image" "https://negativeedge.se/web-app-manifest-512x512.png" "address" $address "areaServed" $areaServed "sport" "Fighting games" "knowsAbout" $knowsAbout "sameAs" $sameAs }}
