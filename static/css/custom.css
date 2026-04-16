@@ -327,6 +327,11 @@ picture img {
   color: #1b1b1b;
 }
 .post-role-recap {
+  background-color: #1e3a2a;
+  border: 1px solid #4caf7a;
+  color: #a8d9b8;
+}
+.post-role-event {
   background-color: var(--secondary-bg, #252525);
   border: 1px solid var(--main-border, #444);
   color: var(--main-fg, #ccc);
@@ -463,6 +468,11 @@ picture img {
 
 /* Fix event page body text — scope to event pages only to avoid breaking homepage */
 .event-page-content { align-items: stretch; }
+
+/* Fix default list pages (join, about, ...) — inner .content inside .posts
+   inherits the theme's align-items: center, which visually centers narrow
+   children like <pre>, <ul>, and headings. */
+.posts .content { align-items: stretch; }
 
 .container > article { flex: 1 auto; }
 

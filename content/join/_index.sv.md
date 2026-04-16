@@ -10,15 +10,26 @@ title = "Bli medlem"
 
 Vi är glada att du vill gå med! Medlemskap är inte nödvändigt just nu för att kunna gå på våra träffar på Kappa Bar eller tourneringar men pengarna kommer hjälpa oss till att arrangera större och bättre event
 
-Medlemsavgift för räkenskapsåret **25/26** (medlemskapsperioden slutar runt mars då vi har vårt årsmöte):
+Medlemsavgift för räkenskapsåret **26/27** (medlemskapsperioden slutar runt mars då vi har vårt årsmöte):
 
-Medlemsavgift - **100 kr** för räkenskapsåret **25/26**. Detta inkluderar:
+Medlemsavgift - **100 kr** för räkenskapsåret **26/27**. Detta inkluderar:
 - Medlemskort.
-- 10 % rabatt på mat och dryck under möten i Kappa bar.
+- 10 % rabatt på mat och dryck under träffar i Kappa bar.
 - Rösträtt vid årsmötet.
 
 ### För nya medlemmar
-Skicka ett mejl med dina personuppgifter (namn, födelsedatum, adress, e-postadress, telefonnummer, smeknamn) till negativeedgegbg@gmail.com. Skriv "Medlemsansökan" i ämnesraden. Betala sedan medlemsavgiften antingen via Bankgiro eller Swish
+Skicka ett mejl till negativeedgegbg@gmail.com med ämnesraden `Medlemsansökan` och fyll i mallen nedan:
+
+```
+Namn:
+Födelsedatum:
+Adress:
+E-postadress:
+Telefonnummer:
+Smeknamn:
+```
+
+Betala sedan medlemsavgiften antingen via Bankgiro eller Swish.
 
 ### För återkommande medlemmar
 Betala medlemsavgiften antingen via Bankgiro eller Swish
