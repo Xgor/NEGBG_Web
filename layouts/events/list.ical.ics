@@ -18,7 +18,15 @@
   {{- $recur_data := $data.recurrence | default (dict) -}}
   {{- $recur_text := $page.Params.recurrence | default (dict) -}}
   {{- $recurrence := merge $recur_data $recur_text -}}
-  {{- $location := $data.location | default $page.Params.location | default "" -}}
+  {{- $locationData := $data.location | default $page.Params.location -}}
+  {{- $location := "" -}}
+  {{- with $locationData -}}
+    {{- $location = .name -}}
+    {{- with .street }}{{- $location = printf "%s, %s" $location . -}}{{- end -}}
+    {{- with .city }}{{- $location = printf "%s, %s" $location . -}}{{- end -}}
+    {{- with .postal_code }}{{- $location = printf "%s %s" $location . -}}{{- end -}}
+    {{- with .country }}{{- $location = printf "%s, %s" $location . -}}{{- end -}}
+  {{- end -}}
   {{- if $data.start_date -}}
     {{- $dtstart := (time $data.start_date).UTC.Format "20060102T150405Z" -}}
     {{- $dtend := $dtstart -}}
