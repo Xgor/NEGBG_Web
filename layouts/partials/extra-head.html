@@ -33,7 +33,7 @@
   {{ $image := "https://negativeedge.se/web-app-manifest-512x512.png" }}
   {{ with $data.cover }}{{ $image = . | absURL }}{{ end }}
 
-  {{ $json := printf `{"@context":"https://schema.org","@type":"Event","name":%s,"description":%s,"eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","url":%s,"organizer":{"@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se"}` (.Title | jsonify) (.Summary | jsonify) (.RelPermalink | absURL | jsonify) }}
+  {{ $json := printf `{"@context":"https://schema.org","@type":"Event","name":%s,"description":%s,"image":%s,"eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","url":%s,"organizer":{"@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se"}` (.Title | jsonify) (.Summary | jsonify) ($image | jsonify) (.RelPermalink | absURL | jsonify) }}
   {{ if $start_date }}{{ $json = printf `%s,"startDate":%s` $json ($start_date | jsonify) }}{{ end }}
   {{ if $end_date }}{{ $json = printf `%s,"endDate":%s` $json ($end_date | jsonify) }}{{ end }}
   {{ if $location }}
