@@ -8,8 +8,11 @@
   {{ range .Site.Params.Social }}
     {{ $sameAs = $sameAs | append .url }}
   {{ end }}
-  {{ $json := printf `{"@context":"https://schema.org","@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se","description":%s,"location":{"@type":"Place","name":"Kappa Bar","address":{"@type":"PostalAddress","addressLocality":"Göteborg","addressCountry":"SE"}},"sameAs":%s}` (.Site.Params.Description | jsonify) ($sameAs | jsonify) }}
-  {{ printf "<script type=\"application/ld+json\">%s</script>" $json | safeHTML }}
+  {{ $knowsAbout := slice "Tekken 8" "Tekken 7" "Street Fighter 6" "Street Fighter V" "Guilty Gear Strive" "Dragon Ball FighterZ" "Mortal Kombat" "The King of Fighters" "Granblue Fantasy Versus" "fightingspel" "fighting games" "esports" "fightingspelsturnering" "spelförening Göteborg" }}
+  {{ $areaServed := slice (dict "@type" "Country" "name" "Sweden") (dict "@type" "City" "name" "Göteborg") }}
+  {{ $address := dict "@type" "PostalAddress" "streetAddress" "Rosenlundsgatan 8" "addressLocality" "Göteborg" "postalCode" "411 20" "addressCountry" "SE" }}
+  {{ $schema := dict "@context" "https://schema.org" "@type" (slice "LocalBusiness" "SportsOrganization") "name" "Negative Edge" "url" "https://negativeedge.se" "description" .Site.Params.Description "address" $address "areaServed" $areaServed "sport" "Fighting games" "knowsAbout" $knowsAbout "sameAs" $sameAs }}
+  {{ printf "<script type=\"application/ld+json\">%s</script>" ($schema | jsonify) | safeHTML }}
 {{ end }}
 
 {{ if eq .Type "events" }}
