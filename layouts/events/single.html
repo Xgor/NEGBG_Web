@@ -56,7 +56,7 @@
       
       {{ with $location }}
         <div class="event-location" style="margin-top: 0.5em;">
-          <strong>{{ T "where" }}:</strong> {{ . }}
+          <strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}
         </div>
       {{ end }}
     </div>

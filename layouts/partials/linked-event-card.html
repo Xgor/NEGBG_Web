@@ -38,7 +38,7 @@
 
     {{ $location := $data.location | default .Params.location }}
     {{ with $location }}
-      <p><strong>{{ T "where" | default "Where" }}:</strong> {{ . }}</p>
+      <p><strong>{{ T "where" | default "Where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}</p>
     {{ end }}
   </div>
 
