@@ -13,7 +13,6 @@ We are happy you want to join! Membership is not currently required to attend ou
 Membership fee for the fiscal year **26/27** (the membership period ends around March, when we have our annual meeting):
 
 Membership Fee - **100 SEK** for the **26/27** fiscal year. This includes:
-- Membership card.
 - 10% discount on food and drinks during our meetups at Kappa Bar.
 - Voting rights at the annual meeting.
 

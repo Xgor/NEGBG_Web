@@ -13,7 +13,6 @@ Vi är glada att du vill gå med! Medlemskap är inte nödvändigt just nu för 
 Medlemsavgift för räkenskapsåret **26/27** (medlemskapsperioden slutar runt mars då vi har vårt årsmöte):
 
 Medlemsavgift - **100 kr** för räkenskapsåret **26/27**. Detta inkluderar:
-- Medlemskort.
 - 10 % rabatt på mat och dryck under träffar i Kappa bar.
 - Rösträtt vid årsmötet.
 
