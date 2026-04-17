@@ -62,6 +62,26 @@
     </div>
   </header>
 
+  {{/* --- Results banner (shown when a recap post exists) --- */}}
+  {{ $eventSlug := path.Base .RelPermalink }}
+  {{ $all_news := where .Site.RegularPages "Section" "news" }}
+  {{ range complement (slice .Site) site.Sites }}
+    {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
+  {{ end }}
+  {{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
+  {{ $announcements := where $linked_news ".Params.event_role" "announcement" }}
+  {{ $recaps := where $linked_news ".Params.event_role" "recap" }}
+  {{ $other_links := where $linked_news ".Params.event_role" "" }}
+
+  {{ if ge (len $recaps) 1 }}
+  <div class="event-results-banner" style="background-color: #1e3a2a; border: 1px solid #4caf7a; padding: 0.75em 1.25em; margin-bottom: 1.5em; border-radius: 4px;">
+    <strong>{{ T "event.results-available" | default "This event has ended — results are available!" }}</strong>
+    {{ range $recaps }}
+      · <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ end }}
+  </div>
+  {{ end }}
+
   {{ with $cover }}
     {{ partial "img.html" (dict "src" . "alt" $.Title "class" "post-cover" "page" $) }}
   {{ end }}
@@ -170,38 +190,11 @@
     </div>
   {{ end }} {{/* End "if $recurrence.schedule" */}}
 
-  {{ $eventSlug := path.Base (strings.TrimSuffix .File.Dir "/") }}
-  {{ $all_news := where .Site.RegularPages "Section" "news" }}
-  {{ range complement (slice .Site) site.Sites }}
-    {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
-  {{ end }}
-  {{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
-  {{ $announcements := where $linked_news ".Params.event_role" "announcement" }}
-  {{ $recaps := where $linked_news ".Params.event_role" "recap" }}
-  {{ $other_links := where $linked_news ".Params.event_role" "" }}
-
-  {{ if ge (len $linked_news) 1 }}
-    <section class="event-related-posts" style="margin-top: 2em;">
-      <h3>{{ T "event.related-posts" | default "Related Posts" }}</h3>
-      <ul class="event-related-posts-list">
-        {{ range $announcements }}
-          <li>
-            <span class="post-role-badge post-role-announcement">{{ T "event.role-announcement" | default "Announcement" }}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </li>
-        {{ end }}
-        {{ range $recaps }}
-          <li>
-            <span class="post-role-badge post-role-recap">{{ T "event.role-recap" | default "Recap" }}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </li>
-        {{ end }}
-        {{ range $other_links }}
-          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-      </ul>
-    </section>
-  {{ end }}
+  {{ partial "related-posts-list.html" (dict
+    "announcements" $announcements
+    "recaps" $recaps
+    "others" $other_links
+  ) }}
 
 </article>
 {{ end }}

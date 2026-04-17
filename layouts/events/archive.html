@@ -1,0 +1,138 @@
+{{ define "main" }}
+<article class="post events-list">
+  <header>
+    <h1>{{ .Title }}</h1>
+  </header>
+
+  <div class="content">
+    {{ .Content }}
+  </div>
+
+  <p class="archive-nav-link">
+    <a href="{{ relLangURL "events/" }}">← {{ T "event.archive-back-link" | default "Back to upcoming events" }}</a>
+  </p>
+
+  {{ $all_events := where .Site.RegularPages "Section" "events" }}
+  {{ $otherSites := complement (slice .Site) site.Sites }}
+  {{ range $otherSites }}
+    {{ $all_events = $all_events | lang.Merge (where .RegularPages "Section" "events") }}
+  {{ end }}
+
+  {{ $now := now }}
+
+  {{ $past_one_off_dicts := slice }}
+
+  {{ range $all_events }}
+    {{ $page := . }}
+
+    {{ if eq ($page.Params.layout) "archive" }}
+    {{ else }}
+      {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
+      {{ $data := dict }}
+
+      {{ if $dataResource }}
+        {{ $data = $dataResource.Content | unmarshal }}
+      {{ else }}
+        {{ $data = .Params }}
+      {{ end }}
+
+      {{ if $data.start_date }}
+        {{ $event_time := time $data.start_date }}
+        {{ if $event_time.Before $now }}
+          {{ $past_one_off_dicts = $past_one_off_dicts | append (dict
+              "Page" $page
+              "SortDate" $event_time
+            )
+          }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ $sorted_past := sort $past_one_off_dicts "SortDate" "desc" }}
+
+  {{ $all_news := where .Site.RegularPages "Section" "news" }}
+  {{ range $otherSites }}
+    {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
+  {{ end }}
+
+  <section class="events-list-section" style="margin-top: 2em;">
+    <h2>{{ T "event.archive-title" | default "Past Events" }}</h2>
+
+    {{ if ge (len $sorted_past) 1 }}
+      <ul class="event-card-list">
+        {{ range $sorted_past }}
+          {{ $page := .Page }}
+          {{ $eventTime := .SortDate }}
+
+          {{ $dataResource := $page.Resources.GetMatch "data.toml" | default ($page.Resources.GetMatch "schedule.toml") }}
+          {{ $data := dict }}
+
+          {{ if $dataResource }}
+            {{ $data = $dataResource.Content | unmarshal }}
+          {{ else }}
+            {{ $data = $page.Params }}
+          {{ end }}
+
+          {{ $location := $data.location | default $page.Params.location }}
+          {{ $end_date := $data.end_date | default $page.Params.end_date }}
+          {{ $cover := $data.cover | default $page.Params.cover }}
+
+          {{ $eventSlug := path.Base (strings.TrimSuffix $page.File.Dir "/") }}
+          {{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
+          {{ $announcement := where $linked_news ".Params.event_role" "announcement" | first 1 }}
+
+          <li class="event-card">
+            <div class="event-card-info">
+              <h3 class="event-card-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+              {{ with $cover }}
+                <a href="{{ $page.RelPermalink }}">
+                  {{ partial "img.html" (dict "src" . "alt" $page.Title "class" "event-card-cover" "page" $page) }}
+                </a>
+              {{ end }}
+              {{ with $page.Params.summary }}
+                <p class="event-card-summary">{{ . }}</p>
+              {{ end }}
+              {{ with index $announcement 0 }}
+                <p class="event-card-announcement-link">
+                  <a href="{{ .RelPermalink }}">{{ T "event.read-announcement" | default "Read announcement" }} →</a>
+                </p>
+              {{ end }}
+            </div>
+            <div class="event-card-details">
+              <p>
+                <strong>{{ T "when" }}:</strong>
+                {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
+
+                {{ $dateTime := time.Format $format $eventTime }}
+                {{ $dateTime }}
+                {{ with $end_date }}
+                  {{ $timeFormat := $.Site.Language.Params.time_format | default "15:04" }}
+                  {{ T "to" }} {{ (time .).Format $timeFormat }}
+                {{ end }}
+
+                ({{ $eventTime.Format "MST" }})
+              </p>
+              {{ with $data.checkin_time }}
+                <p><strong>{{ T "event.check-in" }}:</strong> {{ . }}</p>
+              {{ end }}
+              {{ with $location }}
+                <p><strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}</p>
+              {{ end }}
+              {{ with $data.price }}
+                <p><strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $data.price_currency }}</p>
+              {{ end }}
+              {{ with $data.prize_pool }}
+                <p><strong>{{ T "event.prize-pool" }}:</strong> {{ .total }} {{ .currency }}</p>
+              {{ end }}
+            </div>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p>{{ T "event.archive-no-past-events" | default "There are no past events to display." }}</p>
+    {{ end }}
+  </section>
+
+</article>
+{{ end }}

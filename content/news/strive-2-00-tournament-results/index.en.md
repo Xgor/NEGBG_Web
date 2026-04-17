@@ -24,16 +24,16 @@ The audience stayed engaged throughout, and once things really got going it was 
 
 {{< figure src="top8.png" alt="Top 8 — Guilty Gear Strive 2.00 Release Tournament" >}}
 
-| Place | Player | Character |
-|---|---|---|
-| 1 | **Rapthorn** | Bedman? |
-| 2 | **Jenxey** | Sol |
-| 3 | **aircake** | Ky / A.B.A |
-| 4 | **KOE** | Zato |
-| 5 | **feffe** | May |
-| 5 | **KongoBongo** | Johnny |
-| 7 | **Oskar** | Axl Low |
-| 7 | **Emeraldym** | Bedman? |
+{{< tournament-results >}}
+1 | **Rapthorn** | Bedman?
+2 | **Jenxey** | Sol
+3 | **aircake** | Ky / A.B.A
+4 | **KOE** | Zato
+5 | **feffe** | May
+5 | **KongoBongo** | Johnny
+7 | **Oskar** | Axl Low
+7 | **Emeraldym** | Bedman?
+{{< /tournament-results >}}
 
 The full bracket is available to browse on [Challonge](https://ceca1a6a1a76169ba1e5b00c.challonge.com/vgp1btoj).
 

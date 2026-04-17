@@ -10,15 +10,26 @@ title = "Become a Member"
 
 We are happy you want to join! Membership is not currently required to attend our meetups at Kappa Bar or our tournaments, but the money helps us organize bigger and better events.
 
-Membership fee for the fiscal year **25/26** (the membership period ends around March, when we have our annual meeting):
+Membership fee for the fiscal year **26/27** (the membership period ends around March, when we have our annual meeting):
 
-Membership Fee - **100 SEK** for the **25/26** fiscal year. This includes:
-- Membership card.
+Membership Fee - **100 SEK** for the **26/27** fiscal year. This includes:
 - 10% discount on food and drinks during our meetups at Kappa Bar.
 - Voting rights at the annual meeting.
+- Access to tournaments that require membership.
 
 ### For New Members
-Send an email with your personal details (name, date of birth, address, email address, phone number, nickname) to negativeedgegbg@gmail.com. Write "Membership Application" in the subject line. Then, pay the membership fee via either Bankgiro or Swish.
+Send an email to negativeedgegbg@gmail.com with the subject `Membership Application` and fill in the template below:
+
+```
+Name:
+Date of birth:
+Address:
+Email:
+Phone:
+Nickname:
+```
+
+Then pay the membership fee via either Bankgiro or Swish.
 
 ### For Returning Members
 Pay the membership fee via either Bankgiro or Swish.

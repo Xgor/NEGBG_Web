@@ -1,0 +1,29 @@
+<div class="tournament-results">
+  {{ $lines := split .Inner "\n" }}
+  {{ range $lines }}
+    {{ $trimmed := trim . " \r" }}
+    {{ if $trimmed }}
+      {{ $parts := split $trimmed "|" }}
+      {{ if ge (len $parts) 3 }}
+        {{ $place := trim (index $parts 0) " " }}
+        {{ $player := trim (index $parts 1) " " }}
+        {{ $character := trim (index $parts 2) " " }}
+
+        {{ $placeClass := "tournament-place" }}
+        {{ if eq $place "1" }}
+          {{ $placeClass = "tournament-place tournament-gold" }}
+        {{ else if eq $place "2" }}
+          {{ $placeClass = "tournament-place tournament-silver" }}
+        {{ else if eq $place "3" }}
+          {{ $placeClass = "tournament-place tournament-bronze" }}
+        {{ end }}
+
+        <div class="tournament-entry">
+          <span class="{{ $placeClass }}">{{ $place }}</span>
+          <span class="tournament-player">{{ $player | markdownify }}</span>
+          <span class="tournament-character">{{ $character }}</span>
+        </div>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</div>

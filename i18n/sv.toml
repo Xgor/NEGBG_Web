@@ -32,6 +32,11 @@ no-articles = "Det finns inga nyhetsartiklar för tillfället."
   discord-event = "Discord-event"
   links = "Länkar"
   subscribe-ical = "Prenumerera på kalender (iCal)"
+  results-available = "Evenemanget är avslutat. Resultaten finns här!"
+  archive-title = "Tidigare Evenemang"
+  archive-link = "Visa tidigare evenemang"
+  archive-back-link = "Tillbaka till kommande evenemang"
+  archive-no-past-events = "Det finns inga tidigare evenemang att visa."
 
 
 
