@@ -465,7 +465,8 @@ picture img {
 
 .container { justify-content: flex-start !important; text-align: left; }
 
-.content { align-items: stretch; }
+.post .content,
+.posts .content { align-items: stretch; }
 
 .container > article { flex: 1 auto; }
 
