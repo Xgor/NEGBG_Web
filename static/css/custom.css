@@ -618,10 +618,79 @@ picture img {
 
 
   .home-section-divider::after {
-    content: "◇ ◇ ◇ "; 
-    color: var(--primary-color, #ff7e07); 
+    content: "◇ ◇ ◇ ";
+    color: var(--primary-color, #ff7e07);
     font-size: 1em;
-    opacity: 0.5; 
+    opacity: 0.5;
+  }
+}
+
+/*
+ * Tournament results shortcode
+ */
+.tournament-results {
+  margin: 1.5em 0;
+}
+
+.tournament-entry {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 0.6em 0.75em;
+  border-bottom: 1px solid var(--main-border, #444);
+}
+
+.tournament-entry:last-child {
+  border-bottom: none;
+}
+
+.tournament-place {
+  font-weight: bold;
+  font-size: 1.1em;
+  min-width: 2em;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.tournament-gold {
+  color: #ffd700;
+}
+
+.tournament-silver {
+  color: #c0c0c0;
+}
+
+.tournament-bronze {
+  color: #cd7f32;
+}
+
+.tournament-player {
+  font-weight: bold;
+  flex: 1;
+  min-width: 0;
+}
+
+.tournament-player p {
+  margin: 0;
+  display: inline;
+}
+
+.tournament-character {
+  color: var(--main-fg, #ccc);
+  opacity: 0.8;
+  font-size: 0.9em;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .tournament-entry {
+    gap: 0.6em;
+    padding: 0.5em 0.25em;
+  }
+
+  .tournament-character {
+    font-size: 0.85em;
   }
 }
 
