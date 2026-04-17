@@ -15,6 +15,7 @@ Membership fee for the fiscal year **26/27** (the membership period ends around 
 Membership Fee - **100 SEK** for the **26/27** fiscal year. This includes:
 - 10% discount on food and drinks during our meetups at Kappa Bar.
 - Voting rights at the annual meeting.
+- Access to tournaments that require membership.
 
 ### For New Members
 Send an email to negativeedgegbg@gmail.com with the subject `Membership Application` and fill in the template below:

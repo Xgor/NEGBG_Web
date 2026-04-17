@@ -252,6 +252,10 @@
       <p>{{ T "event.no-upcoming-recurring" }}</p>
     {{ end }}
   </section>
-  
+
+  <p class="archive-nav-link" style="text-align: center; margin-top: 2em;">
+    <a href="{{ relLangURL "events/archive/" }}">{{ T "event.archive-link" | default "View past events" }} →</a>
+  </p>
+
 </article>
 {{ end }}

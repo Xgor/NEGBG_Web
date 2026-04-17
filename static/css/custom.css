@@ -463,16 +463,9 @@ picture img {
   text-align: center;
 }
 
-/* Fix header position on short pages */
-.container { justify-content: flex-start !important; }
+.container { justify-content: flex-start !important; text-align: left; }
 
-/* Fix event page body text — scope to event pages only to avoid breaking homepage */
-.event-page-content { align-items: stretch; }
-
-/* Fix default list pages (join, about, ...) — inner .content inside .posts
-   inherits the theme's align-items: center, which visually centers narrow
-   children like <pre>, <ul>, and headings. */
-.posts .content { align-items: stretch; }
+.content { align-items: stretch; }
 
 .container > article { flex: 1 auto; }
 

@@ -15,6 +15,7 @@ Medlemsavgift för räkenskapsåret **26/27** (medlemskapsperioden slutar runt m
 Medlemsavgift - **100 kr** för räkenskapsåret **26/27**. Detta inkluderar:
 - 10 % rabatt på mat och dryck under träffar i Kappa bar.
 - Rösträtt vid årsmötet.
+- Tillträde till de turneringar som kräver medlemskap.
 
 ### För nya medlemmar
 Skicka ett mejl till negativeedgegbg@gmail.com med ämnesraden `Medlemsansökan` och fyll i mallen nedan:
