@@ -10,8 +10,11 @@ Bilingual (Swedish/English) Hugo site for **Negative Edge**, Gothenburg's fighti
 ## Local development
 
 ```bash
-# Clone with submodules (theme)
-git clone --recursive <repo-url>
+# Clone with submodules using ssh
+git clone --recursive git@github.com:Xgor/NEGBG_Web.git
+# or using http
+git clone --recursive https://github.com/Xgor/NEGBG_Web.git
+# then
 cd NEGBG_Web
 
 # Or if already cloned
@@ -202,13 +205,19 @@ All custom CSS goes in `static/css/custom.css`. Use the theme's CSS variables (`
 
 Never edit files in `themes/hello-friend-ng/` directly -- it's a git submodule. Override layouts by placing files with the same path in the top-level `layouts/` directory.
 
-## Deployment
+## Contributing
 
-The site is deployed to Cloudflare Pages. Builds are triggered by:
+1. Create a branch off `master`:
+   ```bash
+   git checkout master && git pull
+   git checkout -b my-feature
+   ```
+2. Make your changes and verify locally with `hugo server -D`
+3. Push the branch and open a PR against `master`
 
-- Pushes to the `master` branch
-- A daily scheduled rebuild at 01:00 UTC via GitHub Actions (keeps time-sensitive event content current)
+Merges to `master` automatically trigger a Cloudflare Pages deploy. There is also a daily scheduled rebuild at 01:00 UTC via GitHub Actions to keep time-sensitive content (like events) current.
 
+Hugo version is pinned to **0.128.0** -- don't change without testing locally first.
 
 ### Front matter format
 
