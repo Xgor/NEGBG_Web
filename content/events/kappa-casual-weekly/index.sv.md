@@ -1,29 +1,13 @@
----
-title: "Veckoträff på Kappa Bar"
-date: 2025-11-03
-draft: false
++++
+title = "Veckoträff på Kappa Bar"
+date = 2025-11-03
+draft = false
+summary = "Casuals på Kappa Bar"
 
-recurrence:
-  type: "Varje vecka"
-  details: "Alternerar mellan tisdag och onsdag varje vecka"
-#  start_time: "18:00"
-#  end_time: "22:00"
-
-#  schedule:
-#    - "2025-11-04" # Tue
-#    - "2025-11-12" # Wed
-#    - "2025-11-18" # Tue
-#    - "2025-11-26" # Wed
-#    - "2025-12-02" # Tue
-#    - "2025-12-10" # Wed
-    # ...etc.
-
-#  cancellations:
-#    - "2025-11-04"
-#    - "2025-11-12" # Wed
-
-summary: "Casuals på Kappa Bar"
----
+[recurrence]
+type = "Varje vecka"
+details = "Alternerar mellan tisdag och onsdag varje vecka"
++++
 Vi kör casuals på Kappa Bar varje vecka!
 
 Häng på, gibba, och ta en öl med gött sällskap!
