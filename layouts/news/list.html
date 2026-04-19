@@ -12,7 +12,7 @@
   {{ $preferredNews := where .Site.RegularPages "Section" "news" }}
 
   {{/* --- 2. Get all other language sites --- */}}
-  {{ $otherSites := complement (slice .Site) site.Sites }}
+  {{ $otherSites := complement (slice .Site) hugo.Sites }}
 
   {{/* --- 3. Merge in news from other languages that don't have a translation --- */}}
   {{ range $otherSites }}

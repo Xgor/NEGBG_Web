@@ -31,13 +31,13 @@
             {{ end }}
 
             {{/* 2. Loop over ALL site languages (sv, en) */}}
-            {{ range .Site.Languages }}
-              {{ $lang := .Lang }}
+            {{ range hugo.Sites }}
+              {{ $lang := .Language.Lang }}
               {{ $flag := "" }}
-              {{ $isCurrent := eq .Lang $.Site.Language.Lang }}
+              {{ $isCurrent := eq .Language.Lang $.Site.Language.Lang }}
 
               {{/* 3. Check our map to see if a translation exists for this language */}}
-              {{ $translation := index $translationsMap .Lang }}
+              {{ $translation := index $translationsMap .Language.Lang }}
 
               {{/* 4. Assign flag emoji */}}
               {{ if eq $lang "sv" }}
@@ -49,12 +49,12 @@
               {{ if $flag }}
                 {{ if $translation }}
                   {{/* 5a. A translation exists! Render a clickable link. */}}
-                  <a href="{{ $translation.RelPermalink }}" title="{{ .LanguageName }}" class="flag-link {{ if $isCurrent }}current-lang{{ end }}">
+                  <a href="{{ $translation.RelPermalink }}" title="{{ .Language.LanguageName }}" class="flag-link {{ if $isCurrent }}current-lang{{ end }}">
                     <span class="flag-icon">{{ $flag }}</span>
                   </a>
                 {{ else }}
                   {{/* 5b. No translation. Render a disabled, greyed-out span. */}}
-                  <span title="{{ .LanguageName }} ({{ T "translation.not-available" | default "Not available" }})" class="flag-link disabled">
+                  <span title="{{ .Language.LanguageName }} ({{ T "translation.not-available" | default "Not available" }})" class="flag-link disabled">
                     <span class="flag-icon">{{ $flag }}</span>
                   </span>
                 {{ end }}

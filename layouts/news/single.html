@@ -23,7 +23,7 @@
 
     {{/* --- Collect sibling news posts linked to the same event(s) --- */}}
     {{ $all_news := where $.Site.RegularPages "Section" "news" }}
-    {{ range complement (slice $.Site) site.Sites }}
+    {{ range complement (slice $.Site) hugo.Sites }}
       {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
     {{ end }}
     {{ $sibling_news := where $all_news ".Params.event_link" "intersect" $eventLinks }}

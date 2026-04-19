@@ -6,10 +6,11 @@ pluralizeListTitles = false
 timeZone = "Europe/Stockholm"
 enableGlobalLanguageMenu = true
 disableKinds = ["RSS"]
-minify = true
-
 defaultContentLanguage = "sv"
 defaultContentLanguageInSubdir = false
+[minify]
+  minifyOutput = true
+
 
 [languages]
   [languages.sv]
