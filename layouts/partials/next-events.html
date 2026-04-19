@@ -2,13 +2,13 @@
 {{ $all_news := where .Site.RegularPages "Section" "news" }}
 {{ $otherSites := complement (slice .Site) hugo.Sites }}
 {{ range $otherSites }}
-  {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
+{{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
 {{ end }}
 
 {{/* Collect all event pages, preferring current language */}}
 {{ $preferredEvents := where .Site.RegularPages "Section" "events" }}
 {{ range $otherSites }}
-  {{ $preferredEvents = $preferredEvents | lang.Merge (where .RegularPages "Section" "events") }}
+{{ $preferredEvents = $preferredEvents | lang.Merge (where .RegularPages "Section" "events") }}
 {{ end }}
 
 {{ $now := now }}
@@ -16,94 +16,94 @@
 {{ $master_event_list := slice }}
 
 {{ range $preferredEvents }}
-  {{ $page := . }}
+{{ $page := . }}
 
-  {{ $data := dict }}
-  {{ $recurrence := dict }}
-  {{ $start_date := "" }}
-  {{ $end_date := "" }}
+{{ $data := dict }}
+{{ $recurrence := dict }}
+{{ $start_date := "" }}
+{{ $end_date := "" }}
 
-  {{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
+{{ $dataResource := .Resources.GetMatch "data.toml" | default (.Resources.GetMatch "schedule.toml") }}
 
-  {{ if $dataResource }}
-    {{ $data = $dataResource.Content | unmarshal }}
-    {{ $recur_data := $data.recurrence | default (dict) }}
-    {{ $recur_text := $page.Params.recurrence | default (dict) }}
-    {{ $recurrence = merge $recur_data $recur_text }}
-    {{ $start_date = $data.start_date }}
-    {{ $end_date = $data.end_date }}
-  {{ else }}
-    {{ $start_date = .Params.start_date }}
-    {{ $end_date = .Params.end_date }}
-    {{ $recurrence = .Params.recurrence }}
-  {{ end }}
+{{ if $dataResource }}
+{{ $data = $dataResource.Content | unmarshal }}
+{{ $recur_data := $data.recurrence | default (dict) }}
+{{ $recur_text := $page.Params.recurrence | default (dict) }}
+{{ $recurrence = merge $recur_data $recur_text }}
+{{ $start_date = $data.start_date }}
+{{ $end_date = $data.end_date }}
+{{ else }}
+{{ $start_date = .Params.start_date }}
+{{ $end_date = .Params.end_date }}
+{{ $recurrence = .Params.recurrence }}
+{{ end }}
 
-  {{/* Per-page metadata */}}
-  {{ $location     := $data.location      | default $page.Params.location }}
-  {{ $cover        := $data.cover         | default $page.Params.cover }}
-  {{ $checkin_time := $data.checkin_time }}
-  {{ $price        := $data.price }}
-  {{ $price_currency := $data.price_currency }}
-  {{ $prize_pool   := $data.prize_pool }}
+{{/* Per-page metadata */}}
+{{ $location     := $data.location      | default $page.Params.location }}
+{{ $cover        := $data.cover         | default $page.Params.cover }}
+{{ $checkin_time := $data.checkin_time }}
+{{ $price        := $data.price }}
+{{ $price_currency := $data.price_currency }}
+{{ $prize_pool   := $data.prize_pool }}
 
-  {{/* Announcement news post lookup */}}
-  {{ $eventSlug := path.Base (strings.TrimSuffix $page.File.Dir "/") }}
-  {{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
-  {{ $announcement := where $linked_news ".Params.event_role" "announcement" | first 1 | index 0 }}
+{{/* Announcement news post lookup */}}
+{{ $eventSlug := path.Base (strings.TrimSuffix $page.File.Dir "/") }}
+{{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
+{{ $announcement := where $linked_news ".Params.event_role" "announcement" | first 1 | index 0 }}
 
-  {{ if $start_date }}
-    {{ $event_time := time $start_date }}
-    {{ if $event_time.After $now }}
-      {{ $master_event_list = $master_event_list | append (dict
-          "Page"          $page
-          "SortDate"      $event_time
-          "Time"          (printf "%s - %s" ($event_time.Format ($.Site.Language.Params.time_format | default "15:04")) ((time $end_date).Format ($.Site.Language.Params.time_format | default "15:04")))
-          "Location"      $location
-          "Cover"         $cover
-          "CheckinTime"   $checkin_time
-          "Price"         $price
-          "PriceCurrency" $price_currency
-          "PrizePool"     $prize_pool
-          "Announcement"  $announcement
-        )
-      }}
-    {{ end }}
+{{ if $start_date }}
+{{ $event_time := time $start_date }}
+{{ if $event_time.After $now }}
+{{ $master_event_list = $master_event_list | append (dict
+"Page"          $page
+"SortDate"      $event_time
+"Time"          (printf "%s - %s" ($event_time.Format ($.Site.Language.Params.time_format | default "15:04")) ((time $end_date).Format ($.Site.Language.Params.time_format | default "15:04")))
+"Location"      $location
+"Cover"         $cover
+"CheckinTime"   $checkin_time
+"Price"         $price
+"PriceCurrency" $price_currency
+"PrizePool"     $prize_pool
+"Announcement"  $announcement
+)
+}}
+{{ end }}
 
-  {{ else if $recurrence.schedule }}
-    {{ $recur := $recurrence }}
+{{ else if $recurrence.schedule }}
+{{ $recur := $recurrence }}
 
-    {{ if $recur.start_time }}
-      {{ $cancellations    := $recur.cancellations | default (slice) }}
-      {{ $start_time_str   := $recur.start_time }}
-      {{ $end_time_str     := $recur.end_time }}
-      {{ $time_range_str   := printf "%s - %s" $start_time_str $end_time_str }}
+{{ if $recur.start_time }}
+{{ $cancellations    := $recur.cancellations | default (slice) }}
+{{ $start_time_str   := $recur.start_time }}
+{{ $end_time_str     := $recur.end_time }}
+{{ $time_range_str   := printf "%s - %s" $start_time_str $end_time_str }}
 
-      {{ range $recur.schedule }}
-        {{ $date_string := . }}
-        {{ if ge $date_string $today_string }}
-          {{ if not (in $cancellations $date_string) }}
-            {{ $event_datetime_string := printf "%sT%s:00" $date_string $start_time_str }}
-            {{ $event_time := time $event_datetime_string }}
-            {{ $master_event_list = $master_event_list | append (dict
-                "Page"          $page
-                "SortDate"      $event_time
-                "Time"          $time_range_str
-                "Location"      $location
-                "Cover"         $cover
-                "CheckinTime"   $checkin_time
-                "Price"         $price
-                "PriceCurrency" $price_currency
-                "PrizePool"     $prize_pool
-                "Announcement"  $announcement
-              )
-            }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-    {{ else }}
-      {{ warnf "Event '%s' has a 'recurrence' block but is missing 'start_time'. It will not be listed." $page.File.Path }}
-    {{ end }}
-  {{ end }}
+{{ range $recur.schedule }}
+{{ $date_string := . }}
+{{ if ge $date_string $today_string }}
+{{ if not (in $cancellations $date_string) }}
+{{ $event_datetime_string := printf "%sT%s:00" $date_string $start_time_str }}
+{{ $event_time := time $event_datetime_string }}
+{{ $master_event_list = $master_event_list | append (dict
+"Page"          $page
+"SortDate"      $event_time
+"Time"          $time_range_str
+"Location"      $location
+"Cover"         $cover
+"CheckinTime"   $checkin_time
+"Price"         $price
+"PriceCurrency" $price_currency
+"PrizePool"     $prize_pool
+"Announcement"  $announcement
+)
+}}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ else }}
+{{ warnf "Event '%s' has a 'recurrence' block but is missing 'start_time'. It will not be listed." $page.File.Path }}
+{{ end }}
+{{ end }}
 {{ end }}
 
 {{ $sorted_events  := sort $master_event_list "SortDate" "asc" }}
@@ -112,12 +112,12 @@
 <section class="next-events">
   <h2>{{ T "event.upcoming-title" | default "Upcoming Events" }}</h2>
   {{ if ge (len $next_5_events) 1 }}
-    <ul class="event-card-list">
-      {{ range $next_5_events }}
-        {{ partial "event-summary.html" . }}
-      {{ end }}
-    </ul>
-  {{ else }}
-    <p>{{ T "event.no-upcoming" | default "No upcoming events are scheduled at this time." }}</p>
+  <ul class="event-card-list">
+    {{ range $next_5_events }}
+    {{ partial "event-summary.html" . }}
+    {{ end }}
+  </ul>
+{{ else }}
+  <p>{{ T "event.no-upcoming" | default "No upcoming events are scheduled at this time." }}</p>
   {{ end }}
 </section>

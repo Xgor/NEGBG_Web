@@ -5,45 +5,43 @@
     <p class="event-card-date">{{ partial "dates.html" .Date }}</p>
   </header>
 
-  <div class="post-content">
-    {{ .Content }}
-  </div>
+  <div class="post-content">{{ .Content }}</div>
 
   {{ with .Params.event_link }}
-    {{ $eventLinks := . }}
+  {{ $eventLinks := . }}
 
-    {{ if eq $.Params.event_role "announcement" }}
-      {{ range . }}
-        {{ $eventPage := $.Site.GetPage (printf "/events/%s" .) }}
-        {{ with $eventPage }}
-          {{ partial "event-embed.html" . }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-
-    {{/* --- Collect sibling news posts linked to the same event(s) --- */}}
-    {{ $all_news := where $.Site.RegularPages "Section" "news" }}
-    {{ range complement (slice $.Site) hugo.Sites }}
-      {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
-    {{ end }}
-    {{ $sibling_news := where $all_news ".Params.event_link" "intersect" $eventLinks }}
-
-    {{/* --- Resolve linked event pages --- */}}
-    {{ $events := slice }}
-    {{ range $eventLinks }}
-      {{ $eventPage := $.Site.GetPage (printf "/events/%s" .) }}
-      {{ with $eventPage }}
-        {{ $events = $events | append . }}
-      {{ end }}
-    {{ end }}
-
-    {{ partial "related-posts-list.html" (dict
-      "announcements" (where $sibling_news ".Params.event_role" "announcement")
-      "recaps" (where $sibling_news ".Params.event_role" "recap")
-      "others" (where $sibling_news ".Params.event_role" "")
-      "events" $events
-      "exclude" $
-    ) }}
+  {{ if eq $.Params.event_role "announcement" }}
+  {{ range . }}
+  {{ $eventPage := $.Site.GetPage (printf "/events/%s" .) }}
+  {{ with $eventPage }}
+  {{ partial "event-embed.html" . }}
   {{ end }}
+  {{ end }}
+  {{ end }}
+
+{{/* --- Collect sibling news posts linked to the same event(s) --- */}}
+{{ $all_news := where $.Site.RegularPages "Section" "news" }}
+{{ range complement (slice $.Site) hugo.Sites }}
+{{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
+{{ end }}
+{{ $sibling_news := where $all_news ".Params.event_link" "intersect" $eventLinks }}
+
+{{/* --- Resolve linked event pages --- */}}
+{{ $events := slice }}
+{{ range $eventLinks }}
+{{ $eventPage := $.Site.GetPage (printf "/events/%s" .) }}
+{{ with $eventPage }}
+{{ $events = $events | append . }}
+{{ end }}
+{{ end }}
+
+{{ partial "related-posts-list.html" (dict
+"announcements" (where $sibling_news ".Params.event_role" "announcement")
+"recaps" (where $sibling_news ".Params.event_role" "recap")
+"others" (where $sibling_news ".Params.event_role" "")
+"events" $events
+"exclude" $
+) }}
+{{ end }}
 </article>
 {{ end }}

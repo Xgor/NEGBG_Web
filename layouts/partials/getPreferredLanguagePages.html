@@ -1,8 +1,8 @@
 {{ partial "check-parameters.html" (dict
-  "name" "layouts/partials/getPreferredLanguagePages.html"
-  "parameters" .
-  "requiredParameters" (slice "pages" "preferredLanguage")
-  "optionalParameters" (slice))
+"name" "layouts/partials/getPreferredLanguagePages.html"
+"parameters" .
+"requiredParameters" (slice "pages" "preferredLanguage")
+"optionalParameters" (slice))
 }}
 {{ $allPages := .pages }}
 {{ $preferredLanguage := .preferredLanguage }}
@@ -13,8 +13,8 @@
 {{ $preferredPages:= newScratch }}
 {{ $preferredPages.Add "pages" (slice ) }}
 {{ range $key,$pages := $pageByTranslationKey.Values }}
-  {{ $preferredPage := index (where $pages "Language.Lang" $preferredLanguage | default $pages) 0 }}
-  {{ $preferredPages.Add "pages" (slice $preferredPage) }}
+{{ $preferredPage := index (where $pages "Language.Lang" $preferredLanguage | default $pages) 0 }}
+{{ $preferredPages.Add "pages" (slice $preferredPage) }}
 {{ end }}
 {{ return ($preferredPages.Get "pages") }}
 

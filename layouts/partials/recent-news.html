@@ -6,7 +6,7 @@
 
 {{/* 3. Loopa igenom de andra sajterna och "slå ihop" deras nyhetssidor */}}
 {{ range $otherSites }}
-  {{ $preferredNews = $preferredNews | lang.Merge (where .RegularPages "Section" "news") }}
+{{ $preferredNews = $preferredNews | lang.Merge (where .RegularPages "Section" "news") }}
 {{ end }}
 
 {{/*
@@ -19,32 +19,28 @@
 {{/* 5. Rendera sektionen (oförändrad) */}}
 {{ if ge (len $recent_news) 1 }}
 <section class="recent-news" style="margin-top: 2.5em; margin-bottom: 2.5em;">
-  <h2>{{ T "recent-news-title" | default "Recent News" }}</h2>  
+  <h2>{{ T "recent-news-title" | default "Recent News" }}</h2>
   <ul class="event-card-list">
     {{ range $recent_news }}
-      {{ $page := . }}
-      <li class="event-card">
-        <div class="event-card-info" style="flex-basis: 100%;">
-          
-          <h3 class="event-card-title">
-            <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
-          </h3>
-          
-          <p class="event-card-date">
-            {{ partial "dates.html" $page.Date }}
-          </p>
+    {{ $page := . }}
+    <li class="event-card">
+      <div class="event-card-info" style="flex-basis: 100%;">
 
-          {{ with $page.Params.cover }}
-            <a href="{{ $page.RelPermalink }}">
-              {{ partial "img.html" (dict "src" . "alt" $page.Title "class" "news-card-cover" "page" $page) }}
-            </a>
-          {{ end }}
-          
-          <div class="event-card-content">
-            {{ $page.Summary }}
-          </div>
-        </div>
-      </li>
+        <h3 class="event-card-title">
+          <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+        </h3>
+
+        <p class="event-card-date">{{ partial "dates.html" $page.Date }}</p>
+
+        {{ with $page.Params.cover }}
+        <a href="{{ $page.RelPermalink }}">
+          {{ partial "img.html" (dict "src" . "alt" $page.Title "class" "news-card-cover" "page" $page) }}
+        </a>
+        {{ end }}
+
+        <div class="event-card-content">{{ $page.Summary }}</div>
+      </div>
+    </li>
     {{ end }}
   </ul>
 </section>

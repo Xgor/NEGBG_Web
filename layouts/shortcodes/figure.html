@@ -20,11 +20,11 @@
 {{ $class   := .Get "class"   | default "" }}
 
 {{ if $src }}
-  {{ partial "img.html" (dict
-      "src"     $src
-      "alt"     $alt
-      "class"   $class
-      "caption" $caption
-      "page"    .Page
-  ) }}
+{{ partial "img.html" (dict
+"src"     $src
+"alt"     $alt
+"class"   $class
+"caption" $caption
+"page"    .Page
+) }}
 {{ end }}

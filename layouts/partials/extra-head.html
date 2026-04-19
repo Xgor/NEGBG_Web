@@ -1,47 +1,55 @@
 {{ template "_internal/opengraph.html" . }}
 
-<link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload"
+      href="/fonts/Inter-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link rel="preload"
+      href="/fonts/Inter-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
 
 {{ if .IsHome }}
-  {{ $sameAs := slice }}
-  {{ range .Site.Params.Social }}
-    {{ $sameAs = $sameAs | append .url }}
-  {{ end }}
-  {{ $knowsAbout := slice "Tekken 8" "Tekken 7" "Street Fighter 6" "Street Fighter V" "Guilty Gear Strive" "2XKO" "Under Night In-Birth 2" "Fatal Fury: City of the Wolves" "BlazBlue" "Dragon Ball FighterZ" "Mortal Kombat" "The King of Fighters" "Granblue Fantasy Versus" "fightingspel" "fighting games" "esports" "FGC" }}
-  {{ $areaServed := slice (dict "@type" "Country" "name" "Sweden") (dict "@type" "City" "name" "Göteborg") }}
-  {{ $address := dict "@type" "PostalAddress" "streetAddress" "Rosenlundsgatan 8" "addressLocality" "Göteborg" "postalCode" "411 20" "addressCountry" "SE" }}
-  {{ $schema := dict "@context" "https://schema.org" "@type" (slice "LocalBusiness" "SportsOrganization") "name" "Negative Edge" "url" "https://negativeedge.se" "description" .Site.Params.Description "image" "https://negativeedge.se/web-app-manifest-512x512.png" "address" $address "areaServed" $areaServed "sport" "Fighting games" "knowsAbout" $knowsAbout "sameAs" $sameAs }}
-  {{ printf "<script type=\"application/ld+json\">%s</script>" ($schema | jsonify) | safeHTML }}
+{{ $sameAs := slice }}
+{{ range .Site.Params.Social }}
+{{ $sameAs = $sameAs | append .url }}
+{{ end }}
+{{ $knowsAbout := slice "Tekken 8" "Tekken 7" "Street Fighter 6" "Street Fighter V" "Guilty Gear Strive" "2XKO" "Under Night In-Birth 2" "Fatal Fury: City of the Wolves" "BlazBlue" "Dragon Ball FighterZ" "Mortal Kombat" "The King of Fighters" "Granblue Fantasy Versus" "fightingspel" "fighting games" "esports" "FGC" }}
+{{ $areaServed := slice (dict "@type" "Country" "name" "Sweden") (dict "@type" "City" "name" "Göteborg") }}
+{{ $address := dict "@type" "PostalAddress" "streetAddress" "Rosenlundsgatan 8" "addressLocality" "Göteborg" "postalCode" "411 20" "addressCountry" "SE" }}
+{{ $schema := dict "@context" "https://schema.org" "@type" (slice "LocalBusiness" "SportsOrganization") "name" "Negative Edge" "url" "https://negativeedge.se" "description" .Site.Params.Description "image" "https://negativeedge.se/web-app-manifest-512x512.png" "address" $address "areaServed" $areaServed "sport" "Fighting games" "knowsAbout" $knowsAbout "sameAs" $sameAs }}
+{{ printf "<script type=\"application/ld+json\">%s</script>" ($schema | jsonify) | safeHTML }}
 {{ end }}
 
 {{ if eq .Type "events" }}
-  {{/* Load event data from data.toml if it's a bundle, otherwise from front matter */}}
-  {{ $dataResource := .Resources.GetMatch "data.toml"}}
-  {{ $data := dict }}
-  {{ if $dataResource }}
-    {{ $data = $dataResource.Content | unmarshal }}
-  {{ else }}
-    {{ $data = .Params }}
-  {{ end }}
+{{/* Load event data from data.toml if it's a bundle, otherwise from front matter */}}
+{{ $dataResource := .Resources.GetMatch "data.toml"}}
+{{ $data := dict }}
+{{ if $dataResource }}
+{{ $data = $dataResource.Content | unmarshal }}
+{{ else }}
+{{ $data = .Params }}
+{{ end }}
 
-  {{ $start_date := $data.start_date }}
-  {{ $end_date := $data.end_date }}
-  {{ $location := $data.location }}
-  {{ $price := $data.price }}
-  {{ $price_currency := $data.price_currency | default "SEK" }}
-  {{ $image := "https://negativeedge.se/web-app-manifest-512x512.png" }}
-  {{ with $data.cover }}{{ $image = . | absURL }}{{ end }}
+{{ $start_date := $data.start_date }}
+{{ $end_date := $data.end_date }}
+{{ $location := $data.location }}
+{{ $price := $data.price }}
+{{ $price_currency := $data.price_currency | default "SEK" }}
+{{ $image := "https://negativeedge.se/web-app-manifest-512x512.png" }}
+{{ with $data.cover }}{{ $image = . | absURL }}{{ end }}
 
-  {{ $json := printf `{"@context":"https://schema.org","@type":"Event","name":%s,"description":%s,"image":%s,"eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","url":%s,"organizer":{"@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se"}` (.Title | jsonify) (.Summary | jsonify) ($image | jsonify) (.RelPermalink | absURL | jsonify) }}
-  {{ if $start_date }}{{ $json = printf `%s,"startDate":%s` $json ($start_date | jsonify) }}{{ end }}
-  {{ if $end_date }}{{ $json = printf `%s,"endDate":%s` $json ($end_date | jsonify) }}{{ end }}
-  {{ if $location }}
-    {{ $locationObj := dict "@type" "Place" "name" $location.name "address" (dict "@type" "PostalAddress" "streetAddress" $location.street "addressLocality" $location.city "postalCode" $location.postal_code "addressCountry" $location.country) }}
-    {{ $json = printf `%s,"location":%s` $json ($locationObj | jsonify) }}
-  {{ end }}
-  {{ if $price }}{{ $json = printf `%s,"offers":{"@type":"Offer","price":%s,"priceCurrency":%s,"availability":"https://schema.org/InStock"}` $json ($price | jsonify) ($price_currency | jsonify) }}{{ end }}
-  {{ $json = printf "%s}" $json }}
+{{ $json := printf `{"@context":"https://schema.org","@type":"Event","name":%s,"description":%s,"image":%s,"eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","url":%s,"organizer":{"@type":"Organization","name":"Negative Edge","url":"https://negativeedge.se"}` (.Title | jsonify) (.Summary | jsonify) ($image | jsonify) (.RelPermalink | absURL | jsonify) }}
+{{ if $start_date }}{{ $json = printf `%s,"startDate":%s` $json ($start_date | jsonify) }}{{ end }}
+{{ if $end_date }}{{ $json = printf `%s,"endDate":%s` $json ($end_date | jsonify) }}{{ end }}
+{{ if $location }}
+{{ $locationObj := dict "@type" "Place" "name" $location.name "address" (dict "@type" "PostalAddress" "streetAddress" $location.street "addressLocality" $location.city "postalCode" $location.postal_code "addressCountry" $location.country) }}
+{{ $json = printf `%s,"location":%s` $json ($locationObj | jsonify) }}
+{{ end }}
+{{ if $price }}{{ $json = printf `%s,"offers":{"@type":"Offer","price":%s,"priceCurrency":%s,"availability":"https://schema.org/InStock"}` $json ($price | jsonify) ($price_currency | jsonify) }}{{ end }}
+{{ $json = printf "%s}" $json }}
 
-  {{ printf "<script type=\"application/ld+json\">%s</script>" $json | safeHTML }}
+{{ printf "<script type=\"application/ld+json\">%s</script>" $json | safeHTML }}
 {{ end }}

@@ -1,15 +1,15 @@
-{{ define "main" }} 
-  <article>
-    <div class="content">
-      {{ .Content }}
-      {{ partial "recent-news.html" . }}
+{{ define "main" }}
+<article>
+  <div class="content">
+    {{ .Content }}
+    {{ partial "recent-news.html" . }}
 
-      <hr class="home-section-divider">
+    <hr class="home-section-divider">
 
-      {{ if .IsHome }}
-        {{ partial "next-events.html" . }}
-      {{ end }}
+    {{ if .IsHome }}
+    {{ partial "next-events.html" . }}
+    {{ end }}
 
-    </div>
-  </article>
+  </div>
+</article>
 {{ end }}

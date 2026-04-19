@@ -3,62 +3,56 @@
   <header>
     <h1>{{ .Title }}</h1>
   </header>
-  
-  <div class="content" style="margin-bottom: 2em;">
-    {{ .Content }}
-  </div>
 
-  {{/* --- 1. Get all news pages from the current language --- */}}
-  {{ $preferredNews := where .Site.RegularPages "Section" "news" }}
+  <div class="content" style="margin-bottom: 2em;">{{ .Content }}</div>
 
-  {{/* --- 2. Get all other language sites --- */}}
-  {{ $otherSites := complement (slice .Site) hugo.Sites }}
+{{/* --- 1. Get all news pages from the current language --- */}}
+{{ $preferredNews := where .Site.RegularPages "Section" "news" }}
 
-  {{/* --- 3. Merge in news from other languages that don't have a translation --- */}}
-  {{ range $otherSites }}
-    {{ $preferredNews = $preferredNews | lang.Merge (where .RegularPages "Section" "news") }}
+{{/* --- 2. Get all other language sites --- */}}
+{{ $otherSites := complement (slice .Site) hugo.Sites }}
+
+{{/* --- 3. Merge in news from other languages that don't have a translation --- */}}
+{{ range $otherSites }}
+{{ $preferredNews = $preferredNews | lang.Merge (where .RegularPages "Section" "news") }}
+{{ end }}
+
+{{/* --- 4. Sort the complete list by date (newest first) --- */}}
+{{ $all_news := $preferredNews.ByDate.Reverse }}
+
+{{/* --- 5. Render the list (paginated) --- */}}
+{{ if ge (len $all_news) 1 }}
+{{ $paginator := .Paginate $all_news 5 }}
+<section class="all-news">
+{{/* We can reuse the same list class as the homepage for consistency */}}
+<ul class="event-card-list">
+  {{ range $paginator.Pages }}
+  {{ $page := . }}
+  <li class="event-card">
+    <div class="event-card-info" style="flex-basis: 100%;">
+
+      <h3 class="event-card-title">
+        <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+      </h3>
+
+      <p class="event-card-date">{{ partial "dates.html" $page.Date }}</p>
+
+      {{ with $page.Params.cover }}
+      <a href="{{ $page.RelPermalink }}">
+        {{ partial "img.html" (dict "src" . "alt" $page.Title "class" "news-card-cover" "page" $page) }}
+      </a>
+      {{ end }}
+
+      <div class="event-card-content">{{ $page.Summary }}</div>
+    </div>
+  </li>
   {{ end }}
-
-  {{/* --- 4. Sort the complete list by date (newest first) --- */}}
-  {{ $all_news := $preferredNews.ByDate.Reverse }}
-
-  {{/* --- 5. Render the list (paginated) --- */}}
-  {{ if ge (len $all_news) 1 }}
-    {{ $paginator := .Paginate $all_news 5 }}
-    <section class="all-news">
-      {{/* We can reuse the same list class as the homepage for consistency */}}
-      <ul class="event-card-list">
-        {{ range $paginator.Pages }}
-          {{ $page := . }}
-          <li class="event-card">
-            <div class="event-card-info" style="flex-basis: 100%;">
-
-              <h3 class="event-card-title">
-                <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
-              </h3>
-
-              <p class="event-card-date">
-                {{ partial "dates.html" $page.Date }}
-              </p>
-
-              {{ with $page.Params.cover }}
-                <a href="{{ $page.RelPermalink }}">
-                  {{ partial "img.html" (dict "src" . "alt" $page.Title "class" "news-card-cover" "page" $page) }}
-                </a>
-              {{ end }}
-
-              <div class="event-card-content">
-                {{ $page.Summary }}
-              </div>
-            </div>
-          </li>
-        {{ end }}
-      </ul>
-    </section>
-    {{ partial "pagination-list.html" . }}
-  {{ else }}
-    <p>{{ T "news.no-articles" | default "There are no news articles at this time." }}</p>
-  {{ end }}
+</ul>
+</section>
+{{ partial "pagination-list.html" . }}
+{{ else }}
+<p>{{ T "news.no-articles" | default "There are no news articles at this time." }}</p>
+{{ end }}
 
 </article>
 {{ end }}

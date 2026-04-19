@@ -26,50 +26,64 @@
 
 {{/* 1. Page bundle: src is a bare filename like "gruppbild.jpg" */}}
 {{ if $page }}
-  {{ with $page.Resources.GetMatch $src }}
-    {{ $img = . }}
-  {{ end }}
+{{ with $page.Resources.GetMatch $src }}
+{{ $img = . }}
+{{ end }}
 {{ end }}
 
 {{/* 2. Shared asset: strip leading "/" and look under assets/images/ */}}
 {{ if not $img }}
-  {{ $assetPath := $src | strings.TrimPrefix "/" }}
-  {{ if hasPrefix $assetPath "images/" }}
-    {{ with resources.Get $assetPath }}
-      {{ $img = . }}
-    {{ end }}
-  {{ end }}
+{{ $assetPath := $src | strings.TrimPrefix "/" }}
+{{ if hasPrefix $assetPath "images/" }}
+{{ with resources.Get $assetPath }}
+{{ $img = . }}
+{{ end }}
+{{ end }}
 {{ end }}
 
 {{/* ── Render ───────────────────────────────────────────────────── */}}
 {{ if $img }}
-  {{ $maxWidth := 1200 }}
-  {{ $webp := "" }}
-  {{ $jpeg := "" }}
-  {{ if gt $img.Width $maxWidth }}
-    {{ $webp = $img.Process (printf "webp q85 resize %dx" $maxWidth) }}
-    {{ $jpeg = $img.Process (printf "jpeg q85 resize %dx" $maxWidth) }}
-  {{ else }}
-    {{ $webp = $img.Process "webp q85" }}
-    {{ $jpeg = $img.Process "jpeg q85" }}
+{{ $maxWidth := 1200 }}
+{{ $webp := "" }}
+{{ $jpeg := "" }}
+{{ if gt $img.Width $maxWidth }}
+{{ $webp = $img.Process (printf "webp q85 resize %dx" $maxWidth) }}
+{{ $jpeg = $img.Process (printf "jpeg q85 resize %dx" $maxWidth) }}
+{{ else }}
+{{ $webp = $img.Process "webp q85" }}
+{{ $jpeg = $img.Process "jpeg q85" }}
+{{ end }}
+{{ if $caption }}
+<figure>
   {{ end }}
-  {{ if $caption }}<figure>{{ end }}
   <picture>
     <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
     <img src="{{ $jpeg.RelPermalink }}"
          alt="{{ $alt }}"
-         {{ with $class }}class="{{ . }}"{{ end }}
+         {{ with $class }}
+         class="{{ . }}"
+         {{ end }}
          width="{{ $jpeg.Width }}"
          height="{{ $jpeg.Height }}"
          loading="lazy">
   </picture>
-  {{ if $caption }}<figcaption>{{ $caption }}</figcaption></figure>{{ end }}
+  {{ if $caption }}
+  <figcaption>{{ $caption }}</figcaption>
+</figure>
+{{ end }}
 {{ else }}
-  {{/* Static fallback — image lives in /static/, serve as-is */}}
-  {{ if $caption }}<figure>{{ end }}
+{{/* Static fallback — image lives in /static/, serve as-is */}}
+{{ if $caption }}
+<figure>
+  {{ end }}
   <img src="{{ $src }}"
        alt="{{ $alt }}"
-       {{ with $class }}class="{{ . }}"{{ end }}
+       {{ with $class }}
+       class="{{ . }}"
+       {{ end }}
        loading="lazy">
-  {{ if $caption }}<figcaption>{{ $caption }}</figcaption></figure>{{ end }}
+  {{ if $caption }}
+  <figcaption>{{ $caption }}</figcaption>
+</figure>
+{{ end }}
 {{ end }}

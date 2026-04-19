@@ -5,10 +5,10 @@
 {{ $is_bundle := false }}
 
 {{ if $dataResource }}
-  {{ $is_bundle = true }}
-  {{ $data = $dataResource.Content | unmarshal }}
+{{ $is_bundle = true }}
+{{ $data = $dataResource.Content | unmarshal }}
 {{ else }}
-  {{ $data = .Params }}
+{{ $data = .Params }}
 {{ end }}
 
 {{/* Hämta platsen — data.toml har prioritet, .md-filen som fallback */}}
@@ -27,174 +27,193 @@
 <article class="post">
   <header>
     <h1>{{ .Title }}</h1>
-    
+
     <div class="post-meta" style="margin-bottom: 2em; line-height: 1.6;">
-      
+
       {{ if $recurrence.type }}
-        {{/* --- Info for RECURRING events --- */}}
-        <div class="event-schedule">
-          <strong>{{ T "event.schedule" }}:</strong>
-          <strong>{{ $recurrence.type }}</strong>
-          ({{ $recurrence.details }} {{ T "from" }} {{ $recurrence.start_time }} {{ T "to" }} {{ $recurrence.end_time }})
-          ({{ .Site.Params.timeZoneAbbr }})
-        </div>
-
-      {{ else if $start_date }}
-        {{/* --- Info for ONE-OFF events --- */}}
-        <div class="event-time">
-          <strong>{{ T "when" }}:</strong> 
-          {{ $eventTime := time $start_date }}
-          {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
-          {{ $dateTime := time.Format $format $eventTime }}
-          {{ $dateTime }}
-          {{ with $end_date }}
-            {{ $timeFormat := $.Site.Language.Params.time_format | default "15:04" }}
-            {{ T "to" }} {{ (time .).Format $timeFormat }}
-          {{ end }}
-        </div>
-      {{ end }}
-      
-      {{ with $location }}
-        <div class="event-location" style="margin-top: 0.5em;">
-          <strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}
-        </div>
-      {{ end }}
+    {{/* --- Info for RECURRING events --- */}}
+    <div class="event-schedule">
+      <strong>{{ T "event.schedule" }}:</strong>
+      <strong>{{ $recurrence.type }}</strong>
+      ({{ $recurrence.details }} {{ T "from" }} {{ $recurrence.start_time }} {{ T "to" }} {{ $recurrence.end_time }})
+      ({{ .Site.Params.timeZoneAbbr }})
     </div>
-  </header>
 
-  {{/* --- Results banner (shown when a recap post exists) --- */}}
-  {{ $eventSlug := path.Base .RelPermalink }}
-  {{ $all_news := where .Site.RegularPages "Section" "news" }}
-  {{ range complement (slice .Site) hugo.Sites }}
-    {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
-  {{ end }}
-  {{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
-  {{ $announcements := where $linked_news ".Params.event_role" "announcement" }}
-  {{ $recaps := where $linked_news ".Params.event_role" "recap" }}
-  {{ $other_links := where $linked_news ".Params.event_role" "" }}
-
-  {{ if ge (len $recaps) 1 }}
-  <div class="event-results-banner" style="background-color: #1e3a2a; border: 1px solid #4caf7a; padding: 0.75em 1.25em; margin-bottom: 1.5em; border-radius: 4px;">
-    <strong>{{ T "event.results-available" | default "This event has ended — results are available!" }}</strong>
-    {{ range $recaps }}
-      · <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ else if $start_date }}
+  {{/* --- Info for ONE-OFF events --- */}}
+  <div class="event-time">
+    <strong>{{ T "when" }}:</strong>
+    {{ $eventTime := time $start_date }}
+    {{ $format := $.Site.Language.Params.datetime_format | default "Mon, Jan 2, 2006 at 3:04 PM" }}
+    {{ $dateTime := time.Format $format $eventTime }}
+    {{ $dateTime }}
+    {{ with $end_date }}
+    {{ $timeFormat := $.Site.Language.Params.time_format | default "15:04" }}
+    {{ T "to" }} {{ (time .).Format $timeFormat }}
     {{ end }}
   </div>
   {{ end }}
 
-  {{ with $cover }}
-    {{ partial "img.html" (dict "src" . "alt" $.Title "class" "post-cover" "page" $) }}
-  {{ end }}
-
-  {{/* --- Structured event info rendered from data.toml --- */}}
-  {{ $checkin := $data.checkin_time }}
-  {{ $challonge := $data.challonge_url }}
-  {{ $discord := $data.discord_url }}
-  {{ $prize_pool := $data.prize_pool }}
-
-  {{ if or $checkin $data.price $challonge $discord $prize_pool }}
-  <div class="event-info-box" style="background-color: #2a2b2f; border: 1px solid var(--main-border, #444); padding: 1em 1.25em; margin-bottom: 1.5em; border-radius: 4px;">
-    <ul style="margin: 0; padding-left: 1.25em; line-height: 1.8;">
-      {{ with $checkin }}
-        <li><strong>{{ T "event.check-in" }}:</strong> {{ . }}</li>
-      {{ end }}
-      {{ with $data.price }}
-        <li><strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $data.price_currency }}</li>
-      {{ end }}
-      {{ with $prize_pool }}
-        <li>
-          <strong>{{ T "event.prize-pool" }}:</strong> {{ .total }} {{ .currency }}
-          {{ if .places }}
-            <ul style="margin: 0.25em 0 0.25em 1em;">
-              {{ range $i, $p := .places }}
-                <li>{{ add $i 1 }}. {{ $p }} {{ $prize_pool.currency }}</li>
-              {{ end }}
-            </ul>
-            {{ if .entry_fee_contributed }}
-              <em>{{ T "event.prize-pool-entry-note" }}</em>
-            {{ end }}
-          {{ end }}
-        </li>
-      {{ end }}
-      {{ if or $challonge $discord }}
-        <li>
-          <strong>{{ T "event.links" }}:</strong>
-          {{ with $challonge }}<a href="{{ . }}">{{ T "event.challonge-bracket" }}</a>{{ end }}
-          {{ if and $challonge $discord }} · {{ end }}
-          {{ with $discord }}<a href="{{ . }}">{{ T "event.discord-event" }}</a>{{ end }}
-        </li>
-      {{ end }}
-    </ul>
+  {{ with $location }}
+  <div class="event-location" style="margin-top: 0.5em;">
+    <strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}
   </div>
   {{ end }}
+</div>
+</header>
 
-  {{/* --- Renders the main markdown content --- */}}
-  <div class="content event-page-content">
-    {{ .Content }}
-  </div>
+{{/* --- Results banner (shown when a recap post exists) --- */}}
+{{ $eventSlug := path.Base .RelPermalink }}
+{{ $all_news := where .Site.RegularPages "Section" "news" }}
+{{ range complement (slice .Site) hugo.Sites }}
+{{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
+{{ end }}
+{{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}
+{{ $announcements := where $linked_news ".Params.event_role" "announcement" }}
+{{ $recaps := where $linked_news ".Params.event_role" "recap" }}
+{{ $other_links := where $linked_news ".Params.event_role" "" }}
 
-  {{ if $recurrence.schedule }}
-    {{ $recur := $recurrence }}
+{{ if ge (len $recaps) 1 }}
+<div class="event-results-banner"
+     style="background-color: #1e3a2a;
+            border: 1px solid #4caf7a;
+            padding: 0.75em 1.25em;
+            margin-bottom: 1.5em;
+            border-radius: 4px">
+  <strong>{{ T "event.results-available" | default "This event has ended — results are available!" }}</strong>
+  {{ range $recaps }}
+  · <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  {{ end }}
+</div>
+{{ end }}
 
-    {{ with $recur.cancellations }}
-      {{ $future_cancellations := slice }}
-      {{ $today_string := now.Format "2006-01-02" }}
-      
-      {{ range . }}
-        {{ $cancellation_string := (time .).Format "2006-01-02" }}
-        {{ if ge $cancellation_string $today_string }}
-          {{ $future_cancellations = $future_cancellations | append (time .) }}
-        {{ end }}
-      {{ end }}
+{{ with $cover }}
+{{ partial "img.html" (dict "src" . "alt" $.Title "class" "post-cover" "page" $) }}
+{{ end }}
 
-      {{ if ge (len $future_cancellations) 1 }}
-        <div class="event-cancellations" style="background-color: #2a2b2f; border: 1px solid var(--main-border, #444); padding: 1em; margin-top: 2em; border-radius: 4px;">
-          <h3 style="margin-top: 0;"> ⚠️ {{ T "event.upcoming-cancellations-title" | default "Upcoming Cancelled Dates" }}</h3>
-          <ul style="margin-top: 0.5em; margin-bottom: 0;">
-            {{ range sort $future_cancellations }}
-              <li>{{ partial "dates.html" . }}</li>
-            {{ end }}
-          </ul>
-        </div>
-      {{ end }}
+{{/* --- Structured event info rendered from data.toml --- */}}
+{{ $checkin := $data.checkin_time }}
+{{ $challonge := $data.challonge_url }}
+{{ $discord := $data.discord_url }}
+{{ $prize_pool := $data.prize_pool }}
+
+{{ if or $checkin $data.price $challonge $discord $prize_pool }}
+<div class="event-info-box"
+     style="background-color: #2a2b2f;
+            border: 1px solid var(--main-border, #444);
+            padding: 1em 1.25em;
+            margin-bottom: 1.5em;
+            border-radius: 4px">
+  <ul style="margin: 0; padding-left: 1.25em; line-height: 1.8;">
+    {{ with $checkin }}
+    <li>
+      <strong>{{ T "event.check-in" }}:</strong> {{ . }}
+    </li>
     {{ end }}
-
-
-    <div class="event-details" style="margin-top: 2em;">
-      <h3 style="margin-top: 0;">{{ T "event.upcoming-occurrences-title" }}</h3>
-      
-      {{ $schedule := $recur.schedule }}
-      {{ $cancellations := $recur.cancellations | default (slice) }}
-      {{ $today_string := now.Format "2006-01-02" }}
-      
-      {{ $upcoming_dates := slice }}
-      {{ range $schedule }}
-        {{ $date_string := . }}
-        {{ if ge $date_string $today_string }}
-          {{ if not (in $cancellations $date_string) }}
-            {{ $upcoming_dates = $upcoming_dates | append (time $date_string) }}
-          {{ end }}
+    {{ with $data.price }}
+    <li>
+      <strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $data.price_currency }}
+    </li>
+    {{ end }}
+    {{ with $prize_pool }}
+    <li>
+      <strong>{{ T "event.prize-pool" }}:</strong> {{ .total }} {{ .currency }}
+      {{ if .places }}
+      <ul style="margin: 0.25em 0 0.25em 1em;">
+        {{ range $i, $p := .places }}
+        <li>{{ add $i 1 }}. {{ $p }} {{ $prize_pool.currency }}</li>
         {{ end }}
+      </ul>
+      {{ if .entry_fee_contributed }}
+      <em>{{ T "event.prize-pool-entry-note" }}</em>
       {{ end }}
-
-      {{ if ge (len $upcoming_dates) 1 }}
-        <p>{{ T "event.upcoming-occurrences-intro" }} ({{ T "from" }} {{ $recur.start_time }} {{ T "to" }} {{ $recur.end_time }}):</p>
-        <ul>
-          {{ range first 10 $upcoming_dates }}
-            <li>{{ partial "dates.html" . }}</li>
-          {{ end }}
-        </ul>
-      {{ else }}
-        <p>{{ T "event.no-new-dates" }}</p>
       {{ end }}
-    </div>
-  {{ end }} {{/* End "if $recurrence.schedule" */}}
+    </li>
+    {{ end }}
+    {{ if or $challonge $discord }}
+    <li>
+      <strong>{{ T "event.links" }}:</strong>
+      {{ with $challonge }}<a href="{{ . }}">{{ T "event.challonge-bracket" }}</a>{{ end }}
+      {{ if and $challonge $discord }} · {{ end }}
+      {{ with $discord }}<a href="{{ . }}">{{ T "event.discord-event" }}</a>{{ end }}
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
 
-  {{ partial "related-posts-list.html" (dict
-    "announcements" $announcements
-    "recaps" $recaps
-    "others" $other_links
-  ) }}
+{{/* --- Renders the main markdown content --- */}}
+<div class="content event-page-content">{{ .Content }}</div>
+
+{{ if $recurrence.schedule }}
+{{ $recur := $recurrence }}
+
+{{ with $recur.cancellations }}
+{{ $future_cancellations := slice }}
+{{ $today_string := now.Format "2006-01-02" }}
+
+{{ range . }}
+{{ $cancellation_string := (time .).Format "2006-01-02" }}
+{{ if ge $cancellation_string $today_string }}
+{{ $future_cancellations = $future_cancellations | append (time .) }}
+{{ end }}
+{{ end }}
+
+{{ if ge (len $future_cancellations) 1 }}
+<div class="event-cancellations"
+     style="background-color: #2a2b2f;
+            border: 1px solid var(--main-border, #444);
+            padding: 1em;
+            margin-top: 2em;
+            border-radius: 4px">
+  <h3 style="margin-top: 0;">⚠️ {{ T "event.upcoming-cancellations-title" | default "Upcoming Cancelled Dates" }}</h3>
+  <ul style="margin-top: 0.5em; margin-bottom: 0;">
+    {{ range sort $future_cancellations }}
+    <li>{{ partial "dates.html" . }}</li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
+{{ end }}
+
+
+<div class="event-details" style="margin-top: 2em;">
+  <h3 style="margin-top: 0;">{{ T "event.upcoming-occurrences-title" }}</h3>
+
+  {{ $schedule := $recur.schedule }}
+  {{ $cancellations := $recur.cancellations | default (slice) }}
+  {{ $today_string := now.Format "2006-01-02" }}
+
+  {{ $upcoming_dates := slice }}
+  {{ range $schedule }}
+  {{ $date_string := . }}
+  {{ if ge $date_string $today_string }}
+  {{ if not (in $cancellations $date_string) }}
+  {{ $upcoming_dates = $upcoming_dates | append (time $date_string) }}
+  {{ end }}
+  {{ end }}
+  {{ end }}
+
+  {{ if ge (len $upcoming_dates) 1 }}
+  <p>
+    {{ T "event.upcoming-occurrences-intro" }} ({{ T "from" }} {{ $recur.start_time }} {{ T "to" }} {{ $recur.end_time }}):
+  </p>
+  <ul>
+    {{ range first 10 $upcoming_dates }}
+    <li>{{ partial "dates.html" . }}</li>
+    {{ end }}
+  </ul>
+{{ else }}
+  <p>{{ T "event.no-new-dates" }}</p>
+  {{ end }}
+</div>
+{{ end }} {{/* End "if $recurrence.schedule" */}}
+
+{{ partial "related-posts-list.html" (dict
+"announcements" $announcements
+"recaps" $recaps
+"others" $other_links
+) }}
 
 </article>
 {{ end }}

@@ -5,7 +5,7 @@
       <a href="{{ .RelPermalink }}">{{ .Title }}</a>
     </h3>
     {{ with .Params.summary }}
-      <p class="event-card-summary">{{ . }}</p>
+    <p class="event-card-summary">{{ . }}</p>
     {{ end }}
   </div>
 
@@ -16,29 +16,31 @@
     {{ $data := dict }}
     {{ $dataResource := .Resources.GetMatch "data.toml" }}
     {{ if $dataResource }}
-      {{ $data = $dataResource.Content | unmarshal }}
-    {{ else }}
-      {{ $data = .Params }}
+    {{ $data = $dataResource.Content | unmarshal }}
+  {{ else }}
+    {{ $data = .Params }}
     {{ end }}
     {{ $start_date = $data.start_date | default .Params.start_date }}
     {{ $end_date = $data.end_date | default .Params.end_date }}
 
     {{ if $start_date }}
-      <p>
-        <strong>{{ T "when" | default "When" }}:</strong>
-        {{ $start := time $start_date }}
-        {{ time.Format ":date_long" $start }}
-        {{ $timeFormat := $.Site.Language.Params.time_format | default "15:04" }}
-        {{ $start.Format $timeFormat }}
-        {{ if $end_date }}
-          – {{ (time $end_date).Format $timeFormat }}
-        {{ end }}
-      </p>
+    <p>
+      <strong>{{ T "when" | default "When" }}:</strong>
+      {{ $start := time $start_date }}
+      {{ time.Format ":date_long" $start }}
+      {{ $timeFormat := $.Site.Language.Params.time_format | default "15:04" }}
+      {{ $start.Format $timeFormat }}
+      {{ if $end_date }}
+      – {{ (time $end_date).Format $timeFormat }}
+      {{ end }}
+    </p>
     {{ end }}
 
     {{ $location := $data.location | default .Params.location }}
     {{ with $location }}
-      <p><strong>{{ T "where" | default "Where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}</p>
+    <p>
+      <strong>{{ T "where" | default "Where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}
+    </p>
     {{ end }}
   </div>
 

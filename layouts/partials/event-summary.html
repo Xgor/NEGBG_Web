@@ -5,17 +5,17 @@
       <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
     </h3>
     {{ with .Cover }}
-      <a href="{{ $.Page.RelPermalink }}">
-        {{ partial "img.html" (dict "src" . "alt" $.Page.Title "class" "event-card-cover" "page" $.Page) }}
-      </a>
+    <a href="{{ $.Page.RelPermalink }}">
+      {{ partial "img.html" (dict "src" . "alt" $.Page.Title "class" "event-card-cover" "page" $.Page) }}
+    </a>
     {{ end }}
     {{ with .Page.Params.summary }}
-      <p class="event-card-summary">{{ . }}</p>
+    <p class="event-card-summary">{{ . }}</p>
     {{ end }}
     {{ with .Announcement }}
-      <p class="event-card-announcement-link">
-        <a href="{{ .RelPermalink }}">{{ T "event.read-announcement" | default "Read announcement" }} →</a>
-      </p>
+    <p class="event-card-announcement-link">
+      <a href="{{ .RelPermalink }}">{{ T "event.read-announcement" | default "Read announcement" }} →</a>
+    </p>
     {{ end }}
   </div>
 
@@ -26,20 +26,28 @@
       {{ $tz := .SortDate.Format "MST" }}
       {{ printf "%s %s %s (%s)" $dateHuman (T "at") .Time $tz }}
       {{ with .Page.Params.recurrence }}
-        <span class="event-type">({{ .type }})</span>
+      <span class="event-type">({{ .type }})</span>
       {{ end }}
     </p>
     {{ with .CheckinTime }}
-      <p><strong>{{ T "event.check-in" }}:</strong> {{ . }}</p>
+    <p>
+      <strong>{{ T "event.check-in" }}:</strong> {{ . }}
+    </p>
     {{ end }}
     {{ with .Location }}
-      <p><strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}</p>
+    <p>
+      <strong>{{ T "where" }}:</strong> {{ .name }}{{ with .street }}, {{ . }}{{ end }}{{ with .city }}, {{ . }}{{ end }}
+    </p>
     {{ end }}
     {{ with .Price }}
-      <p><strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $.PriceCurrency }}</p>
+    <p>
+      <strong>{{ T "event.entry-fee" }}:</strong> {{ . }} {{ $.PriceCurrency }}
+    </p>
     {{ end }}
     {{ with .PrizePool }}
-      <p><strong>{{ T "event.prize-pool" }}:</strong> {{ .total }} {{ .currency }}</p>
+    <p>
+      <strong>{{ T "event.prize-pool" }}:</strong> {{ .total }} {{ .currency }}
+    </p>
     {{ end }}
   </div>
 

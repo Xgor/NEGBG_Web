@@ -17,36 +17,38 @@
 
 {{ $total := add (len $announcements) (len $recaps) (len $others) (len $events) }}
 {{ if ge $total 1 }}
-  <section class="event-related-posts" style="margin-top: 2em;">
-    <h3>{{ T "event.related-posts" | default "Related Posts" }}</h3>
-    <ul class="event-related-posts-list">
-      {{ range $announcements }}
-        {{ if or (not $exclude) (ne .RelPermalink $exclude.RelPermalink) }}
-          <li>
-            <span class="post-role-badge post-role-announcement">{{ T "event.role-announcement" | default "Announcement" }}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </li>
-        {{ end }}
-      {{ end }}
-      {{ range $recaps }}
-        {{ if or (not $exclude) (ne .RelPermalink $exclude.RelPermalink) }}
-          <li>
-            <span class="post-role-badge post-role-recap">{{ T "event.role-recap" | default "Recap" }}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </li>
-        {{ end }}
-      {{ end }}
-      {{ range $others }}
-        {{ if or (not $exclude) (ne .RelPermalink $exclude.RelPermalink) }}
-          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-      {{ end }}
-      {{ range $events }}
-        <li>
-          <span class="post-role-badge post-role-event">{{ T "news.event-badge" | default "Event" }}</span>
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        </li>
-      {{ end }}
-    </ul>
-  </section>
+<section class="event-related-posts" style="margin-top: 2em;">
+  <h3>{{ T "event.related-posts" | default "Related Posts" }}</h3>
+  <ul class="event-related-posts-list">
+    {{ range $announcements }}
+    {{ if or (not $exclude) (ne .RelPermalink $exclude.RelPermalink) }}
+    <li>
+      <span class="post-role-badge post-role-announcement">{{ T "event.role-announcement" | default "Announcement" }}</span>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+    {{ end }}
+    {{ range $recaps }}
+    {{ if or (not $exclude) (ne .RelPermalink $exclude.RelPermalink) }}
+    <li>
+      <span class="post-role-badge post-role-recap">{{ T "event.role-recap" | default "Recap" }}</span>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+    {{ end }}
+    {{ range $others }}
+    {{ if or (not $exclude) (ne .RelPermalink $exclude.RelPermalink) }}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+    {{ end }}
+    {{ range $events }}
+    <li>
+      <span class="post-role-badge post-role-event">{{ T "news.event-badge" | default "Event" }}</span>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+  </ul>
+</section>
 {{ end }}
