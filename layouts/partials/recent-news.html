@@ -2,7 +2,7 @@
 {{ $preferredNews := where .Site.RegularPages "Section" "news" }}
 
 {{/* 2. Hämta alla andra språk-sajter (exklusive den aktuella) */}}
-{{ $otherSites := complement (slice .Site) site.Sites }}
+{{ $otherSites := complement (slice .Site) hugo.Sites }}
 
 {{/* 3. Loopa igenom de andra sajterna och "slå ihop" deras nyhetssidor */}}
 {{ range $otherSites }}

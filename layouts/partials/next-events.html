@@ -1,6 +1,6 @@
 {{/* Collect all news pages for announcement lookup */}}
 {{ $all_news := where .Site.RegularPages "Section" "news" }}
-{{ $otherSites := complement (slice .Site) site.Sites }}
+{{ $otherSites := complement (slice .Site) hugo.Sites }}
 {{ range $otherSites }}
   {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
 {{ end }}

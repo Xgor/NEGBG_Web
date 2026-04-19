@@ -1,5 +1,5 @@
 {{- printf "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Negative Edge//negativeedge.se//%s\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:Negative Edge Events\r\n" (.Site.Language.Lang | upper) -}}
-{{- $otherSites := complement (slice .Site) site.Sites -}}
+{{- $otherSites := complement (slice .Site) hugo.Sites -}}
 {{- $allEvents := where .Site.RegularPages "Section" "events" -}}
 {{- range $otherSites -}}
   {{- $allEvents = $allEvents | lang.Merge (where .RegularPages "Section" "events") -}}

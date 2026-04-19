@@ -65,7 +65,7 @@
   {{/* --- Results banner (shown when a recap post exists) --- */}}
   {{ $eventSlug := path.Base .RelPermalink }}
   {{ $all_news := where .Site.RegularPages "Section" "news" }}
-  {{ range complement (slice .Site) site.Sites }}
+  {{ range complement (slice .Site) hugo.Sites }}
     {{ $all_news = $all_news | lang.Merge (where .RegularPages "Section" "news") }}
   {{ end }}
   {{ $linked_news := where $all_news ".Params.event_link" "intersect" (slice $eventSlug) }}

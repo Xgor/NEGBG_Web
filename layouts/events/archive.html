@@ -13,7 +13,7 @@
   </p>
 
   {{ $all_events := where .Site.RegularPages "Section" "events" }}
-  {{ $otherSites := complement (slice .Site) site.Sites }}
+  {{ $otherSites := complement (slice .Site) hugo.Sites }}
   {{ range $otherSites }}
     {{ $all_events = $all_events | lang.Merge (where .RegularPages "Section" "events") }}
   {{ end }}
