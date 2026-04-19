@@ -1,11 +1,11 @@
----
-title: "Results: Guilty Gear Strive 2.00 Release Tournament"
-date: "2026-04-14T12:00:00+02:00"
-draft: false
-cover: "gruppbild.jpg"
-event_link: ["strive-2-0-release-turre"]
-event_role: "recap"
----
++++
+title = "Results: Guilty Gear Strive 2.00 Release Tournament"
+date = "2026-04-14T12:00:00+02:00"
+draft = false
+cover = "gruppbild.jpg"
+event_link = ["strive-2-0-release-turre"]
+event_role = "recap"
++++
 
 On Sunday, April 12th, we gathered at Kappa Bar to celebrate the release of Guilty Gear Strive 2.00 with a proper tournament.
 The atmosphere was great, the matches were intense, and there was a nice mix of characters and playstyles on display.

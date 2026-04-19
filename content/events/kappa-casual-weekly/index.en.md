@@ -1,13 +1,13 @@
----
-title: "Weekly Meetup at Kappa Bar"
-date: 2025-11-03
-draft: false
++++
+title = "Weekly Meetup at Kappa Bar"
+date = 2025-11-03
+draft = false
+summary = "Casual gaming at Kappa Bar"
 
-recurrence:
-  type: "Weekly"
-  details: "Alternates between tuesday and wednesday every week"
-summary: "Casual gaming at Kappa Bar"
----
+[recurrence]
+type = "Weekly"
+details = "Alternates between tuesday and wednesday every week"
++++
 We're playing casuals at Kappa Bar every week!
 
 Join in, play, and have a beer with good company!
