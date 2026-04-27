@@ -56,7 +56,7 @@ defaultContentLanguageInSubdir = false
     name = "Negative Edge"
 
 [params.footer]
-  trademark = "Negative Edge 2025"
+  trademark = "Negative Edge 2026"
   rss = false
 
   [[params.social]]

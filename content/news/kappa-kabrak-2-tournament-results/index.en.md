@@ -28,7 +28,7 @@ Until next time, Kabrakare!!! 🍺
 5 | **Xgor** | A.K.I.
 5 | **oozian** | Chun-Li
 7 | **Glenn** | Cammy
-7 | **Frisco** | ?
+7 | **Frisco** | Cammy
 {{< /tournament-results >}}
 
 The full bracket is available to browse on [Challonge](https://ceca1a6a1a76169ba1e5b00c.challonge.com/x997tv3c).
@@ -41,3 +41,13 @@ The full bracket is available to browse on [Challonge](https://ceca1a6a1a76169ba
 Congratulations to **TheArpeggiator** who took home the tournament, and to **Furbylon** and **KongoBongo** who came in the top 3!
 
 VOD: TODO
+
+## Gallery
+
+{{< figure src="finals.jpg" caption="The Arpeggiator and Furbylon ready to play i finalen" >}}
+
+{{< figure src="commentary.jpg" caption="KongoBongo and Xgor on commentary" >}}
+
+{{< figure src="stream.jpg" caption="The stream is up on the big screen at Kappa Bar" >}}
+
+{{< figure src="tech.jpg" caption="SpoopySnek helping with the stream" >}}
