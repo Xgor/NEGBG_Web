@@ -2,17 +2,18 @@
 title = "Resultat: Kappa Kabrak 2"
 date = "2026-04-27T12:00:00+02:00"
 draft = false
-cover = "top3.jpg"
+cover = "finals.jpg"
 event_link = ["kappa-kabrak-2"]
 tags = ['street fighter göteborg']
 event_role = "recap"
 +++
 
 Bra pangat allesammans!
-Ännu en lyckad kabrak under bältet! Gött spelat och gött häng! Grattis till The Arpeggiator till vinsten! 
-Återigen king shit av Glenn som fixade med streamen, setupsen, installationen trots alla setbacks! 🙏 
+Ännu en lyckad kabrak under bältet! Gött spelat och gött häng! Grattis till The Arpeggiator till vinsten!
+Venuen må blivit dubbelbokad, nätet må ha varit långsamt den dagen, en strömbrytare må ha pajat under eventet men vår streamansvarige Glenn fixade ändå med streamen, setupsen, installationen trots alla setbacks! Stort tack till honom!
+Tack till er alla som dök upp, gibbade Street Fighter 6 och gjorde eventet så bra som det blev!
 
-Till next time, Kabrakare!!! 🍺 
+Till next time, Kabrakare!!!
 
 <!--more-->
 

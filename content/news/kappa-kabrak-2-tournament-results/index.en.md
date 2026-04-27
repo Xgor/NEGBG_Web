@@ -2,17 +2,18 @@
 title = "Results: Kappa Kabrak 2"
 date = "2026-04-27T12:00:00+02:00"
 draft = false
-cover = "top3.jpg"
+cover = "finals.jpg"
 event_link = ["kappa-kabrak-2"]
 tags = ['street fighter gothenburg']
 event_role = "recap"
 +++
 
-Well done everyone!
-Another successful Kabrak under the belt! Well played and well hung! Congratulations to The Arpeggiator on the win! 
-Once again, king shit from Glenn who fixed the stream, the setup, the installation despite all the setbacks! 🙏 
+Well played everyone!
+Another successful Kabrak under the belt! Well played and nice vibes! Congratulations to The Arpeggiator who brought home the win! 
+The venue might have been double booked, the internet might have been slow that day, a power breaker might have broke during the event, but our tech support Glenn fixed the stream, the setups, the installations despite all the setbacks! A huge thank you to him!
+Thank you to everyone who showed upp, played some Street Fighter 6 and made the event one to remember!
 
-Until next time, Kabrakare!!! 🍺
+Till next time, Kabrakare!!!
 
 <!--more-->
 
