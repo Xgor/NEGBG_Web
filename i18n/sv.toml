@@ -37,6 +37,7 @@ no-articles = "Det finns inga nyhetsartiklar för tillfället."
   archive-link = "Visa tidigare evenemang"
   archive-back-link = "Tillbaka till kommande evenemang"
   archive-no-past-events = "Det finns inga tidigare evenemang att visa."
+  related-posts = "Relaterade Inlägg"
 
 
 

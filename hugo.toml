@@ -14,25 +14,25 @@ defaultContentLanguageInSubdir = false
 
 [languages]
   [languages.sv]
-    title = "Negative Edge - Göteborgs FGC"
+    title = "Negative Edge - Göteborgs fightingspelsförening"
     languageName = "Svenska"
     languageCode = "sv-SE"
     weight = 1
     [languages.sv.params]
-      subtitle = "Göteborgs fightingspelsförening!"
-      homeSubtitle = "Göteborgs fightingspelsförening – turneringar, casuals och community för alla fightingspel."
+      subtitle = "GBG FGC"
+      homeSubtitle = "Göteborgs fightingspelsförening – turneringar, casuals och community för alla fightingspel. Vi spelar spel som Street Fighter, Tekken och Guilty Gear"
       description = "Göteborgs helt egna fightingspelsförening!"
       date_format = "Mon, 2 Jan 2006"
       datetime_format = "Mon 2 Jan 2006 kl. 15:04"
       time_format = "15:04"
   [languages.en]
-    title = "Negative Edge - Gothenburg's FGC"
+    title = "Negative Edge - Gothenburg's fighting game community!"
     languageName = "English"
     languageCode = "en-GB"
     weight = 2
     [languages.en.params]
-      subtitle = "Gothenburg's fighting game community!"
-      homeSubtitle = "Gothenburg's fighting game community – tournaments, casuals and a home for all fighting game players."
+      subtitle = "GBG FGC"
+      homeSubtitle = "Gothenburg's fighting game community – tournaments, casuals and a home for all fighting game players. We play games like Street Fighter, Tekken and Guilty Gear"
       description = "Gothenburg's very own fighting game community!"
       date_format = "Mon, Jan 2, 2006"
       datetime_format = "Mon, Jan 2, 2006 at 3:04 PM"
@@ -56,7 +56,7 @@ defaultContentLanguageInSubdir = false
     name = "Negative Edge"
 
 [params.footer]
-  trademark = "Negative Edge 2025"
+  trademark = "Negative Edge 2026"
   rss = false
 
   [[params.social]]
