@@ -1,6 +1,6 @@
 +++
 title = "Results: Kappa Kabrak 2"
-date = "2026-04-27T12:00:00+02:00"
+date = "2026-05-03T12:00:00+02:00"
 draft = false
 cover = "finals.jpg"
 event_link = ["kappa-kabrak-2"]
@@ -41,7 +41,8 @@ The full bracket is available to browse on [Challonge](https://ceca1a6a1a76169ba
 
 Congratulations to **TheArpeggiator** who took home the tournament, and to **Furbylon** and **KongoBongo** who came in the top 3!
 
-VOD: TODO
+## VOD
+{{< youtube DxySFgdV6EU >}}
 
 ## Gallery
 

@@ -1,6 +1,6 @@
 +++
 title = "Resultat: Kappa Kabrak 2"
-date = "2026-04-27T12:00:00+02:00"
+date = "2026-05-03T12:00:00+02:00"
 draft = false
 cover = "finals.jpg"
 event_link = ["kappa-kabrak-2"]
@@ -42,6 +42,9 @@ Hela bracketen finns att bläddra igenom på [Challonge](https://ceca1a6a1a76169
 
 Grattis till **TheArpeggiator** som tog hem turneringen, och till **Furbylon** och **KongoBongo** som kom top 3!
 
+## VOD
+{{< youtube DxySFgdV6EU >}}
+
 ## Galleri
 
 {{< figure src="finals.jpg" caption="The Arpeggiator och Furbylon redo att spela i finalen" >}}
@@ -52,4 +55,3 @@ Grattis till **TheArpeggiator** som tog hem turneringen, och till **Furbylon** o
 
 {{< figure src="tech.jpg" caption="SpoopySnek hjälper till med streamen" >}}
 
-VOD: TODO
