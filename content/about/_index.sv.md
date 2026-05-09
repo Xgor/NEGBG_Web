@@ -7,12 +7,18 @@ identifier = "4_about"
 name = "Om oss"
 weight = 30
 +++
-<div style="background-color: var(--secondary-bg, #252525); border: 1px solid var(--main-border, #444); padding: 1em; margin-bottom: 2em; border-radius: 4px;">
-  <strong>🚧 Den här sidan är under uppbyggnad</strong> – mer information kommer snart!
-</div>
 
-Göteborgs största förening för fightingspel – med fokus på Street Fighter 6, Tekken 8, Guilty Gear -Strive- och 2XKO.
-Vi ses varje vecka på Kappa Bar för skönt häng och ännu skönare matcher.
-Oavsett om du är nybörjare eller veteran – alla nivåer är varmt välkomna!
+Negative Edge GBG är en fightingspelsförening som grundades år 2010 med målet att kunna skapa en gemenskap bland folk som har intresse att spela diverse fightingspel med varandra i Göteborgs stad.
 
-Ses där!
+Vi i föreningen har alltid varit aktiva med att kunna arrangera möten varje vecka på Kappa Bar i Göteborg för att spela fightingspel tillsammans och umgås, men har också på sistone börjat att arrangera turneringar i olika nya fightingspel såsom Tekken 8, Street Fighter 6, och Guilty Gear Strive. Med det sagt så är vi också öppna med att introducera och värda för andra fightingspel förutom dessa om så intresset finns. Vi är också aktiva med att samarbeta med andra fightingspelsföreningar gällande turneringar inom Västergötland, såsom Trollhättan, Skövde och Lidköping.
+Vi har också introducerat något som heter “watch-parties”, vars syfte är att bjuda in folk att tillsammans kunna arrangera tider för att titta på sändningar av stora fightingspelsturneringar såsom EVO, etc. Dessa sker oftast också på Kappa Bar i Göteborg.
+
+Våra träffar som vi har på Kappa Bar sker varannan tisdag och onsdag och pågår nästan hela kvällen, och turneringarna pågår mestadels under söndagar. Watch-parties kan bestämmas vilken dag som helst i mån av efterfrågan och i överenskommelse med Kappa Bar.
+
+Vare sig man är en veteran eller en komplett nykomling inom fightingspel så är man välkommen att delta i gemenskapen, för det finns alltid någonting vi kan lära oss av varandra.
+
+### Turneringar genom Negative Edge GBG
+
+- Neutral Madness (est. Nov. 2025) **Tekken 8**
+- Kappa Kabrak (est. Feb. 2026) **Street Fighter 6**
+- Goa Gubbars Slagsmål Turnering (est. Apr. 2026).  **Guilty Gear Strive**
