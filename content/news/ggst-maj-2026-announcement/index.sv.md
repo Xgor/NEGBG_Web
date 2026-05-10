@@ -1,6 +1,6 @@
 +++
 date = "2026-05-10T12:00:00+02:00"
-title = "Goa Gubbars Slagsmålsturnering: GGST på Kappa Bar, 24:e maj"
+title = "Goa Gubbars Slagsmålsturnering"
 draft = false
 cover = "/images/ggst-maj-2026-cover.png"
 event_link = ["ggst-maj-2026"]
