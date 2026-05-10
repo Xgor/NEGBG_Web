@@ -1,0 +1,14 @@
+start_date = "2026-05-24T16:00:00"
+end_date = "2026-05-24T20:00:00"
+price = 25
+price_currency = "SEK"
+cover = "/images/ggst-maj-2026-cover.png"
+checkin_time = "15:30"
+challonge_url = "https://ceca1a6a1a76169ba1e5b00c.challonge.com/tournaments/signup/y8jeNnt76E#/signup/9hpo3rjucie"
+
+[location]
+name = "Kappa Bar"
+street = "Rosenlundsgatan 8"
+postal_code = "411 20"
+city = "Göteborg"
+country = "SE"
