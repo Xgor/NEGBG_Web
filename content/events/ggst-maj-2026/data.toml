@@ -5,6 +5,7 @@ price_currency = "SEK"
 cover = "/images/ggst-maj-2026-cover.png"
 checkin_time = "15:30"
 challonge_url = "https://ceca1a6a1a76169ba1e5b00c.challonge.com/tournaments/signup/y8jeNnt76E#/signup/9hpo3rjucie"
+discord_url = "https://discord.com/events/581034602865360898/1502809679254917212"
 
 [location]
 name = "Kappa Bar"
