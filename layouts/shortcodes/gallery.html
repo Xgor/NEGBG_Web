@@ -1,0 +1,51 @@
+{{/*
+  Shortcode: gallery.html
+  Renders all images from a subfolder of the page bundle as a grid of
+  thumbnails, each linking to a full-size image via glightbox.
+
+  Parameters:
+    dir — subfolder under the page bundle (default: "gallery")
+
+  Usage:
+    Drop images in bundle/gallery/, then:
+      {{< gallery >}}
+    Or with a custom subfolder:
+      {{< gallery dir="extras" >}}
+
+  Notes:
+    - glightbox CSS/JS are loaded in layouts/partials/extra-head.html
+      conditionally, via .HasShortcode "gallery".
+    - data-gallery is set per page so prev/next navigation stays within
+      this page's set even if multiple {{< gallery >}} calls exist.
+*/}}
+{{ $dir := .Get "dir" | default "gallery" }}
+{{ $images := .Page.Resources.Match (printf "%s/*" $dir) }}
+{{ $galleryID := printf "gallery-%s" (.Page.File.UniqueID | default .Page.RelPermalink) }}
+
+{{ if $images }}
+  <div class="gallery">
+    {{ range $images }}
+      {{ if eq .ResourceType "image" }}
+        {{ $thumbW := 300 }}
+        {{ $fullW  := 1920 }}
+        {{ $thumbWebp := .Process (printf "webp q85 resize %dx" $thumbW) }}
+        {{ $thumbJpeg := .Process (printf "jpeg q85 resize %dx" $thumbW) }}
+        {{ $full := . }}
+        {{ if gt .Width $fullW }}
+          {{ $full = .Process (printf "jpeg q88 resize %dx" $fullW) }}
+        {{ end }}
+        <a href="{{ $full.RelPermalink }}" class="glightbox" data-gallery="{{ $galleryID }}">
+          <picture>
+            <source srcset="{{ $thumbWebp.RelPermalink }}" type="image/webp">
+            <img src="{{ $thumbJpeg.RelPermalink }}"
+                 alt=""
+                 class="gallery-item"
+                 width="{{ $thumbJpeg.Width }}"
+                 height="{{ $thumbJpeg.Height }}"
+                 loading="lazy">
+          </picture>
+        </a>
+      {{ end }}
+    {{ end }}
+  </div>
+{{ end }}
