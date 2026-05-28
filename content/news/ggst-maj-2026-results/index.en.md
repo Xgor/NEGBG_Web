@@ -53,6 +53,10 @@ Jenxey took it home with Sol and climbed from 2nd place last tournament to the t
 
 Big congratulations to **Jenxey** for winning the tournament with Sol, and to **Oskar** and **feffe** for taking silver and bronze!
 
+## VOD
+
+{{< youtube N1z9bulbdZ4 >}}
+
 ## Photos from the evening
 
 {{< gallery >}}

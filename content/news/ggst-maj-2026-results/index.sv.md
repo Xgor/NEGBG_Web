@@ -53,6 +53,10 @@ Jenxey tog hem det med Sol och klättrade från 2:a plats förra turneringen til
 
 Stort grattis till **Jenxey** som vann turneringen med Sol, och till **Oskar** och **feffe** som tog silver och brons!
 
+## VOD
+
+{{< youtube N1z9bulbdZ4 >}}
+
 ## Bilder från kvällen
 
 {{< gallery >}}
