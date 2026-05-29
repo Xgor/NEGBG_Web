@@ -55,7 +55,7 @@ Big congratulations to **Jenxey** for winning the tournament with Sol, and to **
 
 ## VOD
 
-{{< youtube N1z9bulbdZ4 >}}
+{{< youtube 1WNiA7rZBRo >}}
 
 ## Photos from the evening
 
