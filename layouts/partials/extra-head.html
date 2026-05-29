@@ -45,3 +45,20 @@
 
   {{ printf "<script type=\"application/ld+json\">%s</script>" $json | safeHTML }}
 {{ end }}
+
+{{/* Gallery lightbox: glightbox loaded only on pages that use the gallery shortcode */}}
+{{ if .HasShortcode "gallery" }}
+  {{ with resources.Get "lib/glightbox/glightbox.min.css" | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+  {{ end }}
+  {{ with resources.Get "lib/glightbox/glightbox.min.js" | fingerprint }}
+    <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ end }}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.GLightbox) {
+        GLightbox({ selector: '.glightbox', loop: true });
+      }
+    });
+  </script>
+{{ end }}
