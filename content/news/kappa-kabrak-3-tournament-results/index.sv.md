@@ -2,7 +2,7 @@
 title = "Resultat: Kappa Kabrak 3"
 date = "2026-06-03T12:00:00+02:00"
 draft = false
-cover = "finals.jpg"
+cover = "20260531_181647.jpg"
 event_link = ["kappa-kabrak-3"]
 tags = ['street fighter göteborg']
 event_role = "recap"
@@ -16,6 +16,7 @@ Grattis till Furbylon som tog hem segern! Och även till TheArpeggiator och Jenx
 Tack till alla som deltog och tittade på.
 Vi ses nästa gång!
 
+{{< figure src="20260531_181647.jpg" caption="Glenn och oozian i en intensiv tourneringsmatch" >}}
 <!--more-->
 
 
@@ -34,7 +35,7 @@ Vi ses nästa gång!
 7 | **WildSnacks** | Ed
 {{< /tournament-results >}}
 
-Hela bracketen finns att bläddra igenom på [Challonge](https://ceca1a6a1a76169ba1e5b00c.challonge.com/x997tv3c).
+Hela bracketen finns att bläddra igenom på [Challonge](https://ceca1a6a1a76169ba1e5b00c.challonge.com/sv/6fixzijsc).
 
 
 ## Pallen
@@ -46,4 +47,4 @@ Grattis till **Furbylon** som tog hem turneringen, och till **The Arpeggiator** 
 
 ## Galleri
 
-
+{{< gallery >}}
