@@ -16,8 +16,9 @@ Grattis till Furbylon som tog hem segern! Och även till TheArpeggiator och Jenx
 Tack till alla som deltog och tittade på.
 Vi ses nästa gång!
 
-{{< figure src="20260531_181647.jpg" caption="Glenn och oozian i en intensiv tourneringsmatch" >}}
 <!--more-->
+{{< figure src="20260531_181647.jpg" caption="Glenn och oozian i en intensiv tourneringsmatch" >}}
+
 
 
 ## Top 8

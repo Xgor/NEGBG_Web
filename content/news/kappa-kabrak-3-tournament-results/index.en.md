@@ -15,9 +15,9 @@ Congratulations to Furbylon who took home the victory! And also to TheArpeggiato
 
 Thanks to everyone who participated and watched.
 See you next time!
-
-{{< figure src="20260531_181647.jpg" caption="Glenn and Oozian in an intense tournament match" >}}
 <!--more-->
+{{< figure src="20260531_181647.jpg" caption="Glenn and Oozian in an intense tournament match" >}}
+
 
 
 ## Top 8
