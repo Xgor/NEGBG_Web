@@ -2,6 +2,19 @@
 
 Bilingual (Swedish/English) Hugo site for **Negative Edge**, Gothenburg's fighting game community. Deployed to [negativeedge.se](https://negativeedge.se) via Cloudflare Pages.
 
+## Posta utan att röra kod / Post without touching code
+
+Du behöver **inte** klona repot eller installera något för att lägga upp ett event eller ett resultat. Fyll i ett formulär:
+
+- **[Nytt event](https://github.com/Xgor/NEGBG_Web/issues/new?template=new-event.yml)** skapar både eventsidan och announcement-posten.
+- **[Turneringsresultat](https://github.com/Xgor/NEGBG_Web/issues/new?template=tournament-results.yml)** skapar resultatposten.
+
+Du kan dra in bilder direkt i formuläret. En pull request öppnas automatiskt, Cloudflare bygger en förhandsvisning som läggs som en kommentar, och när någon mergar går det live. Behöver du rätta något: **redigera issuet**, så uppdaterar sig pull requesten själv.
+
+_You do not need to clone the repo or install anything to post an event or a result. Fill in one of the forms above, drag your images straight in, and a pull request is opened for you with a Cloudflare preview. Merge it and it is live. To fix something, edit the issue and the pull request updates itself._
+
+The rest of this README is for working on the site itself.
+
 ## Prerequisites
 
 - [Hugo](https://gohugo.io/) **0.128.0 Extended** (with Dart Sass support)

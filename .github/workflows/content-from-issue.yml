@@ -1,0 +1,105 @@
+name: Content from issue
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  build:
+    # The repo is public and the issue templates apply their own labels, so gate on
+    # membership: only people who can already push should be able to open branches.
+    if: >-
+      (contains(github.event.issue.labels.*.name, 'new-event') ||
+       contains(github.event.issue.labels.*.name, 'tournament-results')) &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Pick form
+        id: form
+        run: |
+          if [[ "${{ contains(github.event.issue.labels.*.name, 'new-event') }}" == "true" ]]; then
+            echo "type=new-event" >> "$GITHUB_OUTPUT"
+          else
+            echo "type=tournament-results" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: stefanbuck/github-issue-parser@v3
+        id: parse
+        with:
+          template-path: .github/ISSUE_TEMPLATE/${{ steps.form.outputs.type }}.yml
+
+      - name: Build content
+        id: build
+        env:
+          ISSUE_JSON: ${{ steps.parse.outputs.jsonString }}
+        run: node .github/scripts/build-content.mjs '${{ steps.form.outputs.type }}'
+
+      - name: Open pull request
+        id: pr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: ${{ steps.build.outputs.branch }}
+          base: master
+          title: ${{ steps.build.outputs.title }}
+          commit-message: |
+            ${{ steps.build.outputs.title }}
+
+            Från #${{ github.event.issue.number }}.
+          body: |
+            ${{ steps.build.outputs.summary }}
+
+            Skapad från #${{ github.event.issue.number }} av @${{ github.event.issue.user.login }}.
+            För att ändra något: redigera issuet, så uppdateras den här pull requesten.
+
+            Closes #${{ github.event.issue.number }}
+          delete-branch: true
+
+      - name: Link the pull request from the issue
+        if: steps.pr.outputs.pull-request-operation == 'created'
+        uses: actions/github-script@v7
+        env:
+          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                `Tack! Jag har skapat ${process.env.PR_URL} åt dig.`,
+                '',
+                'Kolla igenom förhandsvisningen som Cloudflare lägger som en kommentar där. Ser det bra ut kan någon merga den, och då går den live.',
+                '',
+                'Behöver du ändra något: **redigera det här issuet**, så uppdaterar sig pull requesten själv.',
+              ].join('\n'),
+            })
+
+      - name: Explain what went wrong
+        if: failure() && steps.build.outputs.error
+        uses: actions/github-script@v7
+        env:
+          BUILD_ERROR: ${{ steps.build.outputs.error }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                'Jag kunde inte skapa posten:',
+                '',
+                `> ${process.env.BUILD_ERROR.split('\n').join('\n> ')}`,
+                '',
+                'Redigera issuet så försöker jag igen automatiskt.',
+              ].join('\n'),
+            })

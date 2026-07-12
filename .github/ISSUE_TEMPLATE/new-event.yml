@@ -1,0 +1,167 @@
+name: Nytt event / New event
+description: Skapa ett event och dess announcement-post. Create an event and its announcement post.
+title: "[Event] "
+labels: ["new-event"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fyll i formuläret så skapas eventsidan och nyhetsposten åt dig, och en pull request öppnas för granskning.
+        Du kan rätta stavfel efteråt genom att **redigera det här issuet**, då uppdateras pull requesten automatiskt.
+
+        _Fill this in and the event page and news post are created for you, and a pull request is opened for review.
+        To fix a typo afterwards, just **edit this issue** and the pull request updates itself._
+
+  - type: input
+    id: slug
+    attributes:
+      label: URL-namn / URL name
+      description: Små bokstäver och bindestreck. Blir adressen till eventet. / Lowercase and hyphens. Becomes the event's address.
+      placeholder: kappa-kabrak-4
+    validations:
+      required: true
+
+  - type: input
+    id: title_sv
+    attributes:
+      label: Titel (svenska)
+      placeholder: Kappa Kabrak 4
+    validations:
+      required: true
+
+  - type: input
+    id: title_en
+    attributes:
+      label: Title (English)
+      placeholder: Kappa Kabrak 4
+    validations:
+      required: true
+
+  - type: input
+    id: summary_sv
+    attributes:
+      label: Sammanfattning (svenska)
+      description: En mening. Visas i eventlistan.
+      placeholder: SF6-turnering på Kappa Bar, kom och kämpa!
+    validations:
+      required: true
+
+  - type: input
+    id: summary_en
+    attributes:
+      label: Summary (English)
+      description: One sentence. Shown in the event list.
+      placeholder: SF6 tournament at Kappa Bar, come and fight!
+    validations:
+      required: true
+
+  - type: textarea
+    id: body_sv
+    attributes:
+      label: Beskrivning (svenska)
+      description: |
+        Texten som beskriver eventet. Används både på eventsidan och i nyhetsposten.
+        Du kan dra in bilder direkt i rutan. Pris, check-in och starttid läggs till automatiskt, så du behöver inte skriva dem.
+      placeholder: |
+        Here we go again!
+
+        Mer öl, mer slagsmål, mer kabrakande.
+    validations:
+      required: true
+
+  - type: textarea
+    id: body_en
+    attributes:
+      label: Description (English)
+      description: |
+        Used both on the event page and in the news post. You can drag images straight into this box.
+        Price, check-in and start time are added automatically, so do not write them out.
+      placeholder: |
+        Here we go again!
+
+        More beer, more fighting, more kabrakande.
+    validations:
+      required: true
+
+  - type: textarea
+    id: cover
+    attributes:
+      label: Omslagsbild / Cover image
+      description: Dra in **en** bild här. Används av både eventet och nyhetsposten. / Drag **one** image in here. Used by both the event and the news post.
+    validations:
+      required: true
+
+  - type: input
+    id: start
+    attributes:
+      label: Start
+      description: Datum och tid, 24-timmarsklocka. / Date and time, 24-hour clock.
+      placeholder: 2026-05-31 16:00
+    validations:
+      required: true
+
+  - type: input
+    id: end
+    attributes:
+      label: Slut / End
+      description: Bara tiden om det är samma dag. / Just the time if it is the same day.
+      placeholder: "20:00"
+    validations:
+      required: true
+
+  - type: input
+    id: checkin_time
+    attributes:
+      label: Check-in
+      description: Lämna tomt för 30 minuter före start. / Leave blank for 30 minutes before start.
+      placeholder: "15:30"
+
+  - type: input
+    id: price
+    attributes:
+      label: Pris i kronor / Price in kronor
+      description: Bara siffror. Lämna tomt om det är gratis. / Numbers only. Leave blank if free.
+      placeholder: "25"
+
+  - type: dropdown
+    id: venue
+    attributes:
+      label: Plats / Venue
+      options:
+        - Kappa Bar
+        - Annan plats (fyll i nedan) / Somewhere else (fill in below)
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: venue_name
+    attributes:
+      label: Platsens namn / Venue name
+      description: Bara om du valde "annan plats" ovan. / Only if you picked "somewhere else" above.
+
+  - type: input
+    id: venue_street
+    attributes:
+      label: Gatuadress / Street address
+
+  - type: input
+    id: venue_postal_code
+    attributes:
+      label: Postnummer / Postal code
+
+  - type: input
+    id: venue_city
+    attributes:
+      label: Stad / City
+
+  - type: input
+    id: challonge_url
+    attributes:
+      label: Challonge-länk / Challonge link
+      description: Länken till anmälan. Lämna tomt om det inte finns någon. / The signup link. Leave blank if there is none.
+
+  - type: input
+    id: discord_url
+    attributes:
+      label: Discord-eventlänk / Discord event link

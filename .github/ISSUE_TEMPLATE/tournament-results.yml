@@ -1,0 +1,97 @@
+name: Turneringsresultat / Tournament results
+description: Posta resultatet efter en turnering. Post the results after a tournament.
+title: "[Resultat] "
+labels: ["tournament-results"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fyll i formuläret så skapas resultatposten åt dig, och en pull request öppnas för granskning.
+        Du kan rätta stavfel efteråt genom att **redigera det här issuet**.
+
+        _Fill this in and the results post is created for you, and a pull request is opened for review.
+        To fix a typo afterwards, just **edit this issue**._
+
+  - type: input
+    id: event_slug
+    attributes:
+      label: Vilket event? / Which event?
+      description: URL-namnet på eventet, samma som i adressen till eventsidan. / The event's URL name, the same one that is in the event page's address.
+      placeholder: kappa-kabrak-3
+    validations:
+      required: true
+
+  - type: input
+    id: title_sv
+    attributes:
+      label: Titel (svenska)
+      placeholder: "Resultat: Kappa Kabrak 3"
+    validations:
+      required: true
+
+  - type: input
+    id: title_en
+    attributes:
+      label: Title (English)
+      placeholder: "Results: Kappa Kabrak 3"
+    validations:
+      required: true
+
+  - type: textarea
+    id: intro_sv
+    attributes:
+      label: Ingress (svenska)
+      description: Ett par meningar. Det här är texten som syns i nyhetslistan.
+      placeholder: I söndags samlades vi på Kappa Bar igen. 18 spelare, double elimination, ingen nåd.
+    validations:
+      required: true
+
+  - type: textarea
+    id: intro_en
+    attributes:
+      label: Intro (English)
+      description: A couple of sentences. This is the text shown in the news list.
+      placeholder: On Sunday we gathered at Kappa Bar once again. 18 players, double elimination, and no mercy.
+    validations:
+      required: true
+
+  - type: textarea
+    id: results
+    attributes:
+      label: Placeringar / Placements
+      description: En rad per placering, `placering | spelare | karaktär`. Lämna tomt om du inte vill ha en resultattabell. / One line per placement. Leave blank for no results table.
+      placeholder: |
+        1 | Jenxey | Sol
+        2 | Oskar | Axl Low
+        3 | feffe | May
+      render: text
+
+  - type: textarea
+    id: body_sv
+    attributes:
+      label: Text (svenska)
+      description: Berättelsen om turneringen. Du kan dra in bilder direkt i rutan.
+    validations:
+      required: true
+
+  - type: textarea
+    id: body_en
+    attributes:
+      label: Write-up (English)
+      description: The story of the tournament. You can drag images straight into this box.
+    validations:
+      required: true
+
+  - type: textarea
+    id: cover
+    attributes:
+      label: Omslagsbild / Cover image
+      description: Dra in **en** bild här. / Drag **one** image in here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: gallery
+    attributes:
+      label: Bildgalleri / Photo gallery
+      description: Dra in hur många bilder du vill. De visas som ett galleri längst ner i posten. / Drag in as many images as you like. They are shown as a gallery at the bottom of the post.
