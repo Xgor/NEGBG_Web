@@ -7,6 +7,4 @@ event_link = ["tokon-launch"]
 event_role = "announcement"
 +++
 
-Calling all guilty gears: after a successful launch tournament, we're running another Guilty Gear -Strive- tournament at Kappa Bar on Sunday May 24.
-
-Entry 25 SEK, check-in 15:30, start 16:00. Sign up via Challonge.
+The biggest and toughest FGC release of the year is here. TŌkon: Fighting Souls launches next month, and we’re kicking off a really awesome Release Turre on August 7.

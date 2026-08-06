@@ -7,6 +7,4 @@ event_link = ["tokon-launch"]
 event_role = "announcement"
 +++
 
-Guilty Gear Strive 2.00 släpps — och vi firar med en turnering på Kappa Bar den 12:e april!
-
-Oavsett om du är veteran eller nybörjare är alla välkomna att tävla. Vi kör dubbeleliminering och topp 5 vinner priser.
+Årets största och tuffaste FGC‑release är här. TŌkon: Fighting Souls släpps nästa månad, och vi kickar igång en riktigt skön Release Turre den 7 augusti.
