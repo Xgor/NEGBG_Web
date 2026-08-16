@@ -1,7 +1,7 @@
 
 +++
 date = "2026-08-15T22:40:57+02:00"
-title = "Resultat: Marvel Tokon Fighting Souls - launch turre"
+title = "Results: Marvel Tokon Fighting Souls - launch tournament"
 draft = false
 cover = "group.jpg"
 event_link = ["tokon-launch"]
