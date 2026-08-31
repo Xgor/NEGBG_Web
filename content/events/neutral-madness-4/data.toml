@@ -1,0 +1,13 @@
+start_date = "2026-09-06T14:00:00"
+end_date = "2026-09-06T18:00:00"
+price = 50
+price_currency = "SEK"
+cover = "/images/neutral_madness_4.jpg"
+checkin_time = "13:30"
+
+[location]
+name = "Kappa Bar"
+street = "Rosenlundsgatan 8"
+postal_code = "411 20"
+city = "Göteborg"
+country = "SE"
