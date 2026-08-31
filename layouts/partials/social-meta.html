@@ -1,0 +1,59 @@
+{{/*
+  Partial: social-meta.html
+  Open Graph + Twitter card tags, including the page cover image so links
+  unfurl with a picture in Discord, Slack, X, Facebook, etc.
+
+  Replaces Hugo's _internal/opengraph.html and _internal/twitter_cards.html,
+  which only pick up images from a page `images` param or bundle resources
+  named cover or feature, neither of which this site uses.
+
+  Context: the Page.
+*/}}
+{{/* Page title only — the site name is carried by og:site_name */}}
+{{ $title := cond .IsHome site.Title (.Title | default site.Title) }}
+{{ $description := "" }}
+{{ if .IsHome }}
+  {{ $description = site.Params.homeSubtitle | default site.Params.description }}
+{{ else }}
+  {{ $description = .Params.description | default (.Summary | plainify) }}
+{{ end }}
+{{ $description = $description | plainify | chomp }}
+{{ $image := partial "og-image.html" . }}
+
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $description }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:site_name" content="{{ site.Title }}" />
+<meta property="og:locale" content="{{ replace site.Language.LanguageCode "-" "_" }}" />
+{{ range .Translations }}
+  <meta property="og:locale:alternate" content="{{ replace .Language.LanguageCode "-" "_" }}" />
+{{ end }}
+
+<meta property="og:image" content="{{ $image.url }}" />
+{{ with $image.type }}<meta property="og:image:type" content="{{ . }}" />{{ end }}
+{{ if $image.width }}<meta property="og:image:width" content="{{ $image.width }}" />{{ end }}
+{{ if $image.height }}<meta property="og:image:height" content="{{ $image.height }}" />{{ end }}
+<meta property="og:image:alt" content="{{ $image.alt }}" />
+
+{{ if .IsPage }}
+  {{ range .Params.categories }}
+    <meta property="article:section" content="{{ . }}" />
+  {{ end }}
+  {{ if not .Date.IsZero }}<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" />{{ end }}
+  {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" />{{ end }}
+  {{ range .Params.tags }}
+    <meta property="article:tag" content="{{ . }}" />
+  {{ end }}
+{{ end }}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $description }}" />
+<meta name="twitter:image" content="{{ $image.url }}" />
+<meta name="twitter:image:alt" content="{{ $image.alt }}" />
+{{ range site.Params.social }}
+  {{ if eq .name "twitter" }}
+    <meta name="twitter:site" content="@{{ path.Base .url }}" />
+  {{ end }}
+{{ end }}

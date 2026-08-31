@@ -1,0 +1,79 @@
+{{/*
+  Partial: og-image.html
+  Resolves the social sharing image (Open Graph / Twitter) for a page.
+
+  Context: the Page.
+
+  Returns a dict:
+    - url    string : absolute URL of the image (always set)
+    - width  int    : pixel width, 0 when unknown (static fallback)
+    - height int    : pixel height, 0 when unknown
+    - type   string : MIME type, empty when unknown
+    - alt    string : alt text
+
+  Cover lookup order:
+    1. data.toml `cover` (event bundles)
+    2. front matter `cover`
+    3. site param `ogImage`, else the site logo (assets/NegativeEdge_Color_1024_1.png)
+
+  Path resolution mirrors img.html: page bundle → assets/images → static.
+*/}}
+{{ $page := . }}
+{{ $cover := "" }}
+
+{{ with $page.Resources.GetMatch "data.toml" }}
+  {{ with (.Content | unmarshal).cover }}
+    {{ $cover = . }}
+  {{ end }}
+{{ end }}
+{{ if not $cover }}
+  {{ $cover = $page.Params.cover | default "" }}
+{{ end }}
+
+{{ $img := false }}
+{{ with $cover }}
+  {{/* 1. Page bundle: a bare filename like "gruppbild.jpg" */}}
+  {{ with $page.Resources.GetMatch . }}
+    {{ $img = . }}
+  {{ end }}
+  {{/* 2. Shared asset under assets/images/ */}}
+  {{ if not $img }}
+    {{ $assetPath := . | strings.TrimPrefix "/" }}
+    {{ if hasPrefix $assetPath "images/" }}
+      {{ with resources.Get $assetPath }}
+        {{ $img = . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ else }}
+  {{/* 3. No cover — fall back to the site-wide sharing image */}}
+  {{ $fallback := site.Params.ogImage | default "NegativeEdge_Color_1024_1.png" }}
+  {{ with resources.Get ($fallback | strings.TrimPrefix "/") }}
+    {{ $img = . }}
+  {{ end }}
+{{ end }}
+
+{{ $result := dict "url" "" "width" 0 "height" 0 "type" "" "alt" ($page.Title | default site.Title) }}
+
+{{ if $img }}
+  {{/*
+    Cap the width so crawlers do not have to pull a huge original, and keep
+    the original format when it is one every crawler renders (converting a
+    transparent PNG to JPEG would flatten it onto a solid background).
+  */}}
+  {{ $out := $img }}
+  {{ $safeFormat := in (slice "jpeg" "png" "gif") $img.MediaType.SubType }}
+  {{ if and $safeFormat (gt $img.Width 1200) }}
+    {{ $out = $img.Process "resize 1200x" }}
+  {{ else if not $safeFormat }}
+    {{ $out = $img.Process (cond (gt $img.Width 1200) "jpeg q85 resize 1200x" "jpeg q85") }}
+  {{ end }}
+  {{ $result = merge $result (dict "url" $out.Permalink "width" $out.Width "height" $out.Height "type" $out.MediaType.Type) }}
+{{ else if $cover }}
+  {{/* Static fallback — image lives in /static/, no dimensions available */}}
+  {{ $result = merge $result (dict "url" ($cover | absURL)) }}
+{{ else }}
+  {{ $result = merge $result (dict "url" ("/web-app-manifest-512x512.png" | absURL) "width" 512 "height" 512 "type" "image/png") }}
+{{ end }}
+
+{{ return $result }}
