@@ -1,9 +1,9 @@
 +++
-title = "Goa Gubbars Slagsmålsturnering #3"
+title = "Goa Gubbars Slagsmålsturnering #2"
 date = 2026-08-31
 draft = false
 
-summary = "Goa Gubbars Slagsmålsturnering #3: GGST på Kappa Bar fredag 11 september."
+summary = "Goa Gubbars Slagsmålsturnering #2: GGST på Kappa Bar fredag 11 september."
 +++
 
 Lystring alla skyldiga kugghjul!
