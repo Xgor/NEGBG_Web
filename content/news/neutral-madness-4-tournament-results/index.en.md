@@ -16,8 +16,9 @@ Results are now up for the Top 3 in Neutral Madness #4:
 🥉@chaibing
 
 Congratulations to the winners!
-{{< figure src="top3.jpg" caption="Our top 3 players">}}
 <!--more-->
+{{< figure src="top3.jpg" caption="Our top 3 players">}}
+
 A big thank you to everyone who helped organize and participated in the tournament! It’s been a relatively long break since the last tournament, but I’m glad we’re back and in full swing. On the production side, setting up the systems went pretty quickly, it just a shame that some players didn’t have time to warm up before the tournament due to complications installing the game on certain setups. But we’ve gotten much better at organizing streams, so you can see that our experience has really paid off!
 
 {{< figure src="gruppbild.jpg" caption="Group picture outside kappa, our tournaments is getting bigger and bigger" >}}

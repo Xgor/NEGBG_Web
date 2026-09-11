@@ -16,8 +16,8 @@ Nu är resultaten uppe för Top 3 i Neutral Madness #4:
 🥉@chaibing
 
 Stort grattis till vinnarna!
-{{< figure src="top3.jpg" caption="Våra top 3 spelare">}}
 <!--more-->
+{{< figure src="top3.jpg" caption="Våra top 3 spelare">}}
 Stort tack till alla som medverkade och deltog i turneringen! Det var ett relativt långt uppehåll sedan senaste turneringen, men jag är glad att vi är tillbaka och även på full rullning. Från produktionssidan så har det gått ganska snabbt med att ordna setups, det var bara synd att vissa inte hann att värma upp inför turneringen pga komplikationer med att installera spelet på vissa setups. Men vi har blivit mycket bättre på att anordna streaming, så man ser att erfarenheten har kommit och gjort nytta!
 
 
