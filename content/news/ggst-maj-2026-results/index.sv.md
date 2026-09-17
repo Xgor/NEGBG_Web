@@ -1,5 +1,5 @@
 +++
-title = "Resultat: Goa Gubbars Slagsmålsturnering... 1?"
+title = "Resultat: Goa Gubbars SlagsmålsTurnering... 1?"
 date = "2026-05-24T21:00:00+02:00"
 draft = false
 cover = "gruppbild.jpg"
@@ -7,7 +7,7 @@ event_link = ["ggst-maj-2026"]
 event_role = "recap"
 +++
 
-Söndagen den 24:e maj samlades vi återigen på Kappa Bar, den här gången för Goa Gubbars Slagsmålsturnering. 18 deltagare, dubbelelimination och ingen nåd.
+Söndagen den 24:e maj samlades vi återigen på Kappa Bar, den här gången för Goa Gubbars SlagsmålsTurnering. 18 deltagare, dubbelelimination och ingen nåd.
 
 <!--more-->
 
@@ -21,7 +21,7 @@ Intresset för GGST i Göteborg fortsätter växa efter launch-turneringen, och 
 
 ## Top 8
 
-{{< figure src="ggstmay2026t8.png" alt="Top 8 — Goa Gubbars Slagsmålsturnering... 1?" >}}
+{{< figure src="ggstmay2026t8.png" alt="Top 8 — Goa Gubbars SlagsmålsTurnering... 1?" >}}
 
 {{< tournament-results >}}
 1 | **Jenxey** | Sol
