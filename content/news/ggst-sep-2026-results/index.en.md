@@ -7,7 +7,7 @@ event_link = ["ggst-sep-2026"]
 event_role = "recap"
 +++
 
-On Friday September 11 it was finally time again: after the summer break we kicked off the second edition of Goa Gubbars SlagsmålsTurnering at Kappa Bar. 14 players, double elimination, a stream running all night, and three new names on the podium.
+On Friday September 11 it was finally time again: after the summer break we kicked off the second edition of Goa Gubbars SlagsmålsTurnering at Kappa Bar. 14 players, double elimination, a stream running all night, and a grand final that went all the way to a bracket reset.
 
 <!--more-->
 

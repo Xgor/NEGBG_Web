@@ -7,7 +7,7 @@ event_link = ["ggst-sep-2026"]
 event_role = "recap"
 +++
 
-Fredagen den 11:e september var det äntligen dags igen: efter sommaruppehållet drog vi igång andra utgåvan av Goa Gubbars SlagsmålsTurnering på Kappa Bar. 14 deltagare, dubbelelimination, stream och en pall med tre nya namn högst upp.
+Fredagen den 11:e september var det äntligen dags igen: efter sommaruppehållet drog vi igång andra utgåvan av Goa Gubbars SlagsmålsTurnering på Kappa Bar. 14 deltagare, dubbelelimination, stream och en grand final som gick hela vägen till bracket reset.
 
 <!--more-->
 
