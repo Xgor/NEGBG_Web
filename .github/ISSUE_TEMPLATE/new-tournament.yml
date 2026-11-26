@@ -1,0 +1,173 @@
+name: New tournament
+description: Create a tournament event page and its announcement post.
+title: "[Tournament] "
+labels: ["new-tournament"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill this in and the event page and its announcement post are created for you, and a pull request is opened for review.
+        To fix something afterwards, just **edit this issue** and the pull request updates itself.
+
+        In the text boxes, use `##` for headings, never `###`: the form uses `###` to separate its fields, so everything after a `###` heading is lost.
+
+  - type: input
+    id: slug
+    attributes:
+      label: Event slug
+      description: Lowercase letters, numbers and hyphens. Becomes the event's address.
+      placeholder: kappa-kabrak-4
+    validations:
+      required: true
+
+  - type: input
+    id: title_sv
+    attributes:
+      label: Titel (svenska)
+      placeholder: Kappa Kabrak 4
+    validations:
+      required: true
+
+  - type: input
+    id: title_en
+    attributes:
+      label: Title (English)
+      placeholder: Kappa Kabrak 4
+    validations:
+      required: true
+
+  - type: input
+    id: summary_sv
+    attributes:
+      label: Sammanfattning (svenska)
+      description: One sentence, shown in the event list.
+      placeholder: SF6-turnering på Kappa Bar, kom och kämpa!
+    validations:
+      required: true
+
+  - type: input
+    id: summary_en
+    attributes:
+      label: Summary (English)
+      placeholder: SF6 tournament at Kappa Bar, come and fight!
+    validations:
+      required: true
+
+  - type: textarea
+    id: body_sv
+    attributes:
+      label: Beskrivning (svenska)
+      description: |
+        The full event description. Also used for the announcement post unless you write a shorter one below.
+        You can drag images straight into the box. Price, check-in and start time are added automatically.
+      placeholder: |
+        Here we go again!
+
+        Mer öl, mer slagsmål, mer kabrakande.
+    validations:
+      required: true
+
+  - type: textarea
+    id: body_en
+    attributes:
+      label: Description (English)
+      placeholder: |
+        Here we go again!
+
+        More beer, more fighting, more kabrakande.
+    validations:
+      required: true
+
+  - type: textarea
+    id: announcement_sv
+    attributes:
+      label: Announcement-text (svenska)
+      description: Optional. A shorter teaser for the news post. Leave blank to reuse the description.
+
+  - type: textarea
+    id: announcement_en
+    attributes:
+      label: Announcement text (English)
+
+  - type: textarea
+    id: cover
+    attributes:
+      label: Cover image
+      description: Drag **one** image in here. Used by both the event and the announcement.
+    validations:
+      required: true
+
+  - type: input
+    id: start
+    attributes:
+      label: Start
+      description: Date and time, 24-hour clock.
+      placeholder: 2026-05-31 16:00
+    validations:
+      required: true
+
+  - type: input
+    id: end
+    attributes:
+      label: End
+      description: Just the time if it is the same day, otherwise date and time.
+      placeholder: "20:00"
+    validations:
+      required: true
+
+  - type: input
+    id: checkin_time
+    attributes:
+      label: Check-in
+      description: Leave blank for 30 minutes before start.
+      placeholder: "15:30"
+
+  - type: input
+    id: price
+    attributes:
+      label: Price (SEK)
+      description: Numbers only. Leave blank if free.
+      placeholder: "25"
+
+  - type: dropdown
+    id: venue
+    attributes:
+      label: Venue
+      options:
+        - Kappa Bar
+        - Somewhere else (fill in below)
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: venue_name
+    attributes:
+      label: Venue name
+      description: Only if you picked "Somewhere else" above.
+
+  - type: input
+    id: venue_street
+    attributes:
+      label: Street address
+
+  - type: input
+    id: venue_postal_code
+    attributes:
+      label: Postal code
+
+  - type: input
+    id: venue_city
+    attributes:
+      label: City
+
+  - type: input
+    id: tournament_url
+    attributes:
+      label: Tournament page
+      description: Signup or bracket page (start.gg, Challonge, ...). Leave blank if there is none.
+
+  - type: input
+    id: discord_url
+    attributes:
+      label: Discord event link

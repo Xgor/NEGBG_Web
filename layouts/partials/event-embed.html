@@ -61,11 +61,11 @@
 
   {{/* Structured event info rendered from data.toml */}}
   {{ $checkin := $data.checkin_time }}
-  {{ $challonge := $data.challonge_url }}
+  {{ $tournament := $data.tournament_url | default $data.challonge_url }}
   {{ $discord := $data.discord_url }}
   {{ $prize_pool := $data.prize_pool }}
 
-  {{ if or $checkin $data.price $challonge $discord $prize_pool }}
+  {{ if or $checkin $data.price $tournament $discord $prize_pool }}
   <div class="event-info-box" style="background-color: #2a2b2f; border: 1px solid var(--main-border, #444); padding: 1em 1.25em; margin-bottom: 1.5em; border-radius: 4px;">
     <ul style="margin: 0; padding-left: 1.25em; line-height: 1.8;">
       {{ with $checkin }}
@@ -89,11 +89,11 @@
           {{ end }}
         </li>
       {{ end }}
-      {{ if or $challonge $discord }}
+      {{ if or $tournament $discord }}
         <li>
           <strong>{{ T "event.links" }}:</strong>
-          {{ with $challonge }}<a href="{{ . }}">{{ T "event.challonge-bracket" }}</a>{{ end }}
-          {{ if and $challonge $discord }} · {{ end }}
+          {{ with $tournament }}<a href="{{ . }}">{{ T "event.tournament-page" }}</a>{{ end }}
+          {{ if and $tournament $discord }} · {{ end }}
           {{ with $discord }}<a href="{{ . }}">{{ T "event.discord-event" }}</a>{{ end }}
         </li>
       {{ end }}

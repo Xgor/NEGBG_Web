@@ -1,0 +1,148 @@
+name: Content from issue
+
+# Turns the "New tournament", "News post" and "Edit post or event" issue forms into a pull request.
+# Every edit of the issue rebuilds the content from master and force-updates the
+# same PR branch (issue-form/<number>), so the issue is the single source of truth.
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+# A quick double edit should not race two runs against the same branch.
+concurrency:
+  group: content-from-issue-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # The repo is public and the issue templates apply their own labels, so gate on
+    # membership: only people who can already push should be able to open branches.
+    # Closed issues are skipped so editing one after its PR merged does nothing.
+    if: >-
+      github.event.issue.state == 'open' &&
+      (contains(github.event.issue.labels.*.name, 'new-tournament') ||
+       contains(github.event.issue.labels.*.name, 'news-post') ||
+       contains(github.event.issue.labels.*.name, 'edit-post')) &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: master
+          submodules: recursive
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+
+      - name: Pick form
+        id: form
+        run: |
+          if [[ "${{ contains(github.event.issue.labels.*.name, 'new-tournament') }}" == "true" ]]; then
+            echo "type=new-tournament" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ contains(github.event.issue.labels.*.name, 'edit-post') }}" == "true" ]]; then
+            echo "type=edit-post" >> "$GITHUB_OUTPUT"
+          else
+            echo "type=news-post" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: stefanbuck/github-issue-parser@cb6e97157cbf851e3a393ff8d57c93a484cc323f # v3.2.5
+        id: parse
+        # The edit form's sections are written and parsed by the script itself.
+        if: steps.form.outputs.type != 'edit-post'
+        with:
+          template-path: .github/ISSUE_TEMPLATE/${{ steps.form.outputs.type }}.yml
+
+      - name: Build content
+        id: build
+        env:
+          ISSUE_JSON: ${{ steps.parse.outputs.jsonString }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          # The edit form reads its hidden "loaded" marker from the raw body.
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          FORM_TYPE: ${{ steps.form.outputs.type }}
+        run: node .github/scripts/build-content.mjs "$FORM_TYPE"
+
+      # Edit form, step 1: write the current post into the issue for the author to edit.
+      # Edits made with the workflow's own token do not trigger another run.
+      - name: Load the current post into the issue
+        if: steps.build.outputs.mode == 'loaded'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        env:
+          NEW_BODY: ${{ steps.build.outputs.issue_body }}
+          COMMENT: ${{ steps.build.outputs.comment }}
+        with:
+          script: |
+            const issue = { owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number }
+            await github.rest.issues.update({ ...issue, body: process.env.NEW_BODY })
+            await github.rest.issues.createComment({ ...issue, body: process.env.COMMENT })
+
+      - name: Open or update pull request
+        id: pr
+        if: steps.build.outputs.mode != 'loaded'
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
+        with:
+          branch: ${{ steps.build.outputs.branch }}
+          base: master
+          title: ${{ steps.build.outputs.title }}
+          commit-message: |
+            ${{ steps.build.outputs.title }}
+
+            From #${{ github.event.issue.number }}.
+          author: ${{ github.event.issue.user.login }} <${{ github.event.issue.user.id }}+${{ github.event.issue.user.login }}@users.noreply.github.com>
+          body: |
+            ${{ steps.build.outputs.summary }}
+
+            Created from #${{ github.event.issue.number }} by @${{ github.event.issue.user.login }}.
+            To change something, edit the issue and this pull request updates itself.
+
+            Closes #${{ github.event.issue.number }}
+          delete-branch: true
+
+      - name: Link the pull request from the issue
+        if: steps.pr.outputs.pull-request-operation == 'created'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        env:
+          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                `Thanks! I opened ${process.env.PR_URL} for you.`,
+                '',
+                'Check the preview Cloudflare posts as a comment there. If it looks good, someone can merge it and it goes live.',
+                '',
+                'Need to change something? **Edit this issue** and the pull request updates itself.',
+              ].join('\n'),
+            })
+
+      - name: Explain what went wrong
+        # Any failed step, not only a form mistake, so nothing fails silently.
+        if: failure()
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        env:
+          BUILD_ERROR: ${{ steps.build.outputs.error }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                'I could not create the post:',
+                '',
+                `> ${(process.env.BUILD_ERROR || 'Something went wrong on our side, not in your form.').split('\n').join('\n> ')}`,
+                '',
+                `Edit the issue and I will try again automatically. ([Run log](${process.env.RUN_URL}))`,
+              ].join('\n'),
+            })

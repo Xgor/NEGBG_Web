@@ -2,6 +2,24 @@
 
 Bilingual (Swedish/English) Hugo site for **Negative Edge**, Gothenburg's fighting game community. Deployed to [negativeedge.se](https://negativeedge.se) via Cloudflare Pages.
 
+## Posta utan att röra kod / Post without touching code
+
+Du behöver **inte** klona repot eller installera något för att lägga upp en turnering eller en nyhet. Fyll i ett formulär:
+
+- **[Ny turnering](https://github.com/Xgor/NEGBG_Web/issues/new?template=new-tournament.yml)** skapar både eventsidan och announcement-posten.
+- **[Nyhetspost](https://github.com/Xgor/NEGBG_Web/issues/new?template=news-post.yml)** skapar en nyhetspost. Fyll i ett event och välj typ (announcement, resultat eller övrigt) för att koppla posten till eventet.
+- **[Ändra post eller event](https://github.com/Xgor/NEGBG_Web/issues/new?template=edit-post.yml)** laddar in en befintlig sida i issuet så att du kan ändra den.
+
+Du kan dra in bilder direkt i formuläret. En pull request öppnas automatiskt, Cloudflare bygger en förhandsvisning som läggs som en kommentar, och när någon mergar går det live. Behöver du rätta något: **redigera issuet**, så uppdaterar sig pull requesten själv.
+
+_You do not need to clone the repo or install anything to post a tournament or a news post. Fill in one of the forms above, drag your images straight in, and a pull request is opened for you with a Cloudflare preview. Merge it and it is live. To fix something, edit the issue and the pull request updates itself. Only repo collaborators can use the forms; issues from anyone else are ignored._
+
+How it works: `.github/workflows/content-from-issue.yml` parses the form with `stefanbuck/github-issue-parser`, `.github/scripts/build-content.mjs` writes the Hugo content (downloading uploaded images into the page bundles), and `peter-evans/create-pull-request` pushes it to `issue-form/<issue number>`. Every edit rebuilds from `master` and force-updates that branch.
+
+Because of that, treat the issue as the source of truth: commits pushed by hand to an `issue-form/<n>` branch are wiped by the next edit of the issue, and the post's date moves to the time of the latest edit. To hand-edit a generated post, merge the PR first (or stop editing the issue) and change it in a normal branch.
+
+The rest of this README is for working on the site itself.
+
 ## Prerequisites
 
 - [Hugo](https://gohugo.io/) **0.128.0 Extended** (with Dart Sass support)
@@ -100,7 +118,7 @@ price = 25
 price_currency = "SEK"
 cover = "/images/my-event-cover.jpg"
 checkin_time = "15:30"
-challonge_url = "https://challonge.com/..."
+tournament_url = "https://start.gg/..."   # or Challonge; older events use challonge_url
 discord_url = "https://discord.com/events/..."
 
 [location]
