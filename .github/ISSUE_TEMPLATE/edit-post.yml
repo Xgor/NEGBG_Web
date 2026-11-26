@@ -1,0 +1,21 @@
+name: Edit post or event
+description: Change an existing news post or event. Give the slug, and the current content is loaded into the issue for you to edit.
+title: "[Edit] "
+labels: ["edit-post"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Step 1:** fill in which page to change and submit. The current content of the post or event is then loaded into this issue.
+        **Step 2:** edit the issue (⋯ → Edit) and change what you want right in the text. Saving opens a pull request for review, and every later edit updates it.
+
+  # The sections loaded in step 2 are defined in .github/scripts/build-content.mjs
+  # (EDIT_SECTIONS). This label must stay "Slug" to match it.
+  - type: input
+    id: slug
+    attributes:
+      label: Slug
+      description: The last part of the page's address, e.g. `ggst-sep-2026-results` for negativeedge.se/news/ggst-sep-2026-results/. You can also paste the whole address. If a post and an event share a slug, write `news/<slug>` or `events/<slug>`.
+      placeholder: ggst-sep-2026-results
+    validations:
+      required: true

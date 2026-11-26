@@ -1,0 +1,110 @@
+name: News post
+description: Create a news post, optionally linked to an event (e.g. results).
+title: "[News] "
+labels: ["news-post"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill this in and the news post is created for you, and a pull request is opened for review.
+        To fix something afterwards, just **edit this issue** and the pull request updates itself.
+
+        In the text boxes, use `##` for headings, never `###`: the form uses `###` to separate its fields, so everything after a `###` heading is lost.
+
+        Posting a new tournament? Use the **New tournament** form instead, it creates both the event and its announcement.
+
+  - type: input
+    id: slug
+    attributes:
+      label: Post slug
+      description: Lowercase letters, numbers and hyphens. Becomes the post's address.
+      placeholder: kappa-kabrak-4-results
+    validations:
+      required: true
+
+  - type: input
+    id: title_sv
+    attributes:
+      label: Titel (svenska)
+      placeholder: "Resultat: Kappa Kabrak 4"
+    validations:
+      required: true
+
+  - type: input
+    id: title_en
+    attributes:
+      label: Title (English)
+      placeholder: "Results: Kappa Kabrak 4"
+    validations:
+      required: true
+
+  - type: input
+    id: event_slug
+    attributes:
+      label: Event slug (optional)
+      description: Links the post to an event, e.g. the slug you used in the New tournament form. Leave blank if the post is not about an event.
+      placeholder: kappa-kabrak-4
+
+  - type: dropdown
+    id: event_role
+    attributes:
+      label: Link type
+      description: Only used if you filled in an event slug.
+      options:
+        - Other
+        - Announcement
+        - Recap / results
+      default: 0
+
+  - type: textarea
+    id: intro_sv
+    attributes:
+      label: Inledning (svenska)
+      description: Optional. A couple of sentences shown in the news list. Leave blank to use the start of the text.
+      placeholder: I söndags samlades vi på Kappa Bar igen. 18 spelare, double elimination, ingen nåd.
+
+  - type: textarea
+    id: intro_en
+    attributes:
+      label: Intro (English)
+      placeholder: On Sunday we gathered at Kappa Bar once again. 18 players, double elimination, and no mercy.
+
+  - type: textarea
+    id: results
+    attributes:
+      label: Placements
+      description: Optional. One line per placement, `place | player | character`. Shown under a "Top 8" heading at `[results]` in the text, or after the text.
+      placeholder: |
+        1 | Jenxey | Sol
+        2 | Oskar | Axl Low
+        3 | feffe | May
+      render: text
+
+  - type: textarea
+    id: body_sv
+    attributes:
+      label: Text (svenska)
+      description: |
+        You can drag images straight into the box.
+        Put `[results]` or `[gallery]` on a line of its own to choose where the placements or gallery go.
+    validations:
+      required: true
+
+  - type: textarea
+    id: body_en
+    attributes:
+      label: Text (English)
+    validations:
+      required: true
+
+  - type: textarea
+    id: cover
+    attributes:
+      label: Cover image
+      description: Optional. Drag **one** image in here.
+
+  - type: textarea
+    id: gallery
+    attributes:
+      label: Photo gallery
+      description: Optional. Drag in as many images as you like. Shown at `[gallery]` in the text, or at the bottom.

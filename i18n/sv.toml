@@ -28,7 +28,7 @@ no-articles = "Det finns inga nyhetsartiklar för tillfället."
   entry-fee = "Anmälningsavgift"
   prize-pool = "Prispott"
   prize-pool-entry-note = "plus insamlade anmälningsavgifter, samma fördelning"
-  challonge-bracket = "Challonge-bracket"
+  tournament-page = "Turneringssida"
   discord-event = "Discord-event"
   links = "Länkar"
   subscribe-ical = "Prenumerera på kalender (iCal)"
@@ -89,4 +89,5 @@ other = "Senast uppdaterad"
 [pagination]
 newerPosts = "Nyare poster"
 olderPosts = "Äldre poster"
+
 
