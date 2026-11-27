@@ -1,0 +1,15 @@
+start_date = "2026-12-13T14:00:00"
+end_date = "2026-12-13T20:00:00"
+price = 50
+price_currency = "SEK"
+cover = "/images/neutral-madness-5-cover.png"
+checkin_time = "13:30"
+tournament_url = "https://www.start.gg/tournament/neutral-madness-5/details"
+discord_url = "https://www.example.org"
+
+[location]
+name = "Kappa Bar"
+street = "Rosenlundsgatan 8"
+postal_code = "411 20"
+city = "Göteborg"
+country = "SE"
