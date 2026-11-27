@@ -5,7 +5,7 @@ price_currency = "SEK"
 cover = "/images/neutral-madness-5-cover.png"
 checkin_time = "13:30"
 tournament_url = "https://www.start.gg/tournament/neutral-madness-5/details"
-discord_url = "https://www.example.org"
+discord_url = "https://discord.gg/VjRZZ4Uy?event=1575898436480270366"
 
 [location]
 name = "Kappa Bar"
